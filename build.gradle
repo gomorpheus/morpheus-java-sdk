@@ -1,0 +1,130 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+    }   
+}
+
+plugins {
+    id "com.jfrog.bintray" version "1.2"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+
+group = 'com.bertramlabs.plugins'
+
+version = '0.1.0'
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+targetCompatibility = '1.7'
+sourceCompatibility = '1.7'
+
+
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+
+configurations {
+    provided
+}
+ 
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+dependencies {
+    testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+	compile 'org.apache.httpcomponents:httpclient:4.3.4'
+	compile 'com.google.code.gson:gson:2.4'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId 'morpheus-java-sdk'
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'morpheus-java-sdk'
+                    description 'Provides an API Interface for Java application to tie into Morpheus services'
+                    url 'https://github.com/gomorpheus/morpheus-java-sdk'
+                    scm {
+                        url 'https://github.com/gomorpheus/morpheus-java-sdk'
+                        connection 'scm:https://gomorpheus@github.com/gomorpheus/morpheus-java-sdk.git'
+                        developerConnection 'scm:git://github.com/gomorpheus/morpheus-java-sdk.git'
+                    }
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'davydotcom'
+                            name 'David Estes'
+                            email 'davydotcom@gmail.com'
+                        }
+                    }
+                }
+            }
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+configurations {
+    provided
+}
+ 
+
+
+//Define bintrayUser and bintrayKey in ~/.gradle/gradle.properties
+bintray {
+    user = project.hasProperty('bintrayUser') ? bintrayUser : 'anonymous'
+    key = project.hasProperty('bintrayKey') ? bintrayKey : 'key here'
+    publications = ['maven']
+    pkg {
+        repo = 'gomorpheus'
+        userOrg = 'bertramlabs'
+        name = 'morpheus-java-sdk'
+        licenses = ['Apache-2.0']
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task(console, dependsOn: 'classes', type: JavaExec) {
+  main = 'groovy.ui.Console'
+  classpath = sourceSets.main.runtimeClasspath
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+        showStandardStreams = true
+    }
+}
+
+
+bintrayUpload.dependsOn build, sourcesJar, javadocJar
