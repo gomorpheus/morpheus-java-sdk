@@ -8,8 +8,8 @@ import com.morpheus.sdk.internal.CredentialsProvider;
  */
 public class MorpheusClient {
 	public static String CLIENT_ID="morph-cli";
-	public static Integer CONNECT_TIMEOUT = 30;
-	public static Integer SOCKET_TIMEOUT = 30;
+	public static Integer CONNECT_TIMEOUT = 30000;
+	public static Integer SOCKET_TIMEOUT = 30000;
 
 	private CredentialsProvider credentialsProvider;
 	private String endpointUrl = "https://v2.gomorpheus.com";
@@ -28,4 +28,16 @@ public class MorpheusClient {
 		this.endpointUrl = url;
 		return this;
 	}
+
+	/**
+	 * Returns whether or not we are authenticated. Will also attempt an authentication if not.
+	 * @return
+	 */
+	public boolean isAuthenticated() {
+		if(credentialsProvider.isAuthenticated()) {
+			return true;
+		}
+		return credentialsProvider.authenticate(this.endpointUrl);
+	}
+
 }

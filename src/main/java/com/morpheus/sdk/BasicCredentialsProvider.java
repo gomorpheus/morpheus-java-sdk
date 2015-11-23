@@ -70,7 +70,6 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 					.setSocketTimeout(MorpheusClient.SOCKET_TIMEOUT)
 					.setConnectTimeout(MorpheusClient.CONNECT_TIMEOUT)
 					.setConnectionRequestTimeout(MorpheusClient.CONNECT_TIMEOUT)
-					.setRedirectsEnabled(false)
 					.build();
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(defaultRequestConfig);
