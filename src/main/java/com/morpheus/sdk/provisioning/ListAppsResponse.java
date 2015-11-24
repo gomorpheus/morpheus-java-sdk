@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by wchu on 11/24/15.
+ * The Response of a {@link ListAppsRequest} providing the de-serialized objects from the API.
+ * @author William Chu
  */
 public class ListAppsResponse {
   public ArrayList<App> apps;
