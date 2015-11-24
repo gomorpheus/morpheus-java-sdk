@@ -1,5 +1,7 @@
 package com.morpheus.sdk;
 
+import com.morpheus.sdk.deployment.CreateDeployRequest;
+import com.morpheus.sdk.deployment.CreateDeployResponse;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
 import com.morpheus.sdk.internal.ApiRequest;
@@ -122,6 +124,11 @@ public class MorpheusClient {
 	 */
 	public ListAppsResponse listApps(ListAppsRequest request) throws MorpheusApiRequestException {
 		return (ListAppsResponse)executeAuthenticatedRequest(request);
+	}
+
+
+	public CreateDeployResponse createDeployment(CreateDeployRequest request) throws MorpheusApiRequestException {
+		return (CreateDeployResponse)executeAuthenticatedRequest(request);
 	}
 
 	/**
