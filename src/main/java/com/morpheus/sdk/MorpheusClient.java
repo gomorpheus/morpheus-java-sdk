@@ -2,6 +2,8 @@ package com.morpheus.sdk;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
+import com.morpheus.sdk.infrastructure.ListZoneTypesRequest;
+import com.morpheus.sdk.infrastructure.ListZoneTypesResponse;
 import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
 import com.morpheus.sdk.provisioning.*;
@@ -138,4 +140,22 @@ public class MorpheusClient {
 		}
 	}
 
+	/**
+	 * Executes a {@link com.morpheus.sdk.infrastructure.ListZoneTypesRequest ListZoneTypesRequest} to get a list of {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListZoneTypesRequest request = new ListZoneTypesRequest();
+	 *  ListZoneTypesResponse response = client.listZoneTypes(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListZoneTypesResponse listZoneTypes(ListZoneTypesRequest request) throws MorpheusApiRequestException {
+		return (ListZoneTypesResponse) executeAuthenticatedRequest(request);
+	}
 }
