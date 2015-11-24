@@ -167,6 +167,25 @@ public class MorpheusClient {
 	}
 
 	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetInstanceRequest GetInstanceRequest} to get a sepcific {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetInstanceRequest request = new GetInstanceRequest().instanceId(1);
+	 * 	GetInstanceResponse response = client.getInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetInstanceResponse getInstance(GetInstanceRequest request) throws MorpheusApiRequestException {
+		return (GetInstanceResponse) executeAuthenticatedRequest(request);
+	}
+
+	 /**
 	 * Generic call for executing Authenticated Requests. Used Internally.
 	 * @param request the request object being executed
 	 * @return a Response object
