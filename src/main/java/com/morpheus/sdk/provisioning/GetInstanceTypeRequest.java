@@ -12,9 +12,9 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 /**
- * A request object for defining a request for fetching a list of instance types within the Morpheus Account.
+ * A request object for defining a request for fetching an instance type within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to fetch a list of {@link InstanceType} objects.
+ * is used to fetch a specific {@link InstanceType} object.
  *
  * Example Usage:
  * <pre>
