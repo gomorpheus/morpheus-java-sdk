@@ -4,10 +4,7 @@ import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
 import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
-import com.morpheus.sdk.provisioning.ListInstanceTypesRequest;
-import com.morpheus.sdk.provisioning.ListInstanceTypesResponse;
-import com.morpheus.sdk.provisioning.ListInstancesRequest;
-import com.morpheus.sdk.provisioning.ListInstancesResponse;
+import com.morpheus.sdk.provisioning.*;
 
 /**
  * Base client for interacting with the Morpheus API.
@@ -84,6 +81,25 @@ public class MorpheusClient {
 	 */
 	public ListInstanceTypesResponse listInstanceTypes(ListInstanceTypesRequest request) throws MorpheusApiRequestException {
 		return (ListInstanceTypesResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetInstanceTypeRequest GetInstanceTypeRequest} to get a single {@link com.morpheus.sdk.provisioning.InstanceType InstanceType} object by id.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  GetInstanceTypeRequest request = new GetInstanceTypeRequest().instanceTypeId(1);
+	 *  GetInstanceTypeResponse response = client.getInstanceType(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.InstanceType InstanceType} object if found.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetInstanceTypeResponse getInstanceType(GetInstanceTypeRequest request) throws MorpheusApiRequestException {
+		return (GetInstanceTypeResponse) executeAuthenticatedRequest(request);
 	}
 
 
