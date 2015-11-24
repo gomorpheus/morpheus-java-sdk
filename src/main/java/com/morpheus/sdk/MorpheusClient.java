@@ -1,6 +1,13 @@
 package com.morpheus.sdk;
 
+import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
+import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
+import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
+import com.morpheus.sdk.provisioning.ListInstanceTypesRequest;
+import com.morpheus.sdk.provisioning.ListInstanceTypesResponse;
+import com.morpheus.sdk.provisioning.ListInstancesRequest;
+import com.morpheus.sdk.provisioning.ListInstancesResponse;
 
 /**
  * Base client for interacting with the Morpheus API.
@@ -30,14 +37,68 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Returns whether or not we are authenticated. Will also attempt an authentication if not.
-	 * @return
+	 * Returns whether or not the client is authenticated. Will also attempt an authentication if not.
+	 * @return the state of authentication
 	 */
 	public boolean isAuthenticated() {
 		if(credentialsProvider.isAuthenticated()) {
 			return true;
 		}
 		return credentialsProvider.authenticate(this.endpointUrl);
+	}
+
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListInstancesRequest ListInstancesRequest} to get a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListInstancesRequest request = new ListInstancesRequest().max(50).offset(0);
+	 * 	ListInstancesResponse response = client.listInstances(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects as well as the instanceCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListInstancesResponse listInstances(ListInstancesRequest request) throws MorpheusApiRequestException {
+		return (ListInstancesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListInstanceTypesRequest ListInstanceTypesRequest} to get a list of {@link com.morpheus.sdk.provisioning.InstanceType InstanceType} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListInstanceTypesRequest request = new ListInstanceTypesRequest();
+	 *  ListInstanceTypesResponse response = client.listInstanceTypes(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.InstanceType InstanceType} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListInstanceTypesResponse listInstanceTypes(ListInstanceTypesRequest request) throws MorpheusApiRequestException {
+		return (ListInstanceTypesResponse) executeAuthenticatedRequest(request);
+	}
+
+
+	/**
+	 * Generic call for executing Authenticated Requests. Used Intenrally.
+	 * @param request the request object being executed
+	 * @return a Response object
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	private Object executeAuthenticatedRequest(ApiRequest request) throws MorpheusApiRequestException  {
+		if(isAuthenticated()) {
+			return request.endpointUrl(this.endpointUrl).accessToken(this.credentialsProvider.getAccessToken()).executeRequest();
+		} else {
+			throw new MorpheusNotAuthenticatedException("Authentication Error: " + credentialsProvider.getAuthenticationError());
+		}
 	}
 
 }

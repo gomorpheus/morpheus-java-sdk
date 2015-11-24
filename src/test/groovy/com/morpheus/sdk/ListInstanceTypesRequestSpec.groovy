@@ -16,18 +16,25 @@
 
 package com.morpheus.sdk
 
+import com.morpheus.sdk.provisioning.ListInstanceTypesRequest
+import com.morpheus.sdk.provisioning.ListInstanceTypesResponse
+import spock.lang.Shared
 import spock.lang.Specification
-
 /**
  * @author David Estes
  */
-class MorpheusClientSpec extends Specification {
+class ListInstanceTypesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
 
-	def setup() {
+	@Shared
+	MorpheusClient client
 
+	def setup() {
+		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
+		client = new MorpheusClient(creds)
+		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
@@ -35,12 +42,12 @@ class MorpheusClientSpec extends Specification {
 	}
 
 
-	void "it should successfully authenticate against v2"() {
+	void "it should successfully list instances"() {
 		given:
-			def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-			def morpheusClient = new MorpheusClient(creds)
-			morpheusClient.setEndpointUrl(API_URL)
-		expect:
-			morpheusClient.isAuthenticated() == true
+			def request = new ListInstanceTypesRequest()
+		when:
+			ListInstanceTypesResponse response = client.listInstanceTypes(request)
+		then:
+			response.instanceTypes?.size() > 1
 	}
 }

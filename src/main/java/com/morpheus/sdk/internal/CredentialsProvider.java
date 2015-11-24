@@ -17,8 +17,8 @@ public interface CredentialsProvider {
 
 	/**
 	 * Performs an authentication request if necessary and if successful, returns true. Otherwise returns false and sets the authentication error property.
-	 * @param apiHost
-	 * @return
+	 * @param apiHost the api Host being authenticated against. (i.e. https://v2.gomorpheus.com)
+	 * @return true/false depending on success
 	 */
 	boolean authenticate(String apiHost);
 
@@ -31,7 +31,7 @@ public interface CredentialsProvider {
 
 	/**
 	 * If an authentication error occurs. This property will return a human readable value of the authentication error.
-	 * @return
+	 * @return an error String if an error occurred during authentication
 	 */
 	String getAuthenticationError();
 }

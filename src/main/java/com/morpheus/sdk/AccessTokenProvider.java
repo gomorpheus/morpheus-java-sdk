@@ -11,7 +11,7 @@ public class AccessTokenProvider implements CredentialsProvider {
 
 	/**
 	 * Creates a CredentialsProvider class given a passed in access token value for Oauth 2.0 support.
-	 * @param accessToken
+	 * @param accessToken the accessToken we will be using for authentication via OAUTH.
 	 */
 	public AccessTokenProvider(String accessToken) {
 		this.accessToken = accessToken;
@@ -28,8 +28,8 @@ public class AccessTokenProvider implements CredentialsProvider {
 
 	/**
 	 * Does nothing as this is unnecessary for the token based integration
-	 * @param apiHost
-	 * @return true
+	 * @param apiHost the apiHost url we will want to authenticate against
+	 * @return the authentication success state (always true for this implementation)
 	 */
 	@Override
 	public boolean authenticate(String apiHost) {
@@ -38,7 +38,7 @@ public class AccessTokenProvider implements CredentialsProvider {
 
 	/**
 	 * Returns the access token that was passed into the constructor
-	 * @return
+	 * @return the access token used for Oauth 2.0 authorization
 	 */
 	@Override
 	public String getAccessToken() {
@@ -47,7 +47,7 @@ public class AccessTokenProvider implements CredentialsProvider {
 
 	/**
 	 * There is no remote authentication request performed in this implementation of the CredentialsProvider.
-	 * @return null
+	 * @return an error message if any (always null for this implementation)
 	 */
 	@Override
 	public String getAuthenticationError() {

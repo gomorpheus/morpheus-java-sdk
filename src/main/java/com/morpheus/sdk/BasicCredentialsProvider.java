@@ -24,6 +24,17 @@ import java.lang.reflect.Type;
 /**
  * A Credential provider that authenticates with the morpheus API via a username and password being provided.
  * If you have already pre-cached the access token, it might be better to use the {@link AccessTokenProvider}.
+ * The {@link com.morpheus.sdk.internal.CredentialsProvider CredentialsProvider} is typically used in the constructor of
+ * the {@link MorpheusClient} class.
+ *
+ * Example Usage:
+ * <pre>
+ *     {@code
+ *      BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider("sampleUser","password");
+ *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+ *     	return client.isAuthenticated();
+ *     }
+ * </pre>
  * @author David Estes
  */
 public class BasicCredentialsProvider implements CredentialsProvider {
@@ -33,7 +44,16 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 	private String authError = null;
 
 	/**
-	 * Provide the username and password of the user you wish to authenticate
+	 * Provide the username and password of the user you wish to authenticate.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *      BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider("sampleUser","password");
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	return client.isAuthenticated();
+	 *     }
+	 * </pre>
 	 * @param username Username created in Morpheus (LDAP optionally utilized)
 	 * @param password Password of the account being used
 	 */
@@ -50,6 +70,14 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 		return false;
 	}
 
+	/**
+	 * Performs an authentication request against the Morpheus OAUTH API Endpoint
+	 * It will return true or false as to whether it succeeded. If it did succeed, the
+	 * getAccessToken() method will provide the access token needed for future API requests.
+	 * If it tails then the getAuthError() will contain a String of the authentication error that occurred
+	 * @param apiHost String api host url to authenticate against i.e. https://v2.gomorpheus.com
+	 * @return true/false depending on success
+	 */
 	@Override
 	public boolean authenticate(String apiHost) {
 		CloseableHttpClient client = null;
