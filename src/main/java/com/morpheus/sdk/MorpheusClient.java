@@ -221,4 +221,42 @@ public class MorpheusClient {
 	public GetCloudResponse getCloud(GetCloudRequest request) throws MorpheusApiRequestException {
 		return (GetCloudResponse) executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link ListServerGroupsRequest ListServerGroupsRequest} to get a list of {@link ServerGroup ServerGroup} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListServerGroupsRequest request = new ListServerGroupsRequest();
+	 *  ListServerGroupsResponse response = client.listServerGroups(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link ServerGroup ServerGroup} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListServerGroupsResponse listServerGroups(ListServerGroupsRequest request) throws MorpheusApiRequestException {
+		return (ListServerGroupsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.infrastructure.GetServerGroupRequest GetServerGroupRequest} to get a specific {@link com.morpheus.sdk.infrastructure.ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetServerGroupRequest request = new GetServerGroupRequest().serverGroupId(1);
+	 * 	GetServerGroupResponse response = client.getServerGroup(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetServerGroupResponse getServerGroup(GetServerGroupRequest request) throws MorpheusApiRequestException {
+		return (GetServerGroupResponse) executeAuthenticatedRequest(request);
+	}
 }
