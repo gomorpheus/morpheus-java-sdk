@@ -16,14 +16,14 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.infrastructure.ListZoneTypesRequest
-import com.morpheus.sdk.infrastructure.ListZoneTypesResponse
+import com.morpheus.sdk.infrastructure.ListCloudTypesRequest
+import com.morpheus.sdk.infrastructure.ListCloudTypesResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
  * @author William Chu
  */
-class ListZoneTypesRequestSpec extends Specification {
+class ListCloudTypesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -41,12 +41,12 @@ class ListZoneTypesRequestSpec extends Specification {
 
 	}
 	
-	void "it should successfully list zone types"() {
+	void "it should successfully list cloud types"() {
 		given:
-		def request = new ListZoneTypesRequest()
+		def request = new ListCloudTypesRequest()
 		when:
-		ListZoneTypesResponse response = client.listZoneTypes(request)
+		ListCloudTypesResponse response = client.listCloudTypes(request)
 		then:
-		response.zoneTypes?.size() > 0
+		response.cloudTypes?.size() > 0
 	}
 }

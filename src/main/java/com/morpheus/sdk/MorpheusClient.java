@@ -2,10 +2,7 @@ package com.morpheus.sdk;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
-import com.morpheus.sdk.infrastructure.GetZoneTypeRequest;
-import com.morpheus.sdk.infrastructure.GetZoneTypeResponse;
-import com.morpheus.sdk.infrastructure.ListZoneTypesRequest;
-import com.morpheus.sdk.infrastructure.ListZoneTypesResponse;
+import com.morpheus.sdk.infrastructure.*;
 import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
 import com.morpheus.sdk.provisioning.*;
@@ -129,45 +126,45 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.infrastructure.ListZoneTypesRequest ListZoneTypesRequest} to get a list of {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} objects.
+	 * Executes a {@link ListCloudTypesRequest ListCloudTypesRequest} to get a list of {@link CloudType CloudType} objects.
 	 *
 	 * Example Usage:
 	 * <pre>
 	 * {@code
 	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 *  ListZoneTypesRequest request = new ListZoneTypesRequest();
-	 *  ListZoneTypesResponse response = client.listZoneTypes(request);
+	 *  ListCloudTypesRequest request = new ListCloudTypesRequest();
+	 *  ListCloudTypesResponse response = client.listCloudTypes(request);
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing a list of {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} objects.
+	 * @return the response object containing a list of {@link CloudType CloudType} objects.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
-	public ListZoneTypesResponse listZoneTypes(ListZoneTypesRequest request) throws MorpheusApiRequestException {
-		return (ListZoneTypesResponse) executeAuthenticatedRequest(request);
+	public ListCloudTypesResponse listCloudTypes(ListCloudTypesRequest request) throws MorpheusApiRequestException {
+		return (ListCloudTypesResponse) executeAuthenticatedRequest(request);
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.infrastructure.GetZoneTypeRequest GetZoneTypeRequest} to get a single {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} object by id.
+	 * Executes a {@link GetCloudTypeRequest GetCloudTypeRequest} to get a single {@link CloudType CloudType} object by id.
 	 *
 	 * Example Usage:
 	 * <pre>
 	 * {@code
 	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 *  GetZoneTypeRequest request = new GetZoneTypeRequest().zoneTypeId(1);
-	 *  GetZoneTypeResponse response = client.getZoneType(request);
+	 *  GetCloudTypeRequest request = new GetCloudTypeRequest().cloudTypeId(1);
+	 *  GetCloudTypeResponse response = client.getCloudType(request);
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
-	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} object if found.
+	 * @return the response object containing an {@link CloudType CloudType} object if found.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
-	public GetZoneTypeResponse getZoneType(GetZoneTypeRequest request) throws MorpheusApiRequestException {
-		return (GetZoneTypeResponse) executeAuthenticatedRequest(request);
+	public GetCloudTypeResponse getCloudType(GetCloudTypeRequest request) throws MorpheusApiRequestException {
+		return (GetCloudTypeResponse) executeAuthenticatedRequest(request);
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.GetInstanceRequest GetInstanceRequest} to get a sepcific {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetInstanceRequest GetInstanceRequest} to get a specific {@link com.morpheus.sdk.provisioning.Instance Instance} object.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -197,5 +194,24 @@ public class MorpheusClient {
 		} else {
 			throw new MorpheusNotAuthenticatedException("Authentication Error: " + credentialsProvider.getAuthenticationError());
 		}
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.infrastructure.GetCloudRequest GetCloudRequest} to get a specific {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetCloudRequest request = new GetCloudRequest().cloudId(1);
+	 * 	GetCloudResponse response = client.getCloud(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetCloudResponse getCloud(GetCloudRequest request) throws MorpheusApiRequestException {
+		return (GetCloudResponse) executeAuthenticatedRequest(request);
 	}
 }
