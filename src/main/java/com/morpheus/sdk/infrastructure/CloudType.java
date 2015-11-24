@@ -15,7 +15,7 @@ package com.morpheus.sdk.infrastructure;
  * </pre>
  * @author William Chu
  */
-public class ZoneType {
+public class CloudType {
   public Long id;
   public String name;
   public String code;

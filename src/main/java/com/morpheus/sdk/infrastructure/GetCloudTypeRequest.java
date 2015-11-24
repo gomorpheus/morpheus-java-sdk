@@ -12,31 +12,33 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 /**
- * A request object for defining a request for fetching a list of zone types within the Morpheus Account.
+ * A request object for defining a request for fetching a specific cloud type within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to fetch a list of {@link ZoneType} objects.
+ * is used to fetch a specific {@link CloudType} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	ListZoneTypesRequest request = new ListZoneTypesRequest();
- *     	ListZoneTypesResponse response = client.listZoneTypes(request);
- *     	return response.zoneTypes;
+ *     	GetCloudTypeRequest request = new GetCloudTypeRequest();
+ *     	request.setCloudTypeId(1);
+ *     	GetCloudTypeResponse response = client.getCloudType(request);
+ *     	return response.cloudType;
  *     }
  * </pre>
  * @author William Chu
  */
-public class ListZoneTypesRequest extends AbstractApiRequest<ListZoneTypesResponse> {
+public class GetCloudTypeRequest extends AbstractApiRequest<GetCloudTypeResponse> {
+  private Long cloudTypeId;
   /**
    * Executes the request against the appliance API (Should not be called directly).
    */
   @Override
-  public ListZoneTypesResponse executeRequest() throws MorpheusApiRequestException {
+  public GetCloudTypeResponse executeRequest() throws MorpheusApiRequestException {
     CloseableHttpClient client = null;
     try {
       URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/zone-types");
+      uriBuilder.setPath("/api/zone-types/" + this.getCloudTypeId());
       HttpGet request = new HttpGet(uriBuilder.build());
       this.applyHeaders(request);
       HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -44,10 +46,10 @@ public class ListZoneTypesRequest extends AbstractApiRequest<ListZoneTypesRespon
       client = clientBuilder.build();
 
       CloseableHttpResponse response = client.execute(request);
-      return ListZoneTypesResponse.createFromStream(response.getEntity().getContent());
+      return GetCloudTypeResponse.createFromStream(response.getEntity().getContent());
     } catch(Exception ex) {
       //Throw custom exception
-      throw new MorpheusApiRequestException("Error Performing API Request for Listing Zone Types", ex);
+      throw new MorpheusApiRequestException("Error Performing API Request for Cloud Type lookup", ex);
     } finally {
       if(client != null) {
         try {
@@ -59,4 +61,16 @@ public class ListZoneTypesRequest extends AbstractApiRequest<ListZoneTypesRespon
     }
   }
 
+  public Long getCloudTypeId() {
+    return cloudTypeId;
+  }
+
+  public void setCloudTypeId(Long cloudTypeId) {
+    this.cloudTypeId = cloudTypeId;
+  }
+
+  public GetCloudTypeRequest cloudTypeId(Long cloudTypeId) {
+    this.cloudTypeId = cloudTypeId;
+    return this;
+  }
 }

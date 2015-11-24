@@ -16,15 +16,15 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.infrastructure.GetZoneTypeRequest
-import com.morpheus.sdk.infrastructure.GetZoneTypeResponse
+import com.morpheus.sdk.infrastructure.GetCloudTypeRequest
+import com.morpheus.sdk.infrastructure.GetCloudTypeResponse
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetZoneTypeRequestSpec extends Specification {
+class GetCloudTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -42,13 +42,13 @@ class GetZoneTypeRequestSpec extends Specification {
 
 	}
 
-	void "it should successfully retrieve a specific zone type by id"() {
+	void "it should successfully retrieve a specific cloud type by id"() {
 		given:
-		def request = new GetZoneTypeRequest()
-		request.zoneTypeId = 3
+		def request = new GetCloudTypeRequest()
+		request.setCloudTypeId(3)
 		when:
-		GetZoneTypeResponse response = client.getZoneType(request)
+		GetCloudTypeResponse response = client.getCloudType(request)
 		then:
-		response.zoneType != null
+		response.cloudType != null
 	}
 }
