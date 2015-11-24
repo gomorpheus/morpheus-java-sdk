@@ -104,7 +104,7 @@ public class MorpheusClient {
 
 
 	/**
-	 * Generic call for executing Authenticated Requests. Used Intenrally.
+	 * Generic call for executing Authenticated Requests. Used Internally.
 	 * @param request the request object being executed
 	 * @return a Response object
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
