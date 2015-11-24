@@ -2,6 +2,8 @@ package com.morpheus.sdk;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
+import com.morpheus.sdk.infrastructure.GetZoneTypeRequest;
+import com.morpheus.sdk.infrastructure.GetZoneTypeResponse;
 import com.morpheus.sdk.infrastructure.ListZoneTypesRequest;
 import com.morpheus.sdk.infrastructure.ListZoneTypesResponse;
 import com.morpheus.sdk.internal.ApiRequest;
@@ -127,20 +129,6 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Generic call for executing Authenticated Requests. Used Internally.
-	 * @param request the request object being executed
-	 * @return a Response object
-	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
-	 */
-	private Object executeAuthenticatedRequest(ApiRequest request) throws MorpheusApiRequestException  {
-		if(isAuthenticated()) {
-			return request.endpointUrl(this.endpointUrl).accessToken(this.credentialsProvider.getAccessToken()).executeRequest();
-		} else {
-			throw new MorpheusNotAuthenticatedException("Authentication Error: " + credentialsProvider.getAuthenticationError());
-		}
-	}
-
-	/**
 	 * Executes a {@link com.morpheus.sdk.infrastructure.ListZoneTypesRequest ListZoneTypesRequest} to get a list of {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} objects.
 	 *
 	 * Example Usage:
@@ -157,5 +145,38 @@ public class MorpheusClient {
 	 */
 	public ListZoneTypesResponse listZoneTypes(ListZoneTypesRequest request) throws MorpheusApiRequestException {
 		return (ListZoneTypesResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.infrastructure.GetZoneTypeRequest GetZoneTypeRequest} to get a single {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} object by id.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  GetZoneTypeRequest request = new GetZoneTypeRequest().zoneTypeId(1);
+	 *  GetZoneTypeResponse response = client.getZoneType(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.ZoneType ZoneType} object if found.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetZoneTypeResponse getZoneType(GetZoneTypeRequest request) throws MorpheusApiRequestException {
+		return (GetZoneTypeResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Generic call for executing Authenticated Requests. Used Internally.
+	 * @param request the request object being executed
+	 * @return a Response object
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	private Object executeAuthenticatedRequest(ApiRequest request) throws MorpheusApiRequestException  {
+		if(isAuthenticated()) {
+			return request.endpointUrl(this.endpointUrl).accessToken(this.credentialsProvider.getAccessToken()).executeRequest();
+		} else {
+			throw new MorpheusNotAuthenticatedException("Authentication Error: " + credentialsProvider.getAuthenticationError());
+		}
 	}
 }

@@ -16,14 +16,15 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.infrastructure.ListZoneTypesRequest
-import com.morpheus.sdk.infrastructure.ListZoneTypesResponse
+import com.morpheus.sdk.infrastructure.GetZoneTypeRequest
+import com.morpheus.sdk.infrastructure.GetZoneTypeResponse
 import spock.lang.Shared
 import spock.lang.Specification
+
 /**
  * @author William Chu
  */
-class ListZoneTypesRequestSpec extends Specification {
+class GetZoneTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -40,13 +41,14 @@ class ListZoneTypesRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-	
-	void "it should successfully list zone types"() {
+
+	void "it should successfully retrieve a specific zone type by id"() {
 		given:
-		def request = new ListZoneTypesRequest()
+		def request = new GetZoneTypeRequest()
+		request.zoneTypeId = 3
 		when:
-		ListZoneTypesResponse response = client.listZoneTypes(request)
+		GetZoneTypeResponse response = client.getZoneType(request)
 		then:
-		response.zoneTypes?.size() > 0
+		response.zoneType != null
 	}
 }
