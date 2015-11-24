@@ -102,6 +102,27 @@ public class MorpheusClient {
 		return (GetInstanceTypeResponse) executeAuthenticatedRequest(request);
 	}
 
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListAppsRequest ListAppsRequest} to get a list of {@link com.morpheus.sdk.provisioning.App App} objects.
+	 * The list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects that are returned as a part of an {@link com.morpheus.sdk.provisioning.App App}
+	 * instance are lazy loaded and only contain the instance id. You will have to query each individual {@link com.morpheus.sdk.provisioning.Instance Instance}
+	 * object if you require {@link com.morpheus.sdk.provisioning.Instance Instance} details
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListAppsRequest request = new ListAppsRequest().max(50).offset(0);
+	 * 	ListAppsResponse response = client.listApps(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.App App} objects as well as the appCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListAppsResponse listApps(ListAppsRequest request) throws MorpheusApiRequestException {
+		return (ListAppsResponse)executeAuthenticatedRequest(request);
+	}
 
 	/**
 	 * Generic call for executing Authenticated Requests. Used Internally.
