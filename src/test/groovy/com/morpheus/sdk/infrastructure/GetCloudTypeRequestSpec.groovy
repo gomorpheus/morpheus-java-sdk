@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.infrastructure
 
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import com.morpheus.sdk.infrastructure.GetCloudTypeRequest
 import com.morpheus.sdk.infrastructure.GetCloudTypeResponse
 import spock.lang.Shared

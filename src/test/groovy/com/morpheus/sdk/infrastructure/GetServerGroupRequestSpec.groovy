@@ -1,14 +1,14 @@
-package com.morpheus.sdk
+package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.infrastructure.GetCloudRequest
-import com.morpheus.sdk.infrastructure.GetCloudResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetCloudRequestSpec extends Specification {
+class GetServerGroupRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -27,13 +27,13 @@ class GetCloudRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve a cloud by id"() {
+	void "it should successfully retrieve a server group by id"() {
 		given:
-		def request = new GetCloudRequest()
-		request.setCloudId(1)
+		def request = new GetServerGroupRequest()
+		request.setServerGroupId(1)
 		when:
-		GetCloudResponse response = client.getCloud(request)
+		GetServerGroupResponse response = client.getServerGroup(request)
 		then:
-		response.cloud != null
+		response.serverGroup != null
 	}
 }
