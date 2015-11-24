@@ -27,7 +27,7 @@ class ListAppsRequestSpec extends Specification {
 
 	}
 
-	void "is should successfully list apps"() {
+	void "it should successfully list apps"() {
 		given:
 		def request = new ListAppsRequest()
 		when:
