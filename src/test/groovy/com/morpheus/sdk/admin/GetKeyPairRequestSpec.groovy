@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.admin
 
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.admin.GetKeyPairRequest
+import com.morpheus.sdk.admin.GetKeyPairResponse
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetInstanceRequestSpec extends Specification {
+class GetKeyPairRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,13 +45,13 @@ class GetInstanceRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an instance by id"() {
+	void "it should successfully retrieve an key pair by id"() {
 		given:
-		def request = new GetInstanceRequest()
-		request.setInstanceId(30)
+		def request = new GetKeyPairRequest()
+		request.setKeyPairId(5)
 		when:
-		GetInstanceResponse response = client.getInstance(request)
+		GetKeyPairResponse response = client.getKeyPair(request)
 		then:
-		response.instance != null
+		response.keyPair != null
 	}
 }

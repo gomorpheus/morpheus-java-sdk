@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.admin
 
-import com.morpheus.sdk.provisioning.ListInstancesRequest
-import com.morpheus.sdk.infrastructure.ListServersRequest
-import com.morpheus.sdk.infrastructure.ListServersResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.admin.ListKeyPairsRequest
+import com.morpheus.sdk.admin.ListKeyPairsResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
  * @author William Chu
  */
-class ListServersRequestSpec extends Specification {
+class ListKeyPairsRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,14 +44,14 @@ class ListServersRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully list servers"() {
+	void "it should successfully list key pairs"() {
 		given:
-			def request = new ListServersRequest()
+			def request = new ListKeyPairsRequest()
 		when:
-			ListServersResponse response = client.listServers(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.serverCount != null;
-			response.servers != null
+			response.keyPairCount != null;
+			response.keyPairs != null
 	}
 
 	/**
@@ -58,23 +59,23 @@ class ListServersRequestSpec extends Specification {
 	 */
 	void "it should properly utilize the offset parameter to offset by 1"() {
 		given:
-			def firstRequest = new ListServersRequest()
-			def request = new ListServersRequest().offset(1)
-			def firstResponse = client.listServers(firstRequest)
+			def firstRequest = new ListKeyPairsRequest()
+			def request = new ListKeyPairsRequest().offset(1)
+			def firstResponse = client.listKeyPairs(firstRequest)
 		when:
-		ListServersResponse response = client.listServers(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.servers != null
-			response.servers[0].id == firstResponse.servers[1].id
+			response.keyPairs != null
+			response.keyPairs[0].id == firstResponse.keyPairs[1].id
 	}
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
-			def request = new ListInstancesRequest().max(1)
+			def request = new ListKeyPairsRequest().max(1)
 		when:
-		ListServersResponse response = client.listServers(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.serverCount > 1;
-			response.servers?.size() == 1
+			response.keyPairCount > 1;
+			response.keyPairs?.size() == 1
 	}
 }

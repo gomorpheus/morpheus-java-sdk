@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.admin
 
-import com.morpheus.sdk.admin.GetKeyPairRequest
-import com.morpheus.sdk.admin.GetKeyPairResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.admin.GetCertificateRequest
+import com.morpheus.sdk.admin.GetCertificateResponse
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetKeyPairRequestSpec extends Specification {
+class GetCertificateRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,13 +45,13 @@ class GetKeyPairRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an key pair by id"() {
+	void "it should successfully retrieve an certificate by id"() {
 		given:
-		def request = new GetKeyPairRequest()
-		request.setKeyPairId(5)
+		def request = new GetCertificateRequest()
+		request.setCertificateId(1)
 		when:
-		GetKeyPairResponse response = client.getKeyPair(request)
+		GetCertificateResponse response = client.getCertificate(request)
 		then:
-		response.keyPair != null
+		response.certificate != null
 	}
 }

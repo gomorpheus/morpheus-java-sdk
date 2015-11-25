@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.provisioning
 
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import com.morpheus.sdk.provisioning.ListAppsRequest
 import com.morpheus.sdk.provisioning.ListAppsResponse
 import spock.lang.Shared

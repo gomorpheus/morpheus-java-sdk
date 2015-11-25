@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.admin.ListCertificatesRequest
-import com.morpheus.sdk.admin.ListCertificatesResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.provisioning.ListInstancesRequest
+import com.morpheus.sdk.provisioning.ListInstancesResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
- * @author William Chu
+ * @author David Estes
  */
-class ListCertificatesRequestSpec extends Specification {
+class ListInstancesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -42,14 +44,14 @@ class ListCertificatesRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully list certificates"() {
+	void "it should successfully list instances"() {
 		given:
-			def request = new ListCertificatesRequest()
+			def request = new ListInstancesRequest()
 		when:
-			ListCertificatesResponse response = client.listCertificates(request)
+			ListInstancesResponse response = client.listInstances(request)
 		then:
-			response.certificateCount != null;
-			response.certificates != null
+			response.instanceCount != null;
+			response.instances != null
 	}
 
 	/**
@@ -57,23 +59,23 @@ class ListCertificatesRequestSpec extends Specification {
 	 */
 	void "it should properly utilize the offset parameter to offset by 1"() {
 		given:
-			def firstRequest = new ListCertificatesRequest()
-			def request = new ListCertificatesRequest().offset(1)
-			def firstResponse = client.listCertificates(firstRequest)
+			def firstRequest = new ListInstancesRequest()
+			def request = new ListInstancesRequest().offset(1)
+			def firstResponse = client.listInstances(firstRequest)
 		when:
-		ListCertificatesResponse response = client.listCertificates(request)
+			ListInstancesResponse response = client.listInstances(request)
 		then:
-			response.certificates != null
-			response.certificates[0].id == firstResponse.certificates[1].id
+			response.instances != null
+			response.instances[0].id == firstResponse.instances[1].id
 	}
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
-			def request = new ListCertificatesRequest().max(1)
+			def request = new ListInstancesRequest().max(1)
 		when:
-		ListCertificatesResponse response = client.listCertificates(request)
+			ListInstancesResponse response = client.listInstances(request)
 		then:
-			response.certificateCount > 1;
-			response.certificates?.size() == 1
+			response.instanceCount > 1;
+			response.instances?.size() == 1
 	}
 }

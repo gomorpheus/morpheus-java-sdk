@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.infrastructure
 
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import com.morpheus.sdk.provisioning.ListInstancesRequest
-import com.morpheus.sdk.provisioning.ListInstancesResponse
+import com.morpheus.sdk.infrastructure.ListServersRequest
+import com.morpheus.sdk.infrastructure.ListServersResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
- * @author David Estes
+ * @author William Chu
  */
-class ListInstancesRequestSpec extends Specification {
+class ListServersRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -42,14 +45,14 @@ class ListInstancesRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully list instances"() {
+	void "it should successfully list servers"() {
 		given:
-			def request = new ListInstancesRequest()
+			def request = new ListServersRequest()
 		when:
-			ListInstancesResponse response = client.listInstances(request)
+			ListServersResponse response = client.listServers(request)
 		then:
-			response.instanceCount != null;
-			response.instances != null
+			response.serverCount != null;
+			response.servers != null
 	}
 
 	/**
@@ -57,23 +60,23 @@ class ListInstancesRequestSpec extends Specification {
 	 */
 	void "it should properly utilize the offset parameter to offset by 1"() {
 		given:
-			def firstRequest = new ListInstancesRequest()
-			def request = new ListInstancesRequest().offset(1)
-			def firstResponse = client.listInstances(firstRequest)
+			def firstRequest = new ListServersRequest()
+			def request = new ListServersRequest().offset(1)
+			def firstResponse = client.listServers(firstRequest)
 		when:
-			ListInstancesResponse response = client.listInstances(request)
+		ListServersResponse response = client.listServers(request)
 		then:
-			response.instances != null
-			response.instances[0].id == firstResponse.instances[1].id
+			response.servers != null
+			response.servers[0].id == firstResponse.servers[1].id
 	}
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
 			def request = new ListInstancesRequest().max(1)
 		when:
-			ListInstancesResponse response = client.listInstances(request)
+		ListServersResponse response = client.listServers(request)
 		then:
-			response.instanceCount > 1;
-			response.instances?.size() == 1
+			response.serverCount > 1;
+			response.servers?.size() == 1
 	}
 }
