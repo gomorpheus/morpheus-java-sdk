@@ -16,15 +16,14 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.provisioning.GetCertificateRequest
-import com.morpheus.sdk.provisioning.GetCertificateResponse
+import com.morpheus.sdk.provisioning.ListKeyPairsRequest
+import com.morpheus.sdk.provisioning.ListKeyPairsResponse
 import spock.lang.Shared
 import spock.lang.Specification
-
 /**
  * @author William Chu
  */
-class GetCertificateRequestSpec extends Specification {
+class ListKeyPairsRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,13 +42,38 @@ class GetCertificateRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an certificate by id"() {
+	void "it should successfully list key pairs"() {
 		given:
-		def request = new GetCertificateRequest()
-		request.setCertificateId(1)
+			def request = new ListKeyPairsRequest()
 		when:
-		GetCertificateResponse response = client.getCertificate(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-		response.certificate != null
+			response.keyPairCount != null;
+			response.keyPairs != null
+	}
+
+	/**
+	 * NOTE: This test assumes the api being hit in question has at least 2 instances
+	 */
+	void "it should properly utilize the offset parameter to offset by 1"() {
+		given:
+			def firstRequest = new ListKeyPairsRequest()
+			def request = new ListKeyPairsRequest().offset(1)
+			def firstResponse = client.listKeyPairs(firstRequest)
+		when:
+		ListKeyPairsResponse response = client.listKeyPairs(request)
+		then:
+			response.keyPairs != null
+			response.keyPairs[0].id == firstResponse.keyPairs[1].id
+	}
+
+	void "it should adhere to the max property of 1 row result"() {
+		given:
+			def request = new ListKeyPairsRequest().max(1)
+		when:
+		ListKeyPairsResponse response = client.listKeyPairs(request)
+		then:
+			response.keyPairCount > 1;
+			response.keyPairs?.size() == 1
 	}
 }

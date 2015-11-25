@@ -335,4 +335,42 @@ public class MorpheusClient {
 	public GetCertificateResponse getCertificate(GetCertificateRequest request) throws MorpheusApiRequestException {
 		return (GetCertificateResponse) executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListKeyPairsRequest ListKeyPairsRequest} to get a list of {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListKeyPairsRequest request = new ListKeyPairsRequest().max(50).offset(0);
+	 * 	ListKeyPairsResponse response = client.listKeyPairs(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} objects as well as the keyPairCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListKeyPairsResponse listKeyPairs(ListKeyPairsRequest request) throws MorpheusApiRequestException {
+		return (ListKeyPairsResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetKeyPairRequest GetKeyPairRequest} to get a specific {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetKeyPairRequest request = new GetKeyPairRequest().keyPairId(1);
+	 * 	GetKeyPairResponse response = client.getKeyPair(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetKeyPairResponse getKeyPair(GetKeyPairRequest request) throws MorpheusApiRequestException {
+		return (GetKeyPairResponse) executeAuthenticatedRequest(request);
+	}
 }
