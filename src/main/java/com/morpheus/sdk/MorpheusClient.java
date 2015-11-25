@@ -272,7 +272,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
-	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Server Server} objects as well as the instanceCount.
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Server Server} objects as well as the serverCount.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public ListServersResponse listServers(ListServersRequest request) throws MorpheusApiRequestException {
@@ -296,5 +296,24 @@ public class MorpheusClient {
 	 */
 	public GetServerResponse getServer(GetServerRequest request) throws MorpheusApiRequestException {
 		return (GetServerResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListCertificatesRequest ListCertificatesRequest} to get a list of {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListCertificatesRequest request = new ListCertificatesRequest().max(50).offset(0);
+	 * 	ListCertificatesResponse response = client.listServers(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} objects as well as the certificateCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListCertificatesResponse listCertificates(ListCertificatesRequest request) throws MorpheusApiRequestException {
+		return (ListCertificatesResponse)executeAuthenticatedRequest(request);
 	}
 }
