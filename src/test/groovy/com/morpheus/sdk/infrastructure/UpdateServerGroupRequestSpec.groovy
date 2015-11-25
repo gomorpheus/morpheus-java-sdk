@@ -49,16 +49,26 @@ class UpdateServerGroupRequestSpec extends Specification {
 
 	void "it should successfully update a server group"() {
 		given:
+			def testServerId = 1
+			def testServerGroupName = "Booyah!"
 			def request = new GetServerGroupRequest()
-			request.setServerGroupId(1)
+			request.setServerGroupId(testServerId)
 			GetServerGroupResponse response = client.getServerGroup(request)
 			ServerGroup serverGroup = response.serverGroup
 			def previousName = serverGroup.name
-			serverGroup.name = "Booyah!"
-			def updateRequest = new UpdateServerGroupRequest().serverGroupId(1).serverGroup(serverGroup)
+			serverGroup.name = testServerGroupName
+			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
 		when:
 			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
+			GetServerGroupResponse verificationResponse = client.getServerGroup(request)
 		then:
-			updateServerResponse.serverGroup?.name == "Booyah!"
+			updateServerResponse.success == true
+			verificationResponse.serverGroup?.name == testServerGroupName
+		cleanup:
+			serverGroup.name = previousName
+			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
+			UpdateServerGroupResponse restoreUpdateServerResponse = client.updateServerGroup(restoreUpdateRequest)
+			restoreUpdateServerResponse.success == true
+
 	}
 }
