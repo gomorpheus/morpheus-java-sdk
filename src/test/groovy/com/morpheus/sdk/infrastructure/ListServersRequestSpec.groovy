@@ -72,7 +72,7 @@ class ListServersRequestSpec extends Specification {
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
-			def request = new ListInstancesRequest().max(1)
+			def request = new ListServersRequest().max(1)
 		when:
 		ListServersResponse response = client.listServers(request)
 		then:

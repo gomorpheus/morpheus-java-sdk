@@ -1,6 +1,7 @@
 package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.morpheus.sdk.deployment.AppDeploy;
 
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.io.InputStreamReader;
  */
 public class UpdateServerGroupResponse {
 	public Boolean success;
+	@SerializedName("group")
 	public ServerGroup serverGroup;
 
 	public static UpdateServerGroupResponse createFromStream(InputStream stream) {

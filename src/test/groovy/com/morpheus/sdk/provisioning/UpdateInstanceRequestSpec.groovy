@@ -18,15 +18,14 @@ package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
+import com.morpheus.sdk.infrastructure.*
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetInstanceRequestSpec extends Specification {
+class UpdateInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -45,13 +44,27 @@ class GetInstanceRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an instance by id"() {
+	void "it should successfully update an instance"() {
 		given:
-		def request = new GetInstanceRequest()
-		request.setInstanceId(97)
+			def testInstanceId = 97
+			def testInstanceDescription = "Booyah!"
+			def request = new GetInstanceRequest()
+			request.setInstanceId(testInstanceId)
+			GetInstanceResponse response = client.getInstance(request)
+			Instance instance = response.instance
+			def previousDescription = instance.description
+			instance.description = testInstanceDescription
+			def updateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
 		when:
-		GetInstanceResponse response = client.getInstance(request)
+			UpdateInstanceResponse updateInstanceResponse = client.updateInstance(updateRequest)
 		then:
-		response.instance != null
+			updateInstanceResponse.success == true
+			updateInstanceResponse.instance?.description == testInstanceDescription
+		cleanup:
+			instance.description = previousDescription
+			def restoreUpdateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
+			UpdateInstanceResponse restoreUpdateInstanceResponse = client.updateInstance(restoreUpdateRequest)
+			restoreUpdateInstanceResponse.success == true
+
 	}
 }

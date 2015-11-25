@@ -368,7 +368,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link KeyPair KeyPair} object.
+	 * @return the response object containing a {@link KeyPair KeyPair} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetKeyPairResponse getKeyPair(GetKeyPairRequest request) throws MorpheusApiRequestException {
@@ -377,11 +377,48 @@ public class MorpheusClient {
 
 	/**
 	 *
-	 * @param request
-	 * @return
+	 * Executes a {@link UpdateServerGroupRequest UpdateServerGroupRequest} to update a specific {@link ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateServerGroupRequest request = new UpdateServerGroupRequest().serverGroupId(1).serverGroup(updatedServerGroup)
+	 *     	UpdateServerGroupsResponse response = client.updateServerGroup(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link ServerGroup ServerGroup} object and a flag indicating if the
+	 * update request was successful or not.
 	 * @throws MorpheusApiRequestException
    */
 	public UpdateServerGroupResponse updateServerGroup(UpdateServerGroupRequest request) throws MorpheusApiRequestException {
 		return (UpdateServerGroupResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateInstanceRequest UpdateInstanceRequest} to update a specific {@link Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateInstanceRequest request = new UpdateInstanceRequest().instanceId(1).instance(updatedInstance)
+	 *     	UpdateInstanceResponse response = client.updateInstance(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link Instance Instance} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException
+	 */
+	public UpdateInstanceResponse updateInstance(UpdateInstanceRequest request) throws MorpheusApiRequestException {
+		return (UpdateInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
 }

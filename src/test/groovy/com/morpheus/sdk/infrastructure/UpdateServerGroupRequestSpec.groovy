@@ -18,10 +18,6 @@ package com.morpheus.sdk.infrastructure
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.deployment.AppDeploy
-import com.morpheus.sdk.deployment.CreateDeployRequest
-import com.morpheus.sdk.deployment.CreateDeployResponse
-import com.morpheus.sdk.infrastructure.ServerGroup
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -60,10 +56,9 @@ class UpdateServerGroupRequestSpec extends Specification {
 			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
 		when:
 			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
-			GetServerGroupResponse verificationResponse = client.getServerGroup(request)
 		then:
 			updateServerResponse.success == true
-			verificationResponse.serverGroup?.name == testServerGroupName
+			updateServerResponse.serverGroup?.name == testServerGroupName
 		cleanup:
 			serverGroup.name = previousName
 			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)

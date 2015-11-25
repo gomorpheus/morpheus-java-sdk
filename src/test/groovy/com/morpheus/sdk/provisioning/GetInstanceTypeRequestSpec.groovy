@@ -18,15 +18,13 @@ package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetInstanceRequestSpec extends Specification {
+class GetInstanceTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -45,13 +43,13 @@ class GetInstanceRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an instance by id"() {
+	void "it should successfully retrieve an instance type by id"() {
 		given:
-		def request = new GetInstanceRequest()
-		request.setInstanceId(97)
+		def request = new GetInstanceTypeRequest()
+		request.setInstanceTypeId(1)
 		when:
-		GetInstanceResponse response = client.getInstance(request)
+		GetInstanceTypeResponse response = client.getInstanceType(request)
 		then:
-		response.instance != null
+		response.instanceType != null
 	}
 }
