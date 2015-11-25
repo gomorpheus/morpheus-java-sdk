@@ -253,7 +253,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.ServerGroup ServerGroup} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetServerGroupResponse getServerGroup(GetServerGroupRequest request) throws MorpheusApiRequestException {
@@ -286,12 +286,12 @@ public class MorpheusClient {
 	 * <pre>
 	 * {@code
 	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 * 	GetServerRequest request = new GetServerRequest().server(1);
+	 * 	GetServerRequest request = new GetServerRequest().serverId(1);
 	 * 	GetServerResponse response = client.getServer(request);
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.Server Server} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetServerResponse getServer(GetServerRequest request) throws MorpheusApiRequestException {
@@ -315,5 +315,24 @@ public class MorpheusClient {
 	 */
 	public ListCertificatesResponse listCertificates(ListCertificatesRequest request) throws MorpheusApiRequestException {
 		return (ListCertificatesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetCertificateRequest GetCertificateRequest} to get a specific {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetCertificateRequest request = new GetCertificateRequest().certificateId(1);
+	 * 	GetCertificateResponse response = client.getCertificate(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetCertificateResponse getCertificate(GetCertificateRequest request) throws MorpheusApiRequestException {
+		return (GetCertificateResponse) executeAuthenticatedRequest(request);
 	}
 }
