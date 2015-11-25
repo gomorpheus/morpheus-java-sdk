@@ -29,4 +29,8 @@ public class Cloud {
   public Long zoneTypeId;
   public String visibility;
   public String location;
+
+  public String toString() {
+    return "Cloud: " + id + " " + name;
+  }
 }
