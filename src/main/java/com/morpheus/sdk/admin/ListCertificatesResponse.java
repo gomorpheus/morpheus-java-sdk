@@ -1,4 +1,4 @@
-package com.morpheus.sdk.provisioning;
+package com.morpheus.sdk.admin;
 
 import com.google.gson.Gson;
 

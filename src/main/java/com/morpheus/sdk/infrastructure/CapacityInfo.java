@@ -1,4 +1,4 @@
-package com.morpheus.sdk.provisioning;
+package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.annotations.SerializedName;
 

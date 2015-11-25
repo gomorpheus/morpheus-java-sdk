@@ -1,4 +1,4 @@
-package com.morpheus.sdk.provisioning;
+package com.morpheus.sdk.infrastructure;
 
 /**
  * A Model representation of a Morpheus Server Interface

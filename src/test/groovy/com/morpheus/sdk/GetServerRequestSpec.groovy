@@ -16,10 +16,8 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
-import com.morpheus.sdk.provisioning.GetServerRequest
-import com.morpheus.sdk.provisioning.GetServerResponse
+import com.morpheus.sdk.infrastructure.GetServerRequest
+import com.morpheus.sdk.infrastructure.GetServerResponse
 import spock.lang.Shared
 import spock.lang.Specification
 

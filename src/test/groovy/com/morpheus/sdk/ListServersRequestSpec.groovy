@@ -17,9 +17,8 @@
 package com.morpheus.sdk
 
 import com.morpheus.sdk.provisioning.ListInstancesRequest
-import com.morpheus.sdk.provisioning.ListInstancesResponse
-import com.morpheus.sdk.provisioning.ListServersRequest
-import com.morpheus.sdk.provisioning.ListServersResponse
+import com.morpheus.sdk.infrastructure.ListServersRequest
+import com.morpheus.sdk.infrastructure.ListServersResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**

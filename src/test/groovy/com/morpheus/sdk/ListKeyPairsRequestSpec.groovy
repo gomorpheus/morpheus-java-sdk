@@ -16,8 +16,8 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.provisioning.ListKeyPairsRequest
-import com.morpheus.sdk.provisioning.ListKeyPairsResponse
+import com.morpheus.sdk.admin.ListKeyPairsRequest
+import com.morpheus.sdk.admin.ListKeyPairsResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**

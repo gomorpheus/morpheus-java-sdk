@@ -16,10 +16,8 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.provisioning.GetCertificateRequest
-import com.morpheus.sdk.provisioning.GetCertificateResponse
-import com.morpheus.sdk.provisioning.GetKeyPairRequest
-import com.morpheus.sdk.provisioning.GetKeyPairResponse
+import com.morpheus.sdk.admin.GetKeyPairRequest
+import com.morpheus.sdk.admin.GetKeyPairResponse
 import spock.lang.Shared
 import spock.lang.Specification
 

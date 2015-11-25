@@ -1,5 +1,6 @@
 package com.morpheus.sdk;
 
+import com.morpheus.sdk.admin.*;
 import com.morpheus.sdk.deployment.CreateDeployRequest;
 import com.morpheus.sdk.deployment.CreateDeployResponse;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
@@ -261,7 +262,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.ListServersRequest ListServersRequest} to get a list of {@link com.morpheus.sdk.provisioning.Server Server} objects.
+	 * Executes a {@link ListServersRequest ListServersRequest} to get a list of {@link Server Server} objects.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -272,7 +273,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
-	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Server Server} objects as well as the serverCount.
+	 * @return the response object containing a list of {@link Server Server} objects as well as the serverCount.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public ListServersResponse listServers(ListServersRequest request) throws MorpheusApiRequestException {
@@ -280,7 +281,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.GetServerRequest GetServerRequest} to get a specific {@link com.morpheus.sdk.provisioning.Server Server} object.
+	 * Executes a {@link GetServerRequest GetServerRequest} to get a specific {@link Server Server} object.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -291,7 +292,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.Server Server} object.
+	 * @return the response object containing an {@link Server Server} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetServerResponse getServer(GetServerRequest request) throws MorpheusApiRequestException {
@@ -299,7 +300,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.ListCertificatesRequest ListCertificatesRequest} to get a list of {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} objects.
+	 * Executes a {@link ListCertificatesRequest ListCertificatesRequest} to get a list of {@link SslCertificate SslCertificate} objects.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -310,7 +311,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
-	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} objects as well as the certificateCount.
+	 * @return the response object containing a list of {@link SslCertificate SslCertificate} objects as well as the certificateCount.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public ListCertificatesResponse listCertificates(ListCertificatesRequest request) throws MorpheusApiRequestException {
@@ -318,7 +319,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.GetCertificateRequest GetCertificateRequest} to get a specific {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} object.
+	 * Executes a {@link GetCertificateRequest GetCertificateRequest} to get a specific {@link SslCertificate SslCertificate} object.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -329,7 +330,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.SslCertificate SslCertificate} object.
+	 * @return the response object containing an {@link SslCertificate SslCertificate} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetCertificateResponse getCertificate(GetCertificateRequest request) throws MorpheusApiRequestException {
@@ -337,7 +338,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.ListKeyPairsRequest ListKeyPairsRequest} to get a list of {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} objects.
+	 * Executes a {@link ListKeyPairsRequest ListKeyPairsRequest} to get a list of {@link KeyPair KeyPair} objects.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -348,7 +349,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
-	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} objects as well as the keyPairCount.
+	 * @return the response object containing a list of {@link KeyPair KeyPair} objects as well as the keyPairCount.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public ListKeyPairsResponse listKeyPairs(ListKeyPairsRequest request) throws MorpheusApiRequestException {
@@ -356,7 +357,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link com.morpheus.sdk.provisioning.GetKeyPairRequest GetKeyPairRequest} to get a specific {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} object.
+	 * Executes a {@link GetKeyPairRequest GetKeyPairRequest} to get a specific {@link KeyPair KeyPair} object.
 	 *
 	 * Example Usage:
 	 * <pre>
@@ -367,7 +368,7 @@ public class MorpheusClient {
 	 * }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.KeyPair KeyPair} object.
+	 * @return the response object containing an {@link KeyPair KeyPair} object.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public GetKeyPairResponse getKeyPair(GetKeyPairRequest request) throws MorpheusApiRequestException {

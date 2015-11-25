@@ -16,8 +16,8 @@
 
 package com.morpheus.sdk
 
-import com.morpheus.sdk.provisioning.ListCertificatesRequest
-import com.morpheus.sdk.provisioning.ListCertificatesResponse
+import com.morpheus.sdk.admin.ListCertificatesRequest
+import com.morpheus.sdk.admin.ListCertificatesResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
