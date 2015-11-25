@@ -373,4 +373,14 @@ public class MorpheusClient {
 	public GetKeyPairResponse getKeyPair(GetKeyPairRequest request) throws MorpheusApiRequestException {
 		return (GetKeyPairResponse) executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 *
+	 * @param request
+	 * @return
+	 * @throws MorpheusApiRequestException
+   */
+	public UpdateServerGroupResponse updateServerGroup(UpdateServerGroupRequest request) throws MorpheusApiRequestException {
+		return (UpdateServerGroupResponse)executeAuthenticatedRequest(request);
+	}
 }

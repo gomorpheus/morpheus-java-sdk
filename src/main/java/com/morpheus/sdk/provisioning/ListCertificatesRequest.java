@@ -25,6 +25,7 @@ import java.util.Date;
  *     	ListCertificatesResponse response = client.listCertificates(request);
  *     }
  * </pre>
+ * @author William Chu
  */
 public class ListCertificatesRequest extends AbstractApiRequest<ListCertificatesResponse> {
 
