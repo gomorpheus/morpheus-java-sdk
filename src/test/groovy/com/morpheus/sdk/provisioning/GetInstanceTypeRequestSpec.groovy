@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.infrastructure.GetServerRequest
-import com.morpheus.sdk.infrastructure.GetServerResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class GetServerRequestSpec extends Specification {
+class GetInstanceTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,13 +43,13 @@ class GetServerRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve a server by id"() {
+	void "it should successfully retrieve an instance type by id"() {
 		given:
-		def request = new GetServerRequest()
-		request.setServerId(22)
+		def request = new GetInstanceTypeRequest()
+		request.setInstanceTypeId(1)
 		when:
-		GetServerResponse response = client.getServer(request)
+		GetInstanceTypeResponse response = client.getInstanceType(request)
 		then:
-		response.server != null
+		response.instanceType != null
 	}
 }

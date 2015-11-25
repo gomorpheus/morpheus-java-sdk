@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.admin
 
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import com.morpheus.sdk.admin.GetCertificateRequest
 import com.morpheus.sdk.admin.GetCertificateResponse
 import spock.lang.Shared

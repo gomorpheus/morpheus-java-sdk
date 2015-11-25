@@ -48,7 +48,7 @@ public class GetInstanceTypeRequest extends AbstractApiRequest<GetInstanceTypeRe
 			return GetInstanceTypeResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Listing Instances", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for Instance Type lookup", ex);
 		} finally {
 			if(client != null) {
 				try {

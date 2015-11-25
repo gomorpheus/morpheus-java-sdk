@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.provisioning.ListInstanceTypesRequest
+import com.morpheus.sdk.provisioning.ListInstanceTypesResponse
 import spock.lang.Shared
 import spock.lang.Specification
-
 /**
- * @author William Chu
+ * @author David Estes
  */
-class GetInstanceRequestSpec extends Specification {
+class ListInstanceTypesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,13 +44,12 @@ class GetInstanceRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an instance by id"() {
+	void "it should successfully list instances"() {
 		given:
-		def request = new GetInstanceRequest()
-		request.setInstanceId(30)
+			def request = new ListInstanceTypesRequest()
 		when:
-		GetInstanceResponse response = client.getInstance(request)
+			ListInstanceTypesResponse response = client.listInstanceTypes(request)
 		then:
-		response.instance != null
+			response.instanceTypes?.size() > 1
 	}
 }

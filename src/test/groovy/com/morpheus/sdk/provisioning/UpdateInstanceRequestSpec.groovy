@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.infrastructure
+package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.infrastructure.*
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class UpdateServerGroupRequestSpec extends Specification {
+class UpdateInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,27 +44,27 @@ class UpdateServerGroupRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully update a server group"() {
+	void "it should successfully update an instance"() {
 		given:
-			def testServerId = 1
-			def testServerGroupName = "Booyah!"
-			def request = new GetServerGroupRequest()
-			request.setServerGroupId(testServerId)
-			GetServerGroupResponse response = client.getServerGroup(request)
-			ServerGroup serverGroup = response.serverGroup
-			def previousName = serverGroup.name
-			serverGroup.name = testServerGroupName
-			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
+			def testInstanceId = 97
+			def testInstanceDescription = "Booyah!"
+			def request = new GetInstanceRequest()
+			request.setInstanceId(testInstanceId)
+			GetInstanceResponse response = client.getInstance(request)
+			Instance instance = response.instance
+			def previousDescription = instance.description
+			instance.description = testInstanceDescription
+			def updateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
 		when:
-			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
+			UpdateInstanceResponse updateInstanceResponse = client.updateInstance(updateRequest)
 		then:
-			updateServerResponse.success == true
-			updateServerResponse.serverGroup?.name == testServerGroupName
+			updateInstanceResponse.success == true
+			updateInstanceResponse.instance?.description == testInstanceDescription
 		cleanup:
-			serverGroup.name = previousName
-			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
-			UpdateServerGroupResponse restoreUpdateServerResponse = client.updateServerGroup(restoreUpdateRequest)
-			restoreUpdateServerResponse.success == true
+			instance.description = previousDescription
+			def restoreUpdateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
+			UpdateInstanceResponse restoreUpdateInstanceResponse = client.updateInstance(restoreUpdateRequest)
+			restoreUpdateInstanceResponse.success == true
 
 	}
 }
