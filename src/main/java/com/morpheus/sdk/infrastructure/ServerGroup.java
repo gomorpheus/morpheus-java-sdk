@@ -42,4 +42,7 @@ public class ServerGroup {
   @SerializedName("zones")
   public ArrayList<Cloud> clouds;
 
+  public String toString() {
+    return "Server Group: " + id + " " + name;
+  }
 }

@@ -259,4 +259,42 @@ public class MorpheusClient {
 	public GetServerGroupResponse getServerGroup(GetServerGroupRequest request) throws MorpheusApiRequestException {
 		return (GetServerGroupResponse) executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.ListServersRequest ListServersRequest} to get a list of {@link com.morpheus.sdk.provisioning.Server Server} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListServersRequest request = new ListServersRequest().max(50).offset(0);
+	 * 	ListServersResponse response = client.listServers(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Server Server} objects as well as the instanceCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListServersResponse listServers(ListServersRequest request) throws MorpheusApiRequestException {
+		return (ListServersResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetServerRequest GetServerRequest} to get a specific {@link com.morpheus.sdk.provisioning.Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetServerRequest request = new GetServerRequest().server(1);
+	 * 	GetServerResponse response = client.getServer(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetServerResponse getServer(GetServerRequest request) throws MorpheusApiRequestException {
+		return (GetServerResponse) executeAuthenticatedRequest(request);
+	}
 }

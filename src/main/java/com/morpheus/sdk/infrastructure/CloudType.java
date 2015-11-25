@@ -20,4 +20,8 @@ public class CloudType {
   public String name;
   public String code;
   public String description;
+
+  public String toString() {
+    return "Cloud Type: " + id + " " + name;
+  }
 }
