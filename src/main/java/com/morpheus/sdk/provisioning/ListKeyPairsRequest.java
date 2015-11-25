@@ -25,6 +25,7 @@ import java.util.Date;
  *     	ListKeyPairsResponse response = client.listKeyPairs(request);
  *     }
  * </pre>
+ * @author William Chu
  */
 public class ListKeyPairsRequest extends AbstractApiRequest<ListKeyPairsResponse> {
 

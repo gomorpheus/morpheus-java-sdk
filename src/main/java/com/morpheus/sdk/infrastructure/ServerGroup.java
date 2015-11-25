@@ -1,5 +1,6 @@
 package com.morpheus.sdk.infrastructure;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -33,11 +34,17 @@ import java.util.ArrayList;
  * @author William Chu
  */
 public class ServerGroup {
+  @Expose
   public Long id;
+  @Expose
   public Long accountId;
+  @Expose
   public Boolean active;
+  @Expose
   public String location;
+  @Expose
   public String name;
+  @Expose
   public String visibility;
   @SerializedName("zones")
   public ArrayList<Cloud> clouds;

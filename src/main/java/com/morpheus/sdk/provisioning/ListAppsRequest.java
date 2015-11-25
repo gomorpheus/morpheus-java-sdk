@@ -25,6 +25,7 @@ import java.util.Date;
  *     	ListAppsResponse response = client.listApps(request);
  *     }
  * </pre>
+ * @author William Chu
  */
 public class ListAppsRequest extends AbstractApiRequest<ListAppsResponse> {
 	private Integer max=50;
