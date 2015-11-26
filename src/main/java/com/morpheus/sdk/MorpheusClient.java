@@ -8,6 +8,7 @@ import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
 import com.morpheus.sdk.infrastructure.*;
 import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
+import com.morpheus.sdk.monitoring.*;
 import com.morpheus.sdk.provisioning.*;
 
 /**
@@ -307,7 +308,7 @@ public class MorpheusClient {
 	 * {@code
 	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
 	 * 	ListCertificatesRequest request = new ListCertificatesRequest().max(50).offset(0);
-	 * 	ListCertificatesResponse response = client.listServers(request);
+	 * 	ListCertificatesResponse response = client.listCertificates(request);
 	 * }
 	 * </pre>
 	 * @param request the request object being executed. This is where you can also append parameters for filtering
@@ -421,4 +422,79 @@ public class MorpheusClient {
 		return (UpdateInstanceResponse)executeAuthenticatedRequest(request);
 	}
 
+	/**
+	 * Executes a {@link ListCheckTypesRequest ListCheckTypesRequest} to get a list of {@link CheckType CheckType} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListCheckTypesRequest request = new ListCheckTypesRequest().max(50).offset(0);
+	 * 	ListCheckTypesResponse response = client.listCheckTypes(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link CheckType CheckType} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListCheckTypesResponse listCheckTypes(ListCheckTypesRequest request) throws MorpheusApiRequestException {
+		return (ListCheckTypesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link GetCheckTypeRequest GetCheckTypeRequest} to get a specific {@link CheckType CheckType} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetCheckTypeRequest request = new GetCheckTypeRequest().checkTypeId(1);
+	 * 	GetCheckTypeResponse response = client.getCheckType(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link CheckType CheckType} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetCheckTypeResponse getCheckType(GetCheckTypeRequest request) throws MorpheusApiRequestException {
+		return (GetCheckTypeResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListChecksRequest ListChecksRequest} to get a list of {@link Check Check} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListChecksRequest request = new ListChecksRequest().max(50).offset(0);
+	 * 	ListChecksResponse response = client.listChecks(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed. This is where you can also append parameters for filtering
+	 * @return the response object containing a list of {@link Check Check} objects as well as the checkCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListChecksResponse listChecks(ListChecksRequest request) throws MorpheusApiRequestException {
+		return (ListChecksResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link GetCheckRequest GetCheckRequest} to get a specific {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetCheckRequest request = new GetCheckRequest().checkId(1);
+	 * 	GetCheckResponse response = client.getCheck(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetCheckResponse getCheck(GetCheckRequest request) throws MorpheusApiRequestException {
+		return (GetCheckResponse) executeAuthenticatedRequest(request);
+	}
 }
