@@ -497,4 +497,27 @@ public class MorpheusClient {
 	public GetCheckResponse getCheck(GetCheckRequest request) throws MorpheusApiRequestException {
 		return (GetCheckResponse) executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateCloudRequest UpdateCloudRequest} to update a specific {@link Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateCloudRequest request = new UpdateCloudRequest().cloudId(1).cloud(updatedCloud)
+	 *     	UpdateCloudResponse response = client.updateInstance(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link Cloud Cloud} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException
+	 */
+	public UpdateCloudResponse updateCloud(UpdateCloudRequest request) throws MorpheusApiRequestException {
+		return (UpdateCloudResponse)executeAuthenticatedRequest(request);
+	}
 }
