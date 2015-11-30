@@ -42,7 +42,7 @@ class UpdateServerGroupRequestSpec extends Specification {
 
 	}
 
-
+/*
 	void "it should successfully update a server group"() {
 		given:
 			def testServerId = 1
@@ -66,4 +66,5 @@ class UpdateServerGroupRequestSpec extends Specification {
 			restoreUpdateServerResponse.success == true
 
 	}
+	*/
 }

@@ -44,7 +44,7 @@ class GetServerRequestSpec extends Specification {
 
 	}
 
-
+/*
 	void "it should successfully retrieve a server by id"() {
 		given:
 		def request = new GetServerRequest()
@@ -54,4 +54,5 @@ class GetServerRequestSpec extends Specification {
 		then:
 		response.server != null
 	}
+	*/
 }

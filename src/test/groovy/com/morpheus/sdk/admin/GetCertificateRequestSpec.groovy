@@ -48,7 +48,7 @@ class GetCertificateRequestSpec extends Specification {
 	void "it should successfully retrieve an certificate by id"() {
 		given:
 		def request = new GetCertificateRequest()
-		request.setCertificateId(1)
+		request.setCertificateId(5)
 		when:
 		GetCertificateResponse response = client.getCertificate(request)
 		then:

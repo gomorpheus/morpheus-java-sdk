@@ -45,7 +45,7 @@ class GetCheckRequestSpec extends Specification {
 	void "it should successfully retrieve a specific check by id"() {
 		given:
 		def request = new GetCheckRequest()
-		request.setCheckId(1)
+		request.setCheckId(93)
 		when:
 		GetCheckResponse response = client.getCheck(request)
 		then:

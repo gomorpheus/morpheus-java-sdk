@@ -46,7 +46,7 @@ class GetInstanceTypeRequestSpec extends Specification {
 	void "it should successfully retrieve an instance type by id"() {
 		given:
 		def request = new GetInstanceTypeRequest()
-		request.setInstanceTypeId(1)
+		request.setInstanceTypeId(23)
 		when:
 		GetInstanceTypeResponse response = client.getInstanceType(request)
 		then:

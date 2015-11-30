@@ -48,7 +48,7 @@ class GetKeyPairRequestSpec extends Specification {
 	void "it should successfully retrieve an key pair by id"() {
 		given:
 		def request = new GetKeyPairRequest()
-		request.setKeyPairId(5)
+		request.setKeyPairId(12)
 		when:
 		GetKeyPairResponse response = client.getKeyPair(request)
 		then:
