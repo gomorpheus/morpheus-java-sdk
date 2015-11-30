@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.infrastructure
 
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
 import com.morpheus.sdk.provisioning.ListInstancesRequest
 import com.morpheus.sdk.infrastructure.ListServersRequest
 import com.morpheus.sdk.infrastructure.ListServersResponse
@@ -70,7 +72,7 @@ class ListServersRequestSpec extends Specification {
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
-			def request = new ListInstancesRequest().max(1)
+			def request = new ListServersRequest().max(1)
 		when:
 		ListServersResponse response = client.listServers(request)
 		then:

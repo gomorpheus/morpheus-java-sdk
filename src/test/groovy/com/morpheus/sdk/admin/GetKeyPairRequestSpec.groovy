@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.infrastructure
+package com.morpheus.sdk.admin
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.admin.GetKeyPairRequest
+import com.morpheus.sdk.admin.GetKeyPairResponse
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class UpdateServerGroupRequestSpec extends Specification {
+class GetKeyPairRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,27 +45,13 @@ class UpdateServerGroupRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully update a server group"() {
+	void "it should successfully retrieve an key pair by id"() {
 		given:
-			def testServerId = 1
-			def testServerGroupName = "Booyah!"
-			def request = new GetServerGroupRequest()
-			request.setServerGroupId(testServerId)
-			GetServerGroupResponse response = client.getServerGroup(request)
-			ServerGroup serverGroup = response.serverGroup
-			def previousName = serverGroup.name
-			serverGroup.name = testServerGroupName
-			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
+		def request = new GetKeyPairRequest()
+		request.setKeyPairId(5)
 		when:
-			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
+		GetKeyPairResponse response = client.getKeyPair(request)
 		then:
-			updateServerResponse.success == true
-			updateServerResponse.serverGroup?.name == testServerGroupName
-		cleanup:
-			serverGroup.name = previousName
-			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
-			UpdateServerGroupResponse restoreUpdateServerResponse = client.updateServerGroup(restoreUpdateRequest)
-			restoreUpdateServerResponse.success == true
-
+		response.keyPair != null
 	}
 }

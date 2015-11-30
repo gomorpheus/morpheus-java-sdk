@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk
+package com.morpheus.sdk.admin
 
-import com.morpheus.sdk.admin.ListCertificatesRequest
-import com.morpheus.sdk.admin.ListCertificatesResponse
+import com.morpheus.sdk.BasicCredentialsProvider
+import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.admin.ListKeyPairsRequest
+import com.morpheus.sdk.admin.ListKeyPairsResponse
 import spock.lang.Shared
 import spock.lang.Specification
 /**
  * @author William Chu
  */
-class ListCertificatesRequestSpec extends Specification {
+class ListKeyPairsRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -42,14 +44,14 @@ class ListCertificatesRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully list certificates"() {
+	void "it should successfully list key pairs"() {
 		given:
-			def request = new ListCertificatesRequest()
+			def request = new ListKeyPairsRequest()
 		when:
-			ListCertificatesResponse response = client.listCertificates(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.certificateCount != null;
-			response.certificates != null
+			response.keyPairCount != null;
+			response.keyPairs != null
 	}
 
 	/**
@@ -57,23 +59,23 @@ class ListCertificatesRequestSpec extends Specification {
 	 */
 	void "it should properly utilize the offset parameter to offset by 1"() {
 		given:
-			def firstRequest = new ListCertificatesRequest()
-			def request = new ListCertificatesRequest().offset(1)
-			def firstResponse = client.listCertificates(firstRequest)
+			def firstRequest = new ListKeyPairsRequest()
+			def request = new ListKeyPairsRequest().offset(1)
+			def firstResponse = client.listKeyPairs(firstRequest)
 		when:
-		ListCertificatesResponse response = client.listCertificates(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.certificates != null
-			response.certificates[0].id == firstResponse.certificates[1].id
+			response.keyPairs != null
+			response.keyPairs[0].id == firstResponse.keyPairs[1].id
 	}
 
 	void "it should adhere to the max property of 1 row result"() {
 		given:
-			def request = new ListCertificatesRequest().max(1)
+			def request = new ListKeyPairsRequest().max(1)
 		when:
-		ListCertificatesResponse response = client.listCertificates(request)
+		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.certificateCount > 1;
-			response.certificates?.size() == 1
+			response.keyPairCount > 1;
+			response.keyPairs?.size() == 1
 	}
 }

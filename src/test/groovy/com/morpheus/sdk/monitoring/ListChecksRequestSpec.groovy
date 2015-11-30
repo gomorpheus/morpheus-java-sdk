@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.infrastructure
+package com.morpheus.sdk.monitoring
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
@@ -24,7 +24,7 @@ import spock.lang.Specification
 /**
  * @author William Chu
  */
-class UpdateServerGroupRequestSpec extends Specification {
+class ListChecksRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,27 +43,38 @@ class UpdateServerGroupRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully update a server group"() {
+	void "it should successfully list checks"() {
 		given:
-			def testServerId = 1
-			def testServerGroupName = "Booyah!"
-			def request = new GetServerGroupRequest()
-			request.setServerGroupId(testServerId)
-			GetServerGroupResponse response = client.getServerGroup(request)
-			ServerGroup serverGroup = response.serverGroup
-			def previousName = serverGroup.name
-			serverGroup.name = testServerGroupName
-			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
+			def request = new ListChecksRequest()
 		when:
-			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
+			ListChecksResponse response = client.listChecks(request)
 		then:
-			updateServerResponse.success == true
-			updateServerResponse.serverGroup?.name == testServerGroupName
-		cleanup:
-			serverGroup.name = previousName
-			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
-			UpdateServerGroupResponse restoreUpdateServerResponse = client.updateServerGroup(restoreUpdateRequest)
-			restoreUpdateServerResponse.success == true
+			response.checkCount != null;
+			response.checks != null
+	}
 
+	/**
+	 * NOTE: This test assumes the api being hit in question has at least 2 checks
+	 */
+	void "it should properly utilize the offset parameter to offset by 1"() {
+		given:
+			def firstRequest = new ListChecksRequest()
+			def request = new ListChecksRequest().offset(1)
+			def firstResponse = client.listChecks(firstRequest)
+		when:
+		ListChecksResponse response = client.listChecks(request)
+		then:
+			response.checks != null
+			response.checks[0].id == firstResponse.checks[1].id
+	}
+
+	void "it should adhere to the max property of 1 row result"() {
+		given:
+			def request = new ListChecksRequest().max(1)
+		when:
+		ListChecksResponse response = client.listChecks(request)
+		then:
+			response.checkCount > 1;
+			response.checks?.size() == 1
 	}
 }
