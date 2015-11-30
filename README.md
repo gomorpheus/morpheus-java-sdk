@@ -3,7 +3,7 @@ Morpheus Java SDK
 
 The Morpheus Java SDK allows developers to easily work with the Morpheus Appliance APIs. The goal of this API is to front all of the documented Web API interfaces and make it easy to get started. Provision Servers for Provisioning, Provision databases and applications, even handle deployments.
 
-* [Java APIDoc](http://gomorpheus.github.com/morpheus-java-sdk)
+* [Java APIDoc](http://gomorpheus.github.io/morpheus-java-sdk)
 * [Web APIDoc](http://bertramdev.github.io/morpheus-apidoc/)
 * [Morpheus Website](https://www.gomorpheus.com)
 
