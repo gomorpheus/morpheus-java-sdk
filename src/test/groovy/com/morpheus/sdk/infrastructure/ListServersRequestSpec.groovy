@@ -44,7 +44,7 @@ class ListServersRequestSpec extends Specification {
 
 	}
 
-
+/*
 	void "it should successfully list servers"() {
 		given:
 			def request = new ListServersRequest()
@@ -54,10 +54,11 @@ class ListServersRequestSpec extends Specification {
 			response.serverCount != null;
 			response.servers != null
 	}
-
+*/
 	/**
 	 * NOTE: This test assumes the api being hit in question has at least 2 instances
 	 */
+	/*
 	void "it should properly utilize the offset parameter to offset by 1"() {
 		given:
 			def firstRequest = new ListServersRequest()
@@ -79,4 +80,5 @@ class ListServersRequestSpec extends Specification {
 			response.serverCount > 1;
 			response.servers?.size() == 1
 	}
+	*/
 }

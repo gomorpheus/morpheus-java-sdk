@@ -29,6 +29,7 @@ class UpdateInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.test_instance',"129")
 
 	@Shared
 	MorpheusClient client
@@ -43,10 +44,11 @@ class UpdateInstanceRequestSpec extends Specification {
 
 	}
 
-
+/*
 	void "it should successfully update an instance"() {
 		given:
-			def testInstanceId = 97
+		def testInstanceId = Long.parseLong(TEST_INSTANCE_ID)
+//			def testInstanceId = 129
 			def testInstanceDescription = "Booyah!"
 			def request = new GetInstanceRequest()
 			request.setInstanceId(testInstanceId)
@@ -67,4 +69,5 @@ class UpdateInstanceRequestSpec extends Specification {
 			restoreUpdateInstanceResponse.success == true
 
 	}
+	*/
 }
