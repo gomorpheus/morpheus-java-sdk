@@ -1,0 +1,8 @@
+com.morpheus.sdk
+com.morpheus.sdk.admin
+com.morpheus.sdk.deployment
+com.morpheus.sdk.exceptions
+com.morpheus.sdk.infrastructure
+com.morpheus.sdk.internal
+com.morpheus.sdk.monitoring
+com.morpheus.sdk.provisioning
