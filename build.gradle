@@ -102,6 +102,7 @@ bintray {
     pkg {
         repo = 'gomorpheus'
         userOrg = 'bertramlabs'
+        vcsUrl  = 'https://github.com/gomorpheus/morpheus-java-sdk'
         name = 'morpheus-java-sdk'
         licenses = ['Apache-2.0']
     }
