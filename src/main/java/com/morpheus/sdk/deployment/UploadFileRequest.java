@@ -6,7 +6,9 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -29,6 +31,8 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 	private Long appDeployId;
 	private InputStream inputStream;
 	private File file;
+	private String contentType;
+	private String originalName;
 	private String destination;
 
 
@@ -61,7 +65,7 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 			return UploadFileResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Listing Instances", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for Uploading File", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -81,7 +85,9 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 	}
 
 	public HttpEntity generateRequestBody() {
-		return MultipartEntityBuilder.create().addBinaryBody("file",this.inputStream).build();
+		return MultipartEntityBuilder.create()
+				.setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+				.addBinaryBody("file",this.inputStream, ContentType.DEFAULT_BINARY,getOriginalName()).build();
 	}
 
 	public InputStream getInputStream() throws FileNotFoundException {
@@ -97,6 +103,7 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 
 	public void setFile(File file) {
 		this.file = file;
+		this.setOriginalName(file.getName());
 	}
 
 	public UploadFileRequest file(File file){
@@ -133,6 +140,27 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 
 	public UploadFileRequest appDeployId(Long appDeployId) {
 		this.setAppDeployId(appDeployId);
+		return this;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getOriginalName() {
+		return originalName;
+	}
+
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
+
+	public UploadFileRequest originalName(String originalName) {
+		this.setOriginalName(originalName);
 		return this;
 	}
 }
