@@ -1,8 +1,7 @@
 package com.morpheus.sdk;
 
 import com.morpheus.sdk.admin.*;
-import com.morpheus.sdk.deployment.CreateDeployRequest;
-import com.morpheus.sdk.deployment.CreateDeployResponse;
+import com.morpheus.sdk.deployment.*;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.exceptions.MorpheusNotAuthenticatedException;
 import com.morpheus.sdk.infrastructure.*;
@@ -128,9 +127,43 @@ public class MorpheusClient {
 		return (ListAppsResponse)executeAuthenticatedRequest(request);
 	}
 
-
+	/**
+	 * Executes a {@link CreateDeployRequest} to create an {@link com.morpheus.sdk.deployment.AppDeploy AppDeploy} object.
+	 * This can then be referenced for uploading files as well as running a deploy afterward. There are several different deployment types.
+	 *
+	 *  * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	AppDeploy deploy = new AppDeploy();
+	 *     	deploy.deployType = "git";
+	 *     	deploy.gitUrl = "git@github.com:bertramdev/morpheus-apidoc.git";
+	 *     	deploy.gitRef = "gh-pages";
+	 *     	CreateDeployRequest request = new CreateDeployRequest().appDeploy(appDeploy).instanceId(1);
+	 *     	CreateDeployResponse response = client.createDeployment(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link com.morpheus.sdk.deployment.AppDeploy AppDeploy} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
 	public CreateDeployResponse createDeployment(CreateDeployRequest request) throws MorpheusApiRequestException {
 		return (CreateDeployResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a ${@link RunDeployRequest} to kick off a deployment to the containers within an instance.
+	 * This requires an {@link com.morpheus.sdk.deployment.AppDeploy AppDeploy} object be assigned to the request.
+	 * @param request the request object being executed
+	 * @return
+	 * @throws MorpheusApiRequestException
+	 */
+	public RunDeployResponse runDeploy(RunDeployRequest request) throws MorpheusApiRequestException {
+		return (RunDeployResponse)executeAuthenticatedRequest(request);
+	}
+
+	public UploadFileResponse uploadDeploymentFile(UploadFileRequest request) throws MorpheusApiRequestException {
+		return (UploadFileResponse)executeAuthenticatedRequest(request);
 	}
 
 	/**

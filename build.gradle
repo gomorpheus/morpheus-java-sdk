@@ -112,6 +112,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from 'build/docs/javadoc'
 }
 
+task morpheusJavaDoc(type: Javadoc) {
+  source = sourceSets.main.allJava
+  title = "Morpheus Java SDK"
+}
+
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
