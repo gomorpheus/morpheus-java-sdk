@@ -118,11 +118,21 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 		this.destination = destination;
 	}
 
+	public UploadFileRequest destination(String destination) {
+		this.setDestination(destination);
+		return this;
+	}
+
 	public Long getAppDeployId() {
 		return appDeployId;
 	}
 
 	public void setAppDeployId(Long appDeployId) {
 		this.appDeployId = appDeployId;
+	}
+
+	public UploadFileRequest appDeployId(Long appDeployId) {
+		this.setAppDeployId(appDeployId);
+		return this;
 	}
 }
