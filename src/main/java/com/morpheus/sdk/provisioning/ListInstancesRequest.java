@@ -31,6 +31,9 @@ public class ListInstancesRequest extends AbstractApiRequest<ListInstancesRespon
 	private Integer max=50;
 	private Integer offset=0;
 	private Date lastUpdated=null;
+	private String phrase;
+	private String name;
+
 
 	/**
 	 * Executes the request against the appliance API (Should not be called directly).
@@ -74,6 +77,13 @@ public class ListInstancesRequest extends AbstractApiRequest<ListInstancesRespon
 		}
 		if(this.lastUpdated != null) {
 			uriBuilder.setParameter("lastUpdated", zuluDateFormat(this.lastUpdated));
+		}
+		if(this.name != null) {
+			uriBuilder.setParameter("name", this.name);
+		}
+
+		if(this.phrase != null) {
+			uriBuilder.setParameter("phrase", this.phrase);
 		}
 	}
 
@@ -154,6 +164,62 @@ public class ListInstancesRequest extends AbstractApiRequest<ListInstancesRespon
 	 */
 	public ListInstancesRequest lastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
+		return this;
+	}
+
+	/**
+	 * Gets the phrase parameter being applied to the request
+	 * @see ListInstancesRequest#setPhrase(String)
+	 * @return phrase to be applied to the filter
+	 */
+	public String getPhrase() {
+		return phrase;
+	}
+
+	/**
+	 * Sets a search phrase for the request. If set all instances will be searched for this matching phrase pattern.
+	 * @param phrase the phrase to search for
+	 */
+	public void setPhrase(String phrase) {
+		this.phrase = phrase;
+	}
+
+	/**
+	 * CHain-able method for setting the phrase or search phrase for a request.
+	 * @see ListInstancesRequest#setPhrase(String)
+	 * @param phrase the phrase to be searched for
+	 * @return current instance of ListInstancesRequest
+	 */
+	public ListInstancesRequest phrase(String phrase) {
+		this.setPhrase(phrase);
+		return this;
+	}
+
+	/**
+	 * Gets the name filter being applied to the request
+	 * @see ListInstancesRequest#setName(String)
+	 * @return the current name filter being applied
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Sets the name filter to be applied to the request. This is an exact match filter. Only the instance matching this filter request will be returned.
+	 * @param name the name of the instance to look for
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Chain-able method for applying the name filter to be applied to the request
+	 * @param name the name of the instance to look for
+	 * @see ListInstancesRequest#setName(String)
+	 * @return the current instance of ListInstancesRequest
+	 */
+	public ListInstancesRequest name(String name) {
+		this.setName(name);
 		return this;
 	}
 }
