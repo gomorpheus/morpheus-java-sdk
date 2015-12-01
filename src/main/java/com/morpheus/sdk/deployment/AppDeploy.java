@@ -1,6 +1,12 @@
 package com.morpheus.sdk.deployment;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * /**
@@ -44,4 +50,15 @@ public class AppDeploy {
 	public String deployType;
 	public String status;
 	public String config;
+
+	Map<String,String> getConfigOptions() {
+		Gson gson = new Gson();
+		Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
+		return gson.fromJson(this.config,stringStringMap);
+	}
+
+	public void setConfigOptions(Map<String,String> configOptions) {
+		Gson gson = new Gson();
+		this.config = gson.toJson(configOptions);
+	}
 }
