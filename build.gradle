@@ -18,7 +18,7 @@ apply plugin: 'groovy'
 
 group = 'com.bertramlabs.plugins'
 
-version = '0.1.0'
+version = '0.1.1'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 targetCompatibility = '1.6'
 sourceCompatibility = '1.6'
