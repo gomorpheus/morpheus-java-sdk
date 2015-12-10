@@ -725,4 +725,48 @@ public class MorpheusClient {
 	public DeleteKeyPairResponse deleteKeyPair(DeleteKeyPairRequest request) throws MorpheusApiRequestException {
 		return (DeleteKeyPairResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link CreateCertificateRequest} to create a new {@link SslCertificate SslCertificate} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	SslCertificate certificate = new SslCertificate();
+	 *     	certificate.name = "New SSL Certificate Name";
+	 *     	certificate.certFile = "public key";
+	 *     	certificate.keyFile = "private key";
+	 *     	CreateCertificateRequest request = new CreateCertificateRequest().certificate(certificate);
+	 *     	CreateCertificateResponse response = client.createCertificate(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link SslCertificate SslCertificate} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCertificateResponse createCertificate(CreateCertificateRequest request) throws MorpheusApiRequestException {
+		return (CreateCertificateResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteCertificateRequest} to delete an existing {@link SslCertificate SslCertificate} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCertificateRequest request = new DeleteCertificateRequest();
+	 *     	request.certificateId(1);
+	 *     	DeleteCertificateResponse response = client.deleteCertificate(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link SslCertificate SslCertificate} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCertificateResponse deleteCertificate(DeleteCertificateRequest request) throws MorpheusApiRequestException {
+		return (DeleteCertificateResponse)executeAuthenticatedRequest(request);
+	}
 }
