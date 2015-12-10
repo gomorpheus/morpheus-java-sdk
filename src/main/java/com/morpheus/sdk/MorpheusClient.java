@@ -681,4 +681,48 @@ public class MorpheusClient {
 	public DeleteServerGroupResponse deleteServerGroup(DeleteServerGroupRequest request) throws MorpheusApiRequestException {
 		return (DeleteServerGroupResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link CreateKeyPairRequest} to create a new {@link KeyPair KeyPair} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	KeyPair keyPair = new KeyPair();
+	 *     	keyPair.name = "New Key Pair Name";
+	 *     	keyPair.publicKey = "public key";
+	 *     	keyPair.privateKey = "private key";
+	 *     	CreateKeyPairRequest request = new CreateKeyPairRequest().keyPair(keyPair);
+	 *     	CreateKeyPairResponse response = client.createKeyPair(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link KeyPair KeyPair} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateKeyPairResponse createKeyPair(CreateKeyPairRequest request) throws MorpheusApiRequestException {
+		return (CreateKeyPairResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteKeyPairRequest} to delete an existing {@link KeyPair KeyPair} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteKeyPairRequest request = new DeleteKeyPairRequest();
+	 *     	request.keyPairId(1);
+	 *     	DeleteKeyPairResponse response = client.deleteKeyPair(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link KeyPair KeyPair} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteKeyPairResponse deleteKeyPair(DeleteKeyPairRequest request) throws MorpheusApiRequestException {
+		return (DeleteKeyPairResponse)executeAuthenticatedRequest(request);
+	}
 }
