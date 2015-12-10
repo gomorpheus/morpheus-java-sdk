@@ -540,7 +540,7 @@ public class MorpheusClient {
 	 *     {@code
 	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
 	 *     	UpdateCloudRequest request = new UpdateCloudRequest().cloudId(1).cloud(updatedCloud)
-	 *     	UpdateCloudResponse response = client.updateInstance(request);
+	 *     	UpdateCloudResponse response = client.updateCloud(request);
 	 *     	return response.success;
 	 *     }
 	 * </pre>
@@ -552,5 +552,90 @@ public class MorpheusClient {
 	 */
 	public UpdateCloudResponse updateCloud(UpdateCloudRequest request) throws MorpheusApiRequestException {
 		return (UpdateCloudResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateServerRequest UpdateServerRequest} to update a specific {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateServerRequest request = new UpdateServerRequest().serverId(1).server(updatedServer)
+	 *     	UpdateServerResponse response = client.updateServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link Server Server} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException
+	 */
+	public UpdateServerResponse updateServer(UpdateServerRequest request) throws MorpheusApiRequestException {
+		return (UpdateServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListCloudsRequest ListCloudsRequest} to get a list of {@link Cloud Cloud} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListCloudsRequest request = new ListCloudsRequest();
+	 *  ListCloudsResponse response = client.listClouds(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link Cloud Cloud} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListCloudsResponse listClouds(ListCloudsRequest request) throws MorpheusApiRequestException {
+		return (ListCloudsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateCloudRequest} to create a new {@link Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Cloud cloud = new Cloud();
+	 *     	cloud.name = "New Cloud Name";
+	 *     	cloud.visibility = "public";
+	 *     	CreateCloudRequest request = new CreateCloudRequest().cloud(cloud);
+	 *     	CreateCloudResponse response = client.createCloud(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCloudResponse createCloud(CreateCloudRequest request) throws MorpheusApiRequestException {
+		return (CreateCloudResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteCloudRequest} to delete an existing {@link Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCloudRequest request = new DeleteCloudRequest();
+	 *     	request.cloudId(1);
+	 *     	DeleteCloudResponse response = client.deleteCloud(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCloudResponse deleteCloud(DeleteCloudRequest request) throws MorpheusApiRequestException {
+		return (DeleteCloudResponse)executeAuthenticatedRequest(request);
 	}
 }

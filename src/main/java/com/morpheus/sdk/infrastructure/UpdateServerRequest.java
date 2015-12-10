@@ -2,12 +2,9 @@ package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.morpheus.sdk.deployment.AppDeploy;
-import com.morpheus.sdk.deployment.CreateDeployResponse;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -20,34 +17,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request for updating a specific server group within the Morpheus Account.
+ * A request object for defining a request for updating a specific server within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to update a specific {@link ServerGroup} object.
+ * is used to update a specific {@link Server} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	UpdateServerGroupRequest request = new UpdateServerGroupRequest().serverGroupId(1).serverGroup(updatedServerGroup)
- *     	UpdateServerGroupResponse response = client.updateServerGroup(request);
+ *     	UpdateServerRequest request = new UpdateServerRequest().serverId(1).server(updatedServer)
+ *     	UpdateServerResponse response = client.updateServer(request);
  *     	return response.success;
  *     }
  * </pre>
  * @author William Chu
  */
-public class UpdateServerGroupRequest extends AbstractApiRequest<UpdateServerGroupResponse> {
-	private Long serverGroupId;
-	private ServerGroup serverGroup;
+public class UpdateServerRequest extends AbstractApiRequest<UpdateServerResponse> {
+	private Long serverId;
+	private Server server;
 
 	/**
 	 * Executes the request against the appliance API (Should not be called directly).
 	 */
 	@Override
-	public UpdateServerGroupResponse executeRequest() throws MorpheusApiRequestException {
+	public UpdateServerResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/groups/" + this.getServerGroupId());
+			uriBuilder.setPath("/api/servers/" + this.getServerId());
 			HttpPut request = new HttpPut(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -56,10 +53,10 @@ public class UpdateServerGroupRequest extends AbstractApiRequest<UpdateServerGro
 			request.addHeader("Content-Type","application/json");
 			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
-			return UpdateServerGroupResponse.createFromStream(response.getEntity().getContent());
+			return UpdateServerResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for updating a Server Group", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for updating a Server", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -73,36 +70,36 @@ public class UpdateServerGroupRequest extends AbstractApiRequest<UpdateServerGro
 
 	private String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
-		builder.excludeFieldsWithoutExposeAnnotation();
+//		builder.excludeFieldsWithoutExposeAnnotation();
 		final Gson gson = builder.create();
-		Map<String,ServerGroup> deployMap = new HashMap<String,ServerGroup>();
-		deployMap.put("group", serverGroup);
+		Map<String,Server> deployMap = new HashMap<String,Server>();
+		deployMap.put("server", server);
 		return gson.toJson(deployMap);
 	}
 
-	public Long getServerGroupId() {
-		return serverGroupId;
+	public Long getServerId() {
+		return serverId;
 	}
 
-	public void setServerGroupId(Long serverGroupId) {
-		this.serverGroupId = serverGroupId;
+	public void setServerId(Long serverId) {
+		this.serverId = serverId;
 	}
 
-	public UpdateServerGroupRequest serverGroupId(Long serverGroupId) {
-		this.serverGroupId = serverGroupId;
+	public UpdateServerRequest serverId(Long serverId) {
+		this.serverId = serverId;
 		return this;
 	}
 
-	public ServerGroup getServerGroup() {
-		return serverGroup;
+	public Server getServer() {
+		return server;
 	}
 
-	public void setServerGroup(ServerGroup serverGroup) {
-		this.serverGroup = serverGroup;
+	public void setServer(Server server) {
+		this.server = server;
 	}
 
-	public UpdateServerGroupRequest serverGroup(ServerGroup serverGroup) {
-		this.serverGroup = serverGroup;
+	public UpdateServerRequest server(Server server) {
+		this.server = server;
 		return this;
 	}
 }

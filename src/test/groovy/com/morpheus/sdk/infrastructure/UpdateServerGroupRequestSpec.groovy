@@ -28,6 +28,7 @@ class UpdateServerGroupRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"1")
 
 	@Shared
 	MorpheusClient client
@@ -42,10 +43,9 @@ class UpdateServerGroupRequestSpec extends Specification {
 
 	}
 
-/*
 	void "it should successfully update a server group"() {
 		given:
-			def testServerId = 1
+			def testServerId = Integer.parseInt(TEST_SERVER_GROUP_ID)
 			def testServerGroupName = "Booyah!"
 			def request = new GetServerGroupRequest()
 			request.setServerGroupId(testServerId)
@@ -55,16 +55,15 @@ class UpdateServerGroupRequestSpec extends Specification {
 			serverGroup.name = testServerGroupName
 			def updateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
 		when:
-			UpdateServerGroupResponse updateServerResponse = client.updateServerGroup(updateRequest)
+			UpdateServerGroupResponse updateServerGroupResponse = client.updateServerGroup(updateRequest)
 		then:
-			updateServerResponse.success == true
-			updateServerResponse.serverGroup?.name == testServerGroupName
+			updateServerGroupResponse.success == true
+			updateServerGroupResponse.serverGroup?.name == testServerGroupName
 		cleanup:
 			serverGroup.name = previousName
 			def restoreUpdateRequest = new UpdateServerGroupRequest().serverGroupId(testServerId).serverGroup(serverGroup)
-			UpdateServerGroupResponse restoreUpdateServerResponse = client.updateServerGroup(restoreUpdateRequest)
-			restoreUpdateServerResponse.success == true
+			UpdateServerGroupResponse restoreUpdateServerGroupResponse = client.updateServerGroup(restoreUpdateRequest)
+			restoreUpdateServerGroupResponse.success == true
 
 	}
-	*/
 }

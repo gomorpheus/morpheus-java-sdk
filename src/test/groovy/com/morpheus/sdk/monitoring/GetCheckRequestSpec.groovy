@@ -28,6 +28,7 @@ class GetCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"93")
 
 	@Shared
 	MorpheusClient client
@@ -45,7 +46,7 @@ class GetCheckRequestSpec extends Specification {
 	void "it should successfully retrieve a specific check by id"() {
 		given:
 		def request = new GetCheckRequest()
-		request.setCheckId(93)
+		request.setCheckId(Integer.parseInt(TEST_CHECK_ID))
 		when:
 		GetCheckResponse response = client.getCheck(request)
 		then:

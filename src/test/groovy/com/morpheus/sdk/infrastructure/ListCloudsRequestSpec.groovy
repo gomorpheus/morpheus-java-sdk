@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.provisioning
+package com.morpheus.sdk.infrastructure
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
@@ -24,11 +24,10 @@ import spock.lang.Specification
 /**
  * @author William Chu
  */
-class GetInstanceTypeRequestSpec extends Specification {
+class ListCloudsRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_TYPE_ID=System.getProperty('morpheus.api.testInstanceTypeId',"23")
 
 	@Shared
 	MorpheusClient client
@@ -42,15 +41,13 @@ class GetInstanceTypeRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
-
-	void "it should successfully retrieve an instance type by id"() {
+	
+	void "it should successfully list clouds"() {
 		given:
-		def request = new GetInstanceTypeRequest()
-		request.setInstanceTypeId(Integer.parseInt(TEST_INSTANCE_TYPE_ID))
+		def request = new ListCloudsRequest()
 		when:
-		GetInstanceTypeResponse response = client.getInstanceType(request)
+		ListCloudsResponse response = client.listClouds(request)
 		then:
-		response.instanceType != null
+		response.clouds?.size() > 0
 	}
 }

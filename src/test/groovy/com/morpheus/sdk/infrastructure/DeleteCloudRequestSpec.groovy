@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.provisioning
+package com.morpheus.sdk.infrastructure
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
@@ -24,11 +24,12 @@ import spock.lang.Specification
 /**
  * @author William Chu
  */
-class GetInstanceTypeRequestSpec extends Specification {
+class DeleteCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_TYPE_ID=System.getProperty('morpheus.api.testInstanceTypeId',"23")
+	static String TEST_CLOUD_TYPE_ID=System.getProperty('morpheus.api.testCloudTypeId',"3")
+	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"1")
 
 	@Shared
 	MorpheusClient client
@@ -43,14 +44,30 @@ class GetInstanceTypeRequestSpec extends Specification {
 
 	}
 
-
-	void "it should successfully retrieve an instance type by id"() {
+	void "it should successfully delete a cloud"() {
 		given:
-		def request = new GetInstanceTypeRequest()
-		request.setInstanceTypeId(Integer.parseInt(TEST_INSTANCE_TYPE_ID))
+		def cloudTypeRequest = new GetCloudTypeRequest()
+		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
+		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
+
+		def createTestCloudRequest = new CreateCloudRequest()
+		Cloud cloud = new Cloud()
+		def m1 = System.currentTimeMillis()
+		cloud.name = "Test Cloud ${m1}"
+		cloud.visibility = "public"
+		cloud.cloudType = cloudTypeResponse.cloudType
+		cloud.groupId = Integer.parseInt(TEST_SERVER_GROUP_ID)
+		createTestCloudRequest.setCloud(cloud)
+		CreateCloudResponse createTestCloudResponse = client.createCloud(createTestCloudRequest)
+		assert createTestCloudResponse.cloud != null
+
+		def request = new DeleteCloudRequest()
+		request.cloudId(createTestCloudResponse.cloud.id)
+
 		when:
-		GetInstanceTypeResponse response = client.getInstanceType(request)
+		DeleteCloudResponse response = client.deleteCloud(request)
 		then:
-		response.instanceType != null
+		response.msg == null
+		response.success == true
 	}
 }

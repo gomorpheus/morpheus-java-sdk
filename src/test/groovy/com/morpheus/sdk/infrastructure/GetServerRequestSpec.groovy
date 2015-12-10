@@ -30,6 +30,7 @@ class GetServerRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_SERVER_ID=System.getProperty('morpheus.api.testServerId',"22")
 
 	@Shared
 	MorpheusClient client
@@ -44,15 +45,13 @@ class GetServerRequestSpec extends Specification {
 
 	}
 
-/*
 	void "it should successfully retrieve a server by id"() {
 		given:
 		def request = new GetServerRequest()
-		request.setServerId(22)
+		request.setServerId(Integer.parseInt(TEST_SERVER_ID))
 		when:
 		GetServerResponse response = client.getServer(request)
 		then:
 		response.server != null
 	}
-	*/
 }

@@ -29,7 +29,7 @@ class UpdateInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.test_instance',"129")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"129")
 
 	@Shared
 	MorpheusClient client
@@ -44,30 +44,27 @@ class UpdateInstanceRequestSpec extends Specification {
 
 	}
 
-/*
 	void "it should successfully update an instance"() {
 		given:
-		def testInstanceId = Long.parseLong(TEST_INSTANCE_ID)
-//			def testInstanceId = 129
-			def testInstanceDescription = "Booyah!"
-			def request = new GetInstanceRequest()
-			request.setInstanceId(testInstanceId)
-			GetInstanceResponse response = client.getInstance(request)
-			Instance instance = response.instance
-			def previousDescription = instance.description
-			instance.description = testInstanceDescription
-			def updateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
+		def testInstanceId = Integer.parseInt(TEST_INSTANCE_ID)
+		def testInstanceDescription = "Booyah!"
+		def request = new GetInstanceRequest()
+		request.setInstanceId(testInstanceId)
+		GetInstanceResponse response = client.getInstance(request)
+		Instance instance = response.instance
+		def previousDescription = instance.description
+		instance.description = testInstanceDescription
+		def updateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
 		when:
-			UpdateInstanceResponse updateInstanceResponse = client.updateInstance(updateRequest)
+		UpdateInstanceResponse updateInstanceResponse = client.updateInstance(updateRequest)
 		then:
-			updateInstanceResponse.success == true
-			updateInstanceResponse.instance?.description == testInstanceDescription
+		updateInstanceResponse.success == true
+		updateInstanceResponse.instance?.description == testInstanceDescription
 		cleanup:
-			instance.description = previousDescription
-			def restoreUpdateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
-			UpdateInstanceResponse restoreUpdateInstanceResponse = client.updateInstance(restoreUpdateRequest)
-			restoreUpdateInstanceResponse.success == true
+		instance.description = previousDescription
+		def restoreUpdateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
+		UpdateInstanceResponse restoreUpdateInstanceResponse = client.updateInstance(restoreUpdateRequest)
+		restoreUpdateInstanceResponse.success == true
 
 	}
-	*/
 }
