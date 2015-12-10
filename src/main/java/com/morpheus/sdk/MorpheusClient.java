@@ -638,4 +638,47 @@ public class MorpheusClient {
 	public DeleteCloudResponse deleteCloud(DeleteCloudRequest request) throws MorpheusApiRequestException {
 		return (DeleteCloudResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link CreateServerGroupRequest} to create a new {@link ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	ServerGroup serverGroup = new ServerGroup();
+	 *     	serverGroup.name = "New Server Group Name";
+	 *     	serverGroup.visibility = "public";
+	 *     	CreateServerGroupRequest request = new CreateServerGroupRequest().serverGroup(serverGroup);
+	 *     	CreateServerGroupResponse response = client.createServerGroup(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link ServerGroup ServerGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateServerGroupResponse createServerGroup(CreateServerGroupRequest request) throws MorpheusApiRequestException {
+		return (CreateServerGroupResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteServerGroupRequest} to delete an existing {@link ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteServerGroupRequest request = new DeleteServerGroupRequest();
+	 *     	request.serverGroupId(1);
+	 *     	DeleteServerGroupResponse response = client.deleteServerGroup(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link ServerGroup ServerGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteServerGroupResponse deleteServerGroup(DeleteServerGroupRequest request) throws MorpheusApiRequestException {
+		return (DeleteServerGroupResponse)executeAuthenticatedRequest(request);
+	}
 }
