@@ -1,10 +1,9 @@
-package com.morpheus.sdk.infrastructure;
+package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -17,41 +16,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to deleting an existing {@link Cloud} object.
+ * A request object for defining a request to create a new {@link Check} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	DeleteCloudRequest request = new DeleteCloudRequest();
- *     	request.cloudId(1);
- *     	DeleteCloudResponse response = client.deleteCloud(request);
- *     	return response.success;
+ *     	Check check = new Check();
+ *     	check.name = "New Check Name";
+ *     	CreateCheckRequest request = new CreateCheckRequest().check(check);
+ *     	CreateCheckResponse response = client.createCheck(request);
  *     }
  * </pre>
  *
  * @author William Chu
  */
-public class DeleteCloudRequest extends AbstractApiRequest<DeleteCloudResponse> {
-	private Long cloudId;
+public class CreateCheckRequest extends AbstractApiRequest<CreateCheckResponse> {
+	private Check check;
 
 	@Override
-	public DeleteCloudResponse executeRequest() throws MorpheusApiRequestException {
+	public CreateCheckResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/zones/" + this.getCloudId());
-			HttpDelete request = new HttpDelete(uriBuilder.build());
+			uriBuilder.setPath("/api/checks/");
+			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
 			client = clientBuilder.build();
 			request.addHeader("Content-Type","application/json");
+			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
-			return DeleteCloudResponse.createFromStream(response.getEntity().getContent());
+			return CreateCheckResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Deleting an existing Cloud instance", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for Creating a new Check instance", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -63,12 +63,23 @@ public class DeleteCloudRequest extends AbstractApiRequest<DeleteCloudResponse> 
 		}
 	}
 
-	public Long getCloudId() {
-		return cloudId;
+	private String generateRequestBody() {
+		Gson gson = new Gson();
+		Map<String,Check> deployMap = new HashMap<String,Check>();
+		deployMap.put("check", check);
+		return gson.toJson(deployMap);
 	}
 
-	public DeleteCloudRequest cloudId(Long cloudId) {
-		this.cloudId = cloudId;
+	public Check getCheck() {
+		return check;
+	}
+
+	public void setCheck(Check check) {
+		this.check = check;
+	}
+
+	public CreateCheckRequest check(Check check) {
+		this.check = check;
 		return this;
 	}
 }

@@ -769,4 +769,72 @@ public class MorpheusClient {
 	public DeleteCertificateResponse deleteCertificate(DeleteCertificateRequest request) throws MorpheusApiRequestException {
 		return (DeleteCertificateResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link ProvisionServerRequest} to provision a new {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Server server = new Server();
+	 *     	server.name = "Unique server name";
+	 *     	server.sshHost = "192.168.168.2";
+	 *     	server.sshUsername = "admin";
+	 *     	server.sshPassword = "password";
+	 *     	server.zone = { "id": 1 }
+	 *     	ProvisionServerRequest request = new ProvisionServerRequest().server(server)
+	 *     	ProvisionServerResponse response = client.provisionServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a success flag and the name of the server name to confirm successful provisioning.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ProvisionServerResponse provisionServer(ProvisionServerRequest request) throws MorpheusApiRequestException {
+		return (ProvisionServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteServerRequest} to delete an existing {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteServerRequest request = new DeleteServerRequest();
+	 *     	request.serverId(1);
+	 *     	DeleteServerResponse response = client.deleteServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Server Server} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteServerResponse deleteServer(DeleteServerRequest request) throws MorpheusApiRequestException {
+		return (DeleteServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateCheckRequest} to create a new {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Check check = new Check();
+	 *     	check.name = "New Check Name";
+	 *     	CreateCheckRequest request = new CreateCheckRequest().check(check);
+	 *     	CreateCheckResponse response = client.createCheck(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCheckResponse createCheck(CreateCheckRequest request) throws MorpheusApiRequestException {
+		return (CreateCheckResponse)executeAuthenticatedRequest(request);
+	}
 }

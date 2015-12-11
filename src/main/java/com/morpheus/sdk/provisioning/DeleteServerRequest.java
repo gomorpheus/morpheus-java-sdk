@@ -1,13 +1,11 @@
-package com.morpheus.sdk.infrastructure;
+package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -17,30 +15,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to deleting an existing {@link Cloud} object.
+ * A request object for defining a request to deleting an existing {@link Server} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	DeleteCloudRequest request = new DeleteCloudRequest();
- *     	request.cloudId(1);
- *     	DeleteCloudResponse response = client.deleteCloud(request);
+ *     	DeleteServerRequest request = new DeleteServerRequest();
+ *     	request.serverId(1);
+ *     	DeleteServerResponse response = client.deleteServer(request);
  *     	return response.success;
  *     }
  * </pre>
  *
  * @author William Chu
  */
-public class DeleteCloudRequest extends AbstractApiRequest<DeleteCloudResponse> {
-	private Long cloudId;
+public class DeleteServerRequest extends AbstractApiRequest<DeleteServerResponse> {
+	private Long serverId;
 
 	@Override
-	public DeleteCloudResponse executeRequest() throws MorpheusApiRequestException {
+	public DeleteServerResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/zones/" + this.getCloudId());
+			uriBuilder.setPath("/api/servers/" + this.getServerId());
 			HttpDelete request = new HttpDelete(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -48,10 +46,10 @@ public class DeleteCloudRequest extends AbstractApiRequest<DeleteCloudResponse> 
 			client = clientBuilder.build();
 			request.addHeader("Content-Type","application/json");
 			CloseableHttpResponse response = client.execute(request);
-			return DeleteCloudResponse.createFromStream(response.getEntity().getContent());
+			return DeleteServerResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Deleting an existing Cloud instance", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for Deleting an existing Server instance", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -63,12 +61,12 @@ public class DeleteCloudRequest extends AbstractApiRequest<DeleteCloudResponse> 
 		}
 	}
 
-	public Long getCloudId() {
-		return cloudId;
+	public Long getServerId() {
+		return serverId;
 	}
 
-	public DeleteCloudRequest cloudId(Long cloudId) {
-		this.cloudId = cloudId;
+	public DeleteServerRequest serverId(Long serverId) {
+		this.serverId = serverId;
 		return this;
 	}
 }
