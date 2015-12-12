@@ -837,4 +837,26 @@ public class MorpheusClient {
 	public CreateCheckResponse createCheck(CreateCheckRequest request) throws MorpheusApiRequestException {
 		return (CreateCheckResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link DeleteCheckRequest} to delete an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCheckRequest request = new DeleteCheckRequest();
+	 *     	request.checkId(1);
+	 *     	DeleteCheckResponse response = client.deleteCheck(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCheckResponse deleteCheck(DeleteCheckRequest request) throws MorpheusApiRequestException {
+		return (DeleteCheckResponse)executeAuthenticatedRequest(request);
+	}
+
 }

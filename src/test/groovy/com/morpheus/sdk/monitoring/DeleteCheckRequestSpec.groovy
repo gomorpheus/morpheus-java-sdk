@@ -18,14 +18,13 @@ package com.morpheus.sdk.monitoring
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.infrastructure.*
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author William Chu
  */
-class CreateCheckRequestSpec extends Specification {
+class DeleteCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
@@ -43,47 +42,29 @@ class CreateCheckRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-/*
-	void "it should fail creating a cloud"() {
-		given:
-		def cloudTypeRequest = new GetCloudTypeRequest()
-		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
-		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
 
-		def request = new CreateCloudRequest()
-		Cloud cloud = new Cloud()
-		def m1 = System.currentTimeMillis()
-		cloud.name = "Test Cloud ${m1}"
-		cloud.visibility = "public"
-		cloud.cloudType = cloudTypeResponse.cloudType
-		request.setCloud(cloud)
-		when:
-		CreateCloudResponse response = client.createCloud(request)
-		then:
-		response.errors['groupId'] != null
-		response.cloud == null
-	}
-*/
-	void "it should successfully create a check"() {
+	void "it should successfully delete a check"() {
 		given:
 		def checkTypeRequest = new GetCheckTypeRequest()
 		checkTypeRequest.setCheckTypeId(Integer.parseInt(TEST_CHECK_TYPE_ID))
 		GetCheckTypeResponse checkTypeResponse = client.getCheckType(checkTypeRequest)
 
-		def request = new CreateCheckRequest()
+		def createCheckRequest = new CreateCheckRequest()
 		Check check = new Check()
 		def m1 = System.currentTimeMillis()
 		check.name = "Test Check ${m1}"
 		check.checkType = checkTypeResponse.checkType
-		request.setCheck(check)
+		createCheckRequest.setCheck(check)
+		CreateCheckResponse createCheckResponse = client.createCheck(createCheckRequest)
+		assert createCheckResponse.check != null
+
+		DeleteCheckRequest request = new DeleteCheckRequest()
+		request.checkId(createCheckResponse.check.id)
+
 		when:
-		CreateCheckResponse response = client.createCheck(request)
+		DeleteCheckResponse response = client.deleteCheck(request)
 		then:
-		response.check != null
-/*
-		DeleteCloudRequest cleanupRequest = new DeleteCloudRequest()
-		cleanupRequest.cloudId(response.cloud.id)
-		DeleteCloudResponse cleanupResponse = client.deleteCloud(cleanupRequest)
-		*/
+		response.msg == null
+		response.success == true
 	}
 }
