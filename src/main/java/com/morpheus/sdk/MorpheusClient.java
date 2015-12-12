@@ -859,4 +859,24 @@ public class MorpheusClient {
 		return (DeleteCheckResponse)executeAuthenticatedRequest(request);
 	}
 
+	/**
+	 * Executes a {@link UpdateCheckRequest} to update an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateCheckRequest request = new UpdateCheckRequest().checkId(1).check(updatedCheck)
+	 *     	UpdateCheckResponse response = client.updateCheck(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object updating an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpdateCheckResponse updateCheck(UpdateCheckRequest request) throws MorpheusApiRequestException {
+		return (UpdateCheckResponse)executeAuthenticatedRequest(request);
+	}
+
 }

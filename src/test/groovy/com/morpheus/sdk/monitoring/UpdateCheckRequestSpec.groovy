@@ -18,12 +18,7 @@ package com.morpheus.sdk.monitoring
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.infrastructure.*
-import com.morpheus.sdk.provisioning.GetInstanceRequest
-import com.morpheus.sdk.provisioning.GetInstanceResponse
-import com.morpheus.sdk.provisioning.Instance
-import com.morpheus.sdk.provisioning.UpdateInstanceRequest
-import com.morpheus.sdk.provisioning.UpdateInstanceResponse
+import com.morpheus.sdk.provisioning.*
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -34,7 +29,7 @@ class UpdateCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"129")
+	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"129")
 
 	@Shared
 	MorpheusClient client
@@ -49,27 +44,33 @@ class UpdateCheckRequestSpec extends Specification {
 
 	}
 
-	void "it should successfully update an instance"() {
+	void "it should successfully update a check"() {
 		given:
-		def testInstanceId = Integer.parseInt(TEST_INSTANCE_ID)
-		def testInstanceDescription = "Booyah!"
-		def request = new GetInstanceRequest()
-		request.setInstanceId(testInstanceId)
-		GetInstanceResponse response = client.getInstance(request)
-		Instance instance = response.instance
-		def previousDescription = instance.description
-		instance.description = testInstanceDescription
-		def updateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
+		def testCheckId = Integer.parseInt(TEST_CHECK_ID)
+		def testCheckDescription = "Booyah!"
+		def request = new GetCheckRequest()
+		request.checkId(testCheckId)
+		GetCheckResponse response = client.getCheck(request)
+		Check check = response.check
+		def previousDescription = check.description
+		check.description = testCheckDescription
+
+		def checkTypeRequest = new GetCheckTypeRequest()
+		checkTypeRequest.setCheckTypeId(check.checkType.id)
+		GetCheckTypeResponse checkTypeResponse = client.getCheckType(checkTypeRequest)
+		check.checkType = checkTypeResponse.checkType
+
+		def updateRequest = new UpdateCheckRequest().checkId(testCheckId).check(check)
 		when:
-		UpdateInstanceResponse updateInstanceResponse = client.updateInstance(updateRequest)
+		UpdateCheckResponse updateCheckResponse = client.updateCheck(updateRequest)
 		then:
-		updateInstanceResponse.success == true
-		updateInstanceResponse.instance?.description == testInstanceDescription
+		updateCheckResponse.success == true
+		updateCheckResponse.check?.description == testCheckDescription
 		cleanup:
-		instance.description = previousDescription
-		def restoreUpdateRequest = new UpdateInstanceRequest().instanceId(testInstanceId).instance(instance)
-		UpdateInstanceResponse restoreUpdateInstanceResponse = client.updateInstance(restoreUpdateRequest)
-		restoreUpdateInstanceResponse.success == true
+		check.description = previousDescription
+		def restoreUpdateRequest = new UpdateCheckRequest().checkId(testCheckId).check(check)
+		UpdateCheckResponse restoreUpdateCheckResponse = client.updateCheck(restoreUpdateRequest)
+		restoreUpdateCheckResponse.success == true
 
 	}
 }
