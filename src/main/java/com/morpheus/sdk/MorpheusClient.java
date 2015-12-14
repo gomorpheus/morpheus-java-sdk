@@ -879,4 +879,23 @@ public class MorpheusClient {
 		return (UpdateCheckResponse)executeAuthenticatedRequest(request);
 	}
 
+	/**
+	 * Executes a {@link MuteCheckRequest} to mute/unmute an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	MuteCheckRequest request = new MuteCheckRequest().checkId(1).mute(flag)
+	 *     	MuteCheckResponse response = client.muteCheck(request);
+	 *     	return response.muteState;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object muting/unmuting an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public MuteCheckResponse muteCheck(MuteCheckRequest request) throws MorpheusApiRequestException {
+		return (MuteCheckResponse)executeAuthenticatedRequest(request);
+	}
 }

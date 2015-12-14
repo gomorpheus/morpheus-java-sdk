@@ -24,11 +24,11 @@ import spock.lang.Specification
 /**
  * @author William Chu
  */
-class UpdateCheckRequestSpec extends Specification {
+class MuteCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"129")
+	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"93")
 
 	@Shared
 	MorpheusClient client
@@ -43,33 +43,27 @@ class UpdateCheckRequestSpec extends Specification {
 
 	}
 
-	void "it should successfully update a check"() {
+	void "it should successfully mute a check"() {
 		given:
 		def testCheckId = Integer.parseInt(TEST_CHECK_ID)
-		def testCheckDescription = "Booyah!"
-		def request = new GetCheckRequest()
-		request.checkId(testCheckId)
-		GetCheckResponse response = client.getCheck(request)
-		Check check = response.check
-		def previousDescription = check.description
-		check.description = testCheckDescription
-
-		def checkTypeRequest = new GetCheckTypeRequest()
-		checkTypeRequest.setCheckTypeId(check.checkType.id)
-		GetCheckTypeResponse checkTypeResponse = client.getCheckType(checkTypeRequest)
-		check.checkType = checkTypeResponse.checkType
-
-		def updateRequest = new UpdateCheckRequest().checkId(testCheckId).check(check)
+		def muteRequest = new MuteCheckRequest().checkId(testCheckId).mute(true)
 		when:
-		UpdateCheckResponse updateCheckResponse = client.updateCheck(updateRequest)
+		MuteCheckResponse muteCheckResponse = client.muteCheck(muteRequest)
 		then:
-		updateCheckResponse.success == true
-		updateCheckResponse.check?.description == testCheckDescription
+		muteCheckResponse.muteState == 'QUARANTINED'
 		cleanup:
-		check.description = previousDescription
-		def restoreUpdateRequest = new UpdateCheckRequest().checkId(testCheckId).check(check)
-		UpdateCheckResponse restoreUpdateCheckResponse = client.updateCheck(restoreUpdateRequest)
-		restoreUpdateCheckResponse.success == true
+		def restoreUpdateRequest = new MuteCheckRequest().checkId(testCheckId).mute(false)
+		MuteCheckResponse restoreUpdateCheckResponse = client.muteCheck(restoreUpdateRequest)
+		restoreUpdateCheckResponse.muteState == 'OK'
+	}
 
+	void "it should successfully unmute a check"() {
+		given:
+		def testCheckId = Integer.parseInt(TEST_CHECK_ID)
+		def muteRequest = new MuteCheckRequest().checkId(testCheckId).mute(false)
+		when:
+		MuteCheckResponse muteCheckResponse = client.muteCheck(muteRequest)
+		then:
+		muteCheckResponse.muteState == 'OK'
 	}
 }

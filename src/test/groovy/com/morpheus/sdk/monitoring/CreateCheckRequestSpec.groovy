@@ -16,9 +16,9 @@
 
 package com.morpheus.sdk.monitoring
 
+import com.google.gson.Gson
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.infrastructure.*
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -30,6 +30,7 @@ class CreateCheckRequestSpec extends Specification {
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
 	static String TEST_CHECK_TYPE_ID=System.getProperty('morpheus.api.testCheckTypeId',"1")
+	static String TEST_CHECK_WEB_URL=System.getProperty('morpheus.api.testCheckWebUrl',"http://www.bing.com")
 
 	@Shared
 	MorpheusClient client
@@ -75,15 +76,22 @@ class CreateCheckRequestSpec extends Specification {
 		def m1 = System.currentTimeMillis()
 		check.name = "Test Check ${m1}"
 		check.checkType = checkTypeResponse.checkType
+		check.checkInterval = 60
+		def configMap = [:]
+		configMap.webUrl = TEST_CHECK_WEB_URL
+		configMap.webMethod = "GET"
+		def gsonBuilder = new Gson()
+		String json = gsonBuilder.toJson(configMap)
+		check.config = json
 		request.setCheck(check)
 		when:
 		CreateCheckResponse response = client.createCheck(request)
 		then:
 		response.check != null
-/*
-		DeleteCloudRequest cleanupRequest = new DeleteCloudRequest()
-		cleanupRequest.cloudId(response.cloud.id)
-		DeleteCloudResponse cleanupResponse = client.deleteCloud(cleanupRequest)
-		*/
+
+		DeleteCheckRequest cleanupRequest = new DeleteCheckRequest()
+		cleanupRequest.checkId(response.check.id)
+		DeleteCheckResponse cleanupResponse = client.deleteCheck(cleanupRequest)
+		assert cleanupResponse.success == true
 	}
 }
