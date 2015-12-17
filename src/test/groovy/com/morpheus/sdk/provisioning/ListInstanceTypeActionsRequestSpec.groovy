@@ -18,17 +18,17 @@ package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.provisioning.ListInstanceTypesRequest
-import com.morpheus.sdk.provisioning.ListInstanceTypesResponse
 import spock.lang.Shared
 import spock.lang.Specification
+
 /**
- * @author David Estes
+ * @author William Chu
  */
-class ListInstanceTypesRequestSpec extends Specification {
+class ListInstanceTypeActionsRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_INSTANCE_TYPE_ID=System.getProperty('morpheus.api.testInstanceTypeId',"23")
 
 	@Shared
 	MorpheusClient client
@@ -43,12 +43,18 @@ class ListInstanceTypesRequestSpec extends Specification {
 
 	}
 
-	void "it should successfully list instance types"() {
+	void "it should successfully list actions for a given instance layout"() {
 		given:
-			def request = new ListInstanceTypesRequest()
+		def instanceTypeRequest = new GetInstanceTypeRequest()
+		instanceTypeRequest.setInstanceTypeId(Integer.parseInt(TEST_INSTANCE_TYPE_ID))
+		GetInstanceTypeResponse instanceTypeResponse = client.getInstanceType(instanceTypeRequest)
+		assert instanceTypeResponse.instanceType.instanceTypeLayouts.size() > 0, "The instance type must have at least one instance type layout before we can proceed with testing"
+
+		def request = new ListInstanceTypeActionsRequest()
+		request.instanceTypeId(instanceTypeResponse.instanceType.instanceTypeLayouts.get(0).id)
 		when:
-			ListInstanceTypesResponse response = client.listInstanceTypes(request)
+		ListInstanceTypeActionsResponse response = client.listInstanceTypeActions(request)
 		then:
-			response.instanceTypes?.size() > 1
+		response.actions?.size() > 0
 	}
 }

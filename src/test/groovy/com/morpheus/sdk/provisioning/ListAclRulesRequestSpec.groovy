@@ -18,17 +18,17 @@ package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
-import com.morpheus.sdk.provisioning.ListInstanceTypesRequest
-import com.morpheus.sdk.provisioning.ListInstanceTypesResponse
 import spock.lang.Shared
 import spock.lang.Specification
+
 /**
- * @author David Estes
+ * @author William Chu
  */
-class ListInstanceTypesRequestSpec extends Specification {
+class ListAclRulesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"23")
 
 	@Shared
 	MorpheusClient client
@@ -43,12 +43,15 @@ class ListInstanceTypesRequestSpec extends Specification {
 
 	}
 
-	void "it should successfully list instance types"() {
+	void "it should successfully retrieve acl rules for an instance by instance id"() {
 		given:
-			def request = new ListInstanceTypesRequest()
+		def request = new ListAclRulesRequest()
+		request.setInstanceId(Integer.parseInt(TEST_INSTANCE_ID))
 		when:
-			ListInstanceTypesResponse response = client.listInstanceTypes(request)
+		ListAclRulesResponse response = client.listAclRules(request)
 		then:
-			response.instanceTypes?.size() > 1
+		response.success == true
+		response.chain != null
+		response.rules != null
 	}
 }

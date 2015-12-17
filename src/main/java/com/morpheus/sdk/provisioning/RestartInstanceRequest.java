@@ -3,7 +3,7 @@ package com.morpheus.sdk.provisioning;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -12,44 +12,44 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 
 /**
- * A request object for defining a request for fetching an instance type within the Morpheus Account.
+ * A request object for defining a request for restarting a specific instance within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to fetch a specific {@link InstanceType} object.
+ * is used to restart an {@link Instance} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	GetInstanceTypeRequest request = new GetInstanceTypeRequest();
- *     	request.setInstanceTypeId(1);
- *     	GetInstanceTypeResponse response = client.getInstanceType(request);
- *     	return response.instanceType;
+ *     	RestartInstanceRequest request = new RestartInstanceRequest().instanceId(instanceId);
+ *     	RestartInstanceResponse response = client.restartInstance(request);
+ *     	return response.success;
  *     }
  * </pre>
- * @author David Estes
+ * @author William Chu
  */
-public class GetInstanceTypeRequest extends AbstractApiRequest<GetInstanceTypeResponse> {
-	private Long instanceTypeId;
+public class RestartInstanceRequest extends AbstractApiRequest<RestartInstanceResponse> {
+	private Long instanceId;
+
 	/**
 	 * Executes the request against the appliance API (Should not be called directly).
 	 */
 	@Override
-	public GetInstanceTypeResponse executeRequest() throws MorpheusApiRequestException {
+	public RestartInstanceResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/instance-types/" + this.getInstanceTypeId());
-			HttpGet request = new HttpGet(uriBuilder.build());
+			uriBuilder.setPath("/api/instances/" + this.getInstanceId() + "/restart");
+			HttpPut request = new HttpPut(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
 			client = clientBuilder.build();
-
+			request.addHeader("Content-Type","application/json");
 			CloseableHttpResponse response = client.execute(request);
-			return GetInstanceTypeResponse.createFromStream(response.getEntity().getContent());
+			return RestartInstanceResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Instance Type lookup", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for restarting an instance", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -61,16 +61,16 @@ public class GetInstanceTypeRequest extends AbstractApiRequest<GetInstanceTypeRe
 		}
 	}
 
-	public Long getInstanceTypeId() {
-		return instanceTypeId;
+	public Long getInstanceId() {
+		return instanceId;
 	}
 
-	public void setInstanceTypeId(Long instanceTypeId) {
-		this.instanceTypeId = instanceTypeId;
+	public void setInstanceId(Long instanceId) {
+		this.instanceId = instanceId;
 	}
 
-	public GetInstanceTypeRequest instanceTypeId(Long instanceTypeId) {
-		this.instanceTypeId = instanceTypeId;
+	public RestartInstanceRequest instanceId(Long instanceId) {
+		this.instanceId = instanceId;
 		return this;
 	}
 }
