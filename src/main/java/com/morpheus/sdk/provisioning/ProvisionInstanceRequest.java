@@ -18,9 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request for updating a specific instance within the Morpheus Account.
+ * A request object for defining a request for provisioning a new instance within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to provision a {@link Server} object.
+ * is used to provision an {@link Instance} object.
  *
  * Example Usage:
  * <pre>
@@ -39,7 +39,7 @@ import java.util.Map;
  * </pre>
  * @author William Chu
  */
-public class ProvisionInstanceRequest extends AbstractApiRequest<ProvisionServerResponse> {
+public class ProvisionInstanceRequest extends AbstractApiRequest<ProvisionInstanceResponse> {
 	private Server server;
 	private HashMap<String, String> network = new HashMap<String, String>();
 
@@ -47,11 +47,11 @@ public class ProvisionInstanceRequest extends AbstractApiRequest<ProvisionServer
 	 * Executes the request against the appliance API (Should not be called directly).
 	 */
 	@Override
-	public ProvisionServerResponse executeRequest() throws MorpheusApiRequestException {
+	public ProvisionInstanceResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/servers");
+			uriBuilder.setPath("/api/instances");
 			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -60,10 +60,10 @@ public class ProvisionInstanceRequest extends AbstractApiRequest<ProvisionServer
 			request.addHeader("Content-Type","application/json");
 			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
-			return ProvisionServerResponse.createFromStream(response.getEntity().getContent());
+			return ProvisionInstanceResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for provisioning a server", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for provisioning an instance", ex);
 		} finally {
 			if(client != null) {
 				try {
