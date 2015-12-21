@@ -24,11 +24,12 @@ import spock.lang.Specification
 /**
  * @author William Chu
  */
-class DeleteAclRulesRequestSpec extends Specification {
+class DeleteAclRuleRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
 	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"23")
+	static String TEST_ACL_RULE_IP=System.getProperty('morpheus.api.testAclRuleIp',"127.0.0.1/32")
 
 	@Shared
 	MorpheusClient client
@@ -44,13 +45,14 @@ class DeleteAclRulesRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully retrieve an instance type by id"() {
+	void "it should successfully deletes an acl rule for an instance"() {
 		given:
-		def request = new GetInstanceTypeRequest()
-		request.setInstanceTypeId(Integer.parseInt(TEST_INSTANCE_TYPE_ID))
+		def request = new DeleteAclRuleRequest()
+		request.instanceId(Integer.parseInt(TEST_INSTANCE_ID))
+		request.ip(TEST_ACL_RULE_IP)
 		when:
-		GetInstanceTypeResponse response = client.getInstanceType(request)
+		DeleteAclRuleResponse response = client.deleteAclRule(request)
 		then:
-		response.instanceType != null
+		response.success == true
 	}
 }

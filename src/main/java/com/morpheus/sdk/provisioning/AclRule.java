@@ -1,5 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Date;
  * It is used by GSON Decoder to convert JSON of the following structure into a java based Object.
  *
  * <pre>
- * "chain": {
+ * "rule": {
  *    "description": "test ACL description",
  *    "ip": "0.0.0.0/32",
  *    "isEnabled": false,
@@ -18,6 +20,7 @@ import java.util.Date;
  */
 public class AclRule {
   public String description;
+  @SerializedName("cidr")
   public String ip;
   public Boolean isEnabled;
   public Boolean isReadOnly;

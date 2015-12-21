@@ -26,12 +26,19 @@ import java.util.Map;
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	GetInstanceTypeRequest request = new GetInstanceTypeRequest();
- *     	GetInstanceTypeResponse response = client.getInstanceType(request);
- *     	return response.instanceType;
+ *     	SetAclRulesRequest request = new SetAclRulesRequest().instanceId(instanceId);
+ *     	AclRule rule = new AclRule();
+ *     	rule.ip = '127.0.0.1/32';
+ *     	rule.description = 'Acl rule description';
+ *     	rule.jump = 'ACCEPT';
+ *     	rule.isEnabled = true;
+ *     	rule.isReadOnly = false;
+ *     	request.getRules().add(rule);
+ *     	SetAclRulesResponse response = client.setAclRules(request);
+ *     	return response.success;
  *     }
  * </pre>
- * @author David Estes
+ * @author William Chu
  */
 public class SetAclRulesRequest extends AbstractApiRequest<SetAclRulesResponse> {
 	private Long instanceId;

@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request for updating a specific instance within the Morpheus Account.
+ * A request object for defining a request for resizing a specific instance within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to provision a {@link Server} object.
+ * is used to resize an {@link Instance} object.
  *
  * Example Usage:
  * <pre>
@@ -58,7 +58,7 @@ public class ResizeInstanceRequest extends AbstractApiRequest<ResizeInstanceResp
 			return ResizeInstanceResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for resizing an instance", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for resizing an Instance", ex);
 		} finally {
 			if(client != null) {
 				try {

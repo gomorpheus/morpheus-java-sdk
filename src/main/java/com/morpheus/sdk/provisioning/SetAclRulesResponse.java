@@ -5,12 +5,15 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The Response of a {@link SetAclRulesRequest} providing the de-serialized objects from the API.
  * @author William Chu
  */
 public class SetAclRulesResponse {
+	public HashMap<String, String> errors;
+	public Boolean success;
 	public AclChain chain;
 	public ArrayList<AclRule> rules;
 

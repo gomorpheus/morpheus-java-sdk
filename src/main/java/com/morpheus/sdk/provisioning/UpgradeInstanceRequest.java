@@ -19,40 +19,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request for updating a specific instance within the Morpheus Account.
+ * A request object for defining a request for upgrading a specific instance within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to provision a {@link Server} object.
+ * is used to upgrade an {@link Instance} object.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	Server server = new Server();
- *     	server.name = "Unique server name";
- *     	server.sshHost = "192.168.168.2";
- *     	server.sshUsername = "admin";
- *     	server.sshPassword = "password";
- *     	server.zone = { "id": 1 }
- *     	ProvisionServerRequest request = new ProvisionServerRequest().server(server)
- *     	ProvisionServerResponse response = client.provisionServer(request);
+ *     	UpgradeInstanceRequest request = new UpgradeInstanceRequest().instanceId(instanceId).servicePlanId(servicePlanId);
+ *     	UpgradeInstanceResponse response = client.upgradeInstance(request);
  *     	return response.success;
  *     }
  * </pre>
  * @author William Chu
  */
-public class UpgradeInstanceRequest extends AbstractApiRequest<ProvisionServerResponse> {
-	private Server server;
-	private HashMap<String, String> network = new HashMap<String, String>();
+public class UpgradeInstanceRequest extends AbstractApiRequest<UpgradeInstanceResponse> {
+	private Long instanceId;
+	private ServicePlan servicePlan;
 
 	/**
 	 * Executes the request against the appliance API (Should not be called directly).
 	 */
 	@Override
-	public ProvisionServerResponse executeRequest() throws MorpheusApiRequestException {
+	public UpgradeInstanceResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/instances");
+			uriBuilder.setPath("/api/instances/" + this.getInstanceId() + "/upgrade");
 			HttpPut request = new HttpPut(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -61,10 +55,10 @@ public class UpgradeInstanceRequest extends AbstractApiRequest<ProvisionServerRe
 			request.addHeader("Content-Type","application/json");
 			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
-			return ProvisionServerResponse.createFromStream(response.getEntity().getContent());
+			return UpgradeInstanceResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for provisioning a server", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for upgrading an Instance", ex);
 		} finally {
 			if(client != null) {
 				try {
@@ -79,26 +73,43 @@ public class UpgradeInstanceRequest extends AbstractApiRequest<ProvisionServerRe
 	private String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
-		Map<String,Object> deployMap = new HashMap<String,Object>();
-		deployMap.put("server", server);
-		deployMap.put("network", network);
+		Map<String,ServicePlan> deployMap = new HashMap<String,ServicePlan>();
+		deployMap.put("servicePlan", servicePlan);
 		return gson.toJson(deployMap);
 	}
 
-	public Server getServer() {
-		return server;
+	public Long getInstanceId() {
+		return instanceId;
 	}
 
-	public void setServer(Server server) {
-		this.server = server;
+	public void setInstanceId(Long instanceId) {
+		this.instanceId = instanceId;
 	}
 
-	public HashMap<String, String> getNetwork() {
-		return network;
+	public UpgradeInstanceRequest instanceId(Long instanceId) {
+		this.instanceId = instanceId;
+		return this;
 	}
 
-	public UpgradeInstanceRequest server(Server server) {
-		this.server = server;
+	public void setServicePlanId(Long servicePlanId) {
+		ServicePlan servicePlan = new ServicePlan();
+		servicePlan.id = servicePlanId;
+		this.servicePlan = servicePlan;
+	}
+
+	public UpgradeInstanceRequest servicePlanId(Long servicePlanId) {
+		ServicePlan servicePlan = new ServicePlan();
+		servicePlan.id = servicePlanId;
+		this.servicePlan = servicePlan;
+		return this;
+	}
+
+	public void setServicePlan(ServicePlan servicePlan) {
+		this.servicePlan = servicePlan;
+	}
+
+	public UpgradeInstanceRequest servicePlan(ServicePlan servicePlan) {
+		this.servicePlan = servicePlan;
 		return this;
 	}
 }

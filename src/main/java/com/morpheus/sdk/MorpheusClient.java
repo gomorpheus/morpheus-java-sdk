@@ -1090,4 +1090,71 @@ public class MorpheusClient {
 	public ResizeInstanceResponse resizeInstance(ResizeInstanceRequest request) throws MorpheusApiRequestException {
 		return (ResizeInstanceResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link UpgradeInstanceRequest UpgradeInstanceRequest} to upgrade a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  UpgradeInstanceRequest request = new UpgradeInstanceRequest().instanceId(instanceId).servicePlan(servicePlan)
+	 *  UpgradeInstanceResponse response = client.upgradeInstance(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpgradeInstanceResponse upgradeInstance(UpgradeInstanceRequest request) throws MorpheusApiRequestException {
+		return (UpgradeInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link SetAclRulesRequest SetAclRulesRequest} to set rules for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  SetAclRulesRequest request = new SetAclRulesRequest().instanceId(instanceId);
+	 *  AclRule rule = new AclRule();
+	 *  rule.ip = '127.0.0.1/32';
+	 *  rule.description = 'Acl rule description';
+	 *  rule.jump = 'ACCEPT';
+	 *  rule.isEnabled = true;
+	 *  rule.isReadOnly = false;
+	 *  request.getRules().add(rule);
+	 *  SetAclRulesResponse response = client.setAclRules(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public SetAclRulesResponse setAclRules(SetAclRulesRequest request) throws MorpheusApiRequestException {
+		return (SetAclRulesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteAclRuleRequest DeleteAclRulesRequest} to delete an acl rule for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  DeleteAclRulesRequest request = new DeleteAclRulesRequest().instanceId(server).ip(ip);
+	 *  DeleteAclRulesResponse response = client.deleteAclRule(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteAclRuleResponse deleteAclRule(DeleteAclRuleRequest request) throws MorpheusApiRequestException {
+		return (DeleteAclRuleResponse)executeAuthenticatedRequest(request);
+	}
 }

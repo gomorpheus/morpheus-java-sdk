@@ -49,7 +49,7 @@ public class RestartInstanceRequest extends AbstractApiRequest<RestartInstanceRe
 			return RestartInstanceResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for restarting an instance", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for restarting an Instance", ex);
 		} finally {
 			if(client != null) {
 				try {

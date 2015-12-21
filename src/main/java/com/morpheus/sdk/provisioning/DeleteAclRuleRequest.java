@@ -1,15 +1,20 @@
 package com.morpheus.sdk.provisioning;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A request object for defining a request for deleting a single rule from the acl chain within the Morpheus Account.
@@ -20,34 +25,35 @@ import java.io.IOException;
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	DeleteAclRulesRequest request = new DeleteAclRulesRequest();
- *     	DeleteAclRulesResponse response = client.deleteAclRule(request).instanceId(instanceId).cidr(cidr);
+ *     	DeleteAclRuleRequest request = new DeleteAclRuleRequest();
+ *     	DeleteAclRuleResponse response = client.deleteAclRule(request).instanceId(instanceId).ip(ip);
  *     	return response.rules;
  *     }
  * </pre>
  * @author William Chu
  */
-public class DeleteAclRulesRequest extends AbstractApiRequest<DeleteAclRulesResponse> {
+public class DeleteAclRuleRequest extends AbstractApiRequest<DeleteAclRuleResponse> {
 	private Long instanceId;
-	private String cidr;
+	private AclRule rule;
 
 	/**
 	 * Executes the request against the appliance API (Should not be called directly).
 	 */
 	@Override
-	public DeleteAclRulesResponse executeRequest() throws MorpheusApiRequestException {
+	public DeleteAclRuleResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/instance/" + this.getInstanceId() + "/acls/" + this.getCidr());
-			HttpDelete request = new HttpDelete(uriBuilder.build());
+			uriBuilder.setPath("/api/instances/" + this.getInstanceId() + "/acls/delete");
+			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
 			client = clientBuilder.build();
-
+			request.addHeader("Content-Type","application/json");
+			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
-			return DeleteAclRulesResponse.createFromStream(response.getEntity().getContent());
+			return DeleteAclRuleResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
 			throw new MorpheusApiRequestException("Error Performing API Request for deleting a single rule from the acl chain", ex);
@@ -62,6 +68,14 @@ public class DeleteAclRulesRequest extends AbstractApiRequest<DeleteAclRulesResp
 		}
 	}
 
+	private String generateRequestBody() {
+		final GsonBuilder builder = new GsonBuilder();
+		final Gson gson = builder.create();
+		Map<String,AclRule> deployMap = new HashMap<String,AclRule>();
+		deployMap.put("rule", rule);
+		return gson.toJson(deployMap);
+	}
+
 	public Long getInstanceId() {
 		return instanceId;
 	}
@@ -70,21 +84,22 @@ public class DeleteAclRulesRequest extends AbstractApiRequest<DeleteAclRulesResp
 		this.instanceId = instanceId;
 	}
 
-	public DeleteAclRulesRequest instanceId(Long instanceId) {
+	public DeleteAclRuleRequest instanceId(Long instanceId) {
 		this.instanceId = instanceId;
 		return this;
 	}
 
-	public String getCidr() {
-		return cidr;
+	public String getIp() {
+		return rule.ip;
 	}
 
-	public void setCidr(String cidr) {
-		this.cidr = cidr;
+	public void setIp(String ip) {
+		this.rule.ip = ip;
 	}
 
-	public DeleteAclRulesRequest cidr(String cidr) {
-		this.cidr = cidr;
+	public DeleteAclRuleRequest ip(String ip) {
+		this.rule = new AclRule();
+		this.rule.ip = ip;
 		return this;
 	}
 }
