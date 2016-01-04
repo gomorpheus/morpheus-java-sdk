@@ -27,8 +27,8 @@ import spock.lang.Specification
 class UpdateCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"9")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testUpdateCloudId',"26")
 
 	@Shared
 	MorpheusClient client
@@ -52,7 +52,7 @@ class UpdateCloudRequestSpec extends Specification {
 			GetCloudResponse response = client.getCloud(request)
 			Cloud cloud = response.cloud
 			def previousName = cloud.name
-		cloud.name = testCloudName
+			cloud.name = testCloudName
 			def updateRequest = new UpdateCloudRequest().cloudId(testCloudId).cloud(cloud)
 		when:
 			UpdateCloudResponse updateCloudResponse = client.updateCloud(updateRequest)

@@ -13,8 +13,8 @@ import spock.lang.Specification
 class GetCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"9")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"23")
 
 	@Shared
 	MorpheusClient client

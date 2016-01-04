@@ -27,9 +27,9 @@ import spock.lang.Specification
 class CreateCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 	static String TEST_CLOUD_TYPE_ID=System.getProperty('morpheus.api.testCloudTypeId',"3")
-	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"1")
+	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"17")
 
 	@Shared
 	MorpheusClient client

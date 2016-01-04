@@ -29,8 +29,8 @@ import spock.lang.Specification
 class GetServerRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_SERVER_ID=System.getProperty('morpheus.api.testServerId',"22")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_SERVER_ID=System.getProperty('morpheus.api.testServerId',"43")
 
 	@Shared
 	MorpheusClient client
