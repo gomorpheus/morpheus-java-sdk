@@ -540,7 +540,7 @@ public class MorpheusClient {
 	 *     {@code
 	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
 	 *     	UpdateCloudRequest request = new UpdateCloudRequest().cloudId(1).cloud(updatedCloud)
-	 *     	UpdateCloudResponse response = client.updateInstance(request);
+	 *     	UpdateCloudResponse response = client.updateCloud(request);
 	 *     	return response.success;
 	 *     }
 	 * </pre>
@@ -552,5 +552,609 @@ public class MorpheusClient {
 	 */
 	public UpdateCloudResponse updateCloud(UpdateCloudRequest request) throws MorpheusApiRequestException {
 		return (UpdateCloudResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateServerRequest UpdateServerRequest} to update a specific {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateServerRequest request = new UpdateServerRequest().serverId(1).server(updatedServer)
+	 *     	UpdateServerResponse response = client.updateServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link Server Server} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException
+	 */
+	public UpdateServerResponse updateServer(UpdateServerRequest request) throws MorpheusApiRequestException {
+		return (UpdateServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListCloudsRequest ListCloudsRequest} to get a list of {@link Cloud Cloud} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListCloudsRequest request = new ListCloudsRequest();
+	 *  ListCloudsResponse response = client.listClouds(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link Cloud Cloud} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListCloudsResponse listClouds(ListCloudsRequest request) throws MorpheusApiRequestException {
+		return (ListCloudsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateCloudRequest} to create a new {@link Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Cloud cloud = new Cloud();
+	 *     	cloud.name = "New Cloud Name";
+	 *     	cloud.visibility = "public";
+	 *     	CreateCloudRequest request = new CreateCloudRequest().cloud(cloud);
+	 *     	CreateCloudResponse response = client.createCloud(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCloudResponse createCloud(CreateCloudRequest request) throws MorpheusApiRequestException {
+		return (CreateCloudResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteCloudRequest} to delete an existing {@link Cloud Cloud} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCloudRequest request = new DeleteCloudRequest();
+	 *     	request.cloudId(1);
+	 *     	DeleteCloudResponse response = client.deleteCloud(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Cloud Cloud} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCloudResponse deleteCloud(DeleteCloudRequest request) throws MorpheusApiRequestException {
+		return (DeleteCloudResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateServerGroupRequest} to create a new {@link ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	ServerGroup serverGroup = new ServerGroup();
+	 *     	serverGroup.name = "New Server Group Name";
+	 *     	serverGroup.visibility = "public";
+	 *     	CreateServerGroupRequest request = new CreateServerGroupRequest().serverGroup(serverGroup);
+	 *     	CreateServerGroupResponse response = client.createServerGroup(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link ServerGroup ServerGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateServerGroupResponse createServerGroup(CreateServerGroupRequest request) throws MorpheusApiRequestException {
+		return (CreateServerGroupResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteServerGroupRequest} to delete an existing {@link ServerGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteServerGroupRequest request = new DeleteServerGroupRequest();
+	 *     	request.serverGroupId(1);
+	 *     	DeleteServerGroupResponse response = client.deleteServerGroup(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link ServerGroup ServerGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteServerGroupResponse deleteServerGroup(DeleteServerGroupRequest request) throws MorpheusApiRequestException {
+		return (DeleteServerGroupResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateKeyPairRequest} to create a new {@link KeyPair KeyPair} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	KeyPair keyPair = new KeyPair();
+	 *     	keyPair.name = "New Key Pair Name";
+	 *     	keyPair.publicKey = "public key";
+	 *     	keyPair.privateKey = "private key";
+	 *     	CreateKeyPairRequest request = new CreateKeyPairRequest().keyPair(keyPair);
+	 *     	CreateKeyPairResponse response = client.createKeyPair(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link KeyPair KeyPair} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateKeyPairResponse createKeyPair(CreateKeyPairRequest request) throws MorpheusApiRequestException {
+		return (CreateKeyPairResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteKeyPairRequest} to delete an existing {@link KeyPair KeyPair} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteKeyPairRequest request = new DeleteKeyPairRequest();
+	 *     	request.keyPairId(1);
+	 *     	DeleteKeyPairResponse response = client.deleteKeyPair(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link KeyPair KeyPair} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteKeyPairResponse deleteKeyPair(DeleteKeyPairRequest request) throws MorpheusApiRequestException {
+		return (DeleteKeyPairResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateCertificateRequest} to create a new {@link SslCertificate SslCertificate} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	SslCertificate certificate = new SslCertificate();
+	 *     	certificate.name = "New SSL Certificate Name";
+	 *     	certificate.certFile = "public key";
+	 *     	certificate.keyFile = "private key";
+	 *     	CreateCertificateRequest request = new CreateCertificateRequest().certificate(certificate);
+	 *     	CreateCertificateResponse response = client.createCertificate(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link SslCertificate SslCertificate} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCertificateResponse createCertificate(CreateCertificateRequest request) throws MorpheusApiRequestException {
+		return (CreateCertificateResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteCertificateRequest} to delete an existing {@link SslCertificate SslCertificate} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCertificateRequest request = new DeleteCertificateRequest();
+	 *     	request.certificateId(1);
+	 *     	DeleteCertificateResponse response = client.deleteCertificate(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link SslCertificate SslCertificate} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCertificateResponse deleteCertificate(DeleteCertificateRequest request) throws MorpheusApiRequestException {
+		return (DeleteCertificateResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ProvisionServerRequest} to provision a new {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Server server = new Server();
+	 *     	server.name = "Unique server name";
+	 *     	server.sshHost = "192.168.168.2";
+	 *     	server.sshUsername = "admin";
+	 *     	server.sshPassword = "password";
+	 *     	server.zone = { "id": 1 }
+	 *     	ProvisionServerRequest request = new ProvisionServerRequest().server(server)
+	 *     	ProvisionServerResponse response = client.provisionServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a success flag and the name of the server name to confirm successful provisioning.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ProvisionServerResponse provisionServer(ProvisionServerRequest request) throws MorpheusApiRequestException {
+		return (ProvisionServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteServerRequest} to delete an existing {@link Server Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteServerRequest request = new DeleteServerRequest();
+	 *     	request.serverId(1);
+	 *     	DeleteServerResponse response = client.deleteServer(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Server Server} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteServerResponse deleteServer(DeleteServerRequest request) throws MorpheusApiRequestException {
+		return (DeleteServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateCheckRequest} to create a new {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Check check = new Check();
+	 *     	check.name = "New Check Name";
+	 *     	CreateCheckRequest request = new CreateCheckRequest().check(check);
+	 *     	CreateCheckResponse response = client.createCheck(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateCheckResponse createCheck(CreateCheckRequest request) throws MorpheusApiRequestException {
+		return (CreateCheckResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteCheckRequest} to delete an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteCheckRequest request = new DeleteCheckRequest();
+	 *     	request.checkId(1);
+	 *     	DeleteCheckResponse response = client.deleteCheck(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteCheckResponse deleteCheck(DeleteCheckRequest request) throws MorpheusApiRequestException {
+		return (DeleteCheckResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link UpdateCheckRequest} to update an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateCheckRequest request = new UpdateCheckRequest().checkId(1).check(updatedCheck)
+	 *     	UpdateCheckResponse response = client.updateCheck(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object updating an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpdateCheckResponse updateCheck(UpdateCheckRequest request) throws MorpheusApiRequestException {
+		return (UpdateCheckResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link MuteCheckRequest} to mute/unmute an existing {@link Check Check} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	MuteCheckRequest request = new MuteCheckRequest().checkId(1).mute(flag)
+	 *     	MuteCheckResponse response = client.muteCheck(request);
+	 *     	return response.muteState;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object muting/unmuting an existing {@link Check Check} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public MuteCheckResponse muteCheck(MuteCheckRequest request) throws MorpheusApiRequestException {
+		return (MuteCheckResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListAclRulesRequest ListAclRulesRequest} to get a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetAclRulesRequest request = new GetAclRulesRequest().instanceId(1);
+	 * 	GetAclRulesResponse response = client.listAclRules(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects as well as the instanceCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListAclRulesResponse listAclRules(ListAclRulesRequest request) throws MorpheusApiRequestException {
+		return (ListAclRulesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link EnableAclFirewallRequest EnableAclFirewallRequest} to enable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	EnableAclFirewallRequest request = new EnableAclFirewallRequest().instanceId(1);
+	 * 	EnableAclFirewallResponse response = client.enableFirewall(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public EnableAclFirewallResponse enableFirewall(EnableAclFirewallRequest request) throws MorpheusApiRequestException {
+		return (EnableAclFirewallResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DisableAclFirewallRequest DisableAclFirewallRequest} to disable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	DisableAclFirewallRequest request = new DisableAclFirewallRequest().instanceId(1);
+	 * 	DisableAclFirewallResponse response = client.disableFirewall(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DisableAclFirewallResponse disableFirewall(DisableAclFirewallRequest request) throws MorpheusApiRequestException {
+		return (DisableAclFirewallResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link StopInstanceRequest StartInstanceRequest} to start a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	StartInstanceRequest request = new StartInstanceRequest().instanceId(1);
+	 * 	StartInstanceResponse response = client.startInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public StartInstanceResponse startInstance(StartInstanceRequest request) throws MorpheusApiRequestException {
+		return (StartInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link StopInstanceRequest StopInstanceRequest} to stop a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	StopInstanceRequest request = new StopInstanceRequest().instanceId(1);
+	 * 	StopInstanceResponse response = client.stopInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public StopInstanceResponse stopInstance(StopInstanceRequest request) throws MorpheusApiRequestException {
+		return (StopInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link RestartInstanceRequest RestartInstanceRequest} to restart a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	RestartInstanceRequest request = new RestartInstanceRequest().instanceId(1);
+	 * 	RestartInstanceResponse response = client.restartInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public RestartInstanceResponse restartInstance(RestartInstanceRequest request) throws MorpheusApiRequestException {
+		return (RestartInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListInstanceTypeActionsRequest ListInstanceTypeActionsRequest} to get a list of
+	 * {@link com.morpheus.sdk.provisioning.InstanceTypeAction InstanceTypeAction} objects for a specific {@Link InstanceType}.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	ListInstanceTypeActionsRequest request = new ListInstanceTypeActionsRequest().instanceTypeId(1);
+	 * 	ListInstanceTypeActionsResponse response = client.listInstanceTypeActions(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects as well as the instanceCount.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListInstanceTypeActionsResponse listInstanceTypeActions(ListInstanceTypeActionsRequest request) throws MorpheusApiRequestException {
+		return (ListInstanceTypeActionsResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CloneInstanceRequest CloneInstanceRequest} to clone a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	CloneInstanceRequest request = new CloneInstanceRequest().instanceId(1);
+	 * 	CloneInstanceResponse response = client.cloneInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CloneInstanceResponse cloneInstance(CloneInstanceRequest request) throws MorpheusApiRequestException {
+		return (CloneInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteInstanceRequest DeleteInstanceRequest} to delete a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	DeleteInstanceRequest request = new DeleteInstanceRequest().instanceId(1);
+	 * 	DeleteInstanceResponse response = client.deleteInstance(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteInstanceResponse deleteInstance(DeleteInstanceRequest request) throws MorpheusApiRequestException {
+		return (DeleteInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ResizeInstanceRequest ResizeInstanceRequest} to resize a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ResizeInstanceRequest request = new ResizeInstanceRequest().instanceId(server).servicePlan(servicePlan)
+	 *  ResizeInstanceResponse response = client.resizeInstance(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ResizeInstanceResponse resizeInstance(ResizeInstanceRequest request) throws MorpheusApiRequestException {
+		return (ResizeInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link UpgradeInstanceRequest UpgradeInstanceRequest} to upgrade a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  UpgradeInstanceRequest request = new UpgradeInstanceRequest().instanceId(instanceId).servicePlan(servicePlan)
+	 *  UpgradeInstanceResponse response = client.upgradeInstance(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpgradeInstanceResponse upgradeInstance(UpgradeInstanceRequest request) throws MorpheusApiRequestException {
+		return (UpgradeInstanceResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link SetAclRulesRequest SetAclRulesRequest} to set rules for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  SetAclRulesRequest request = new SetAclRulesRequest().instanceId(instanceId);
+	 *  AclRule rule = new AclRule();
+	 *  rule.ip = '127.0.0.1/32';
+	 *  rule.description = 'Acl rule description';
+	 *  rule.jump = 'ACCEPT';
+	 *  rule.isEnabled = true;
+	 *  rule.isReadOnly = false;
+	 *  request.getRules().add(rule);
+	 *  SetAclRulesResponse response = client.setAclRules(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public SetAclRulesResponse setAclRules(SetAclRulesRequest request) throws MorpheusApiRequestException {
+		return (SetAclRulesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteAclRuleRequest DeleteAclRulesRequest} to delete an acl rule for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  DeleteAclRulesRequest request = new DeleteAclRulesRequest().instanceId(server).ip(ip);
+	 *  DeleteAclRulesResponse response = client.deleteAclRule(request);
+	 *  return response.success;
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteAclRuleResponse deleteAclRule(DeleteAclRuleRequest request) throws MorpheusApiRequestException {
+		return (DeleteAclRuleResponse)executeAuthenticatedRequest(request);
 	}
 }

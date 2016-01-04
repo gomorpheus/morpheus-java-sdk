@@ -28,6 +28,7 @@ class UpdateCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"9")
 
 	@Shared
 	MorpheusClient client
@@ -42,10 +43,9 @@ class UpdateCloudRequestSpec extends Specification {
 
 	}
 
-/*
 	void "it should successfully update a cloud"() {
 		given:
-			def testCloudId = 9
+			def testCloudId = Integer.parseInt(TEST_CLOUD_ID)
 			def testCloudName = "Booyah!"
 			def request = new GetCloudRequest()
 			request.setCloudId(testCloudId)
@@ -66,5 +66,4 @@ class UpdateCloudRequestSpec extends Specification {
 			restoreUpdateCloudResponse.success == true
 
 	}
-	*/
 }

@@ -43,8 +43,7 @@ class ListInstanceTypesRequestSpec extends Specification {
 
 	}
 
-
-	void "it should successfully list instances"() {
+	void "it should successfully list instance types"() {
 		given:
 			def request = new ListInstanceTypesRequest()
 		when:

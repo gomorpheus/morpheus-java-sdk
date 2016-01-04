@@ -28,6 +28,7 @@ class GetCheckTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_CHECK_TYPE_ID=System.getProperty('morpheus.api.testCheckTypeId',"1")
 
 	@Shared
 	MorpheusClient client
@@ -41,16 +42,14 @@ class GetCheckTypeRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-/*
+
 	void "it should successfully retrieve a specific check type by id"() {
 		given:
 		def request = new GetCheckTypeRequest()
-		request.setCheckTypeId(1)
+		request.setCheckTypeId(Integer.parseInt(TEST_CHECK_TYPE_ID))
 		when:
 		GetCheckTypeResponse response = client.getCheckType(request)
 		then:
-		println "TODO: fix this test"
-//		response.checkType != null
+		response.checkType != null
 	}
-	*/
 }

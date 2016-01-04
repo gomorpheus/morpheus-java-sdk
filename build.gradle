@@ -130,7 +130,12 @@ task(console, dependsOn: 'classes', type: JavaExec) {
 
 test {
 	if(project.hasProperty('morpheusUser')) {
-		jvmArgs "-Dmorpheus.api.username=${morpheusUser}", "-Dmorpheus.api.password=${morpheusPassword}","-Dmorpheus.api.host=${project.hasProperty("morpheusHost") ? morpheusHost : 'https://v2.gomorpheus.com'}"
+        jvmArgs "-Dmorpheus.api.username=${morpheusUser}", "-Dmorpheus.api.password=${morpheusPassword}","-Dmorpheus.api.host=${project.hasProperty("morpheusHost") ? morpheusHost : 'https://v2.gomorpheus.com'}"
+        this.properties.each {
+            if(it.key.startsWith("morpheus.api.")) {
+                jvmArgs  "-D${it.key}=${it.value}"
+            }
+        }
 	}
 
     testLogging {

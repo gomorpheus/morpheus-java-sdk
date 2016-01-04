@@ -21,6 +21,7 @@ import java.io.IOException;
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
  *     	GetInstanceTypeRequest request = new GetInstanceTypeRequest();
+ *     	request.setInstanceTypeId(1);
  *     	GetInstanceTypeResponse response = client.getInstanceType(request);
  *     	return response.instanceType;
  *     }

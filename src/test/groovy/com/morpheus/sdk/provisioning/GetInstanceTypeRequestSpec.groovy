@@ -28,6 +28,7 @@ class GetInstanceTypeRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_INSTANCE_TYPE_ID=System.getProperty('morpheus.api.testInstanceTypeId',"23")
 
 	@Shared
 	MorpheusClient client
@@ -43,13 +44,13 @@ class GetInstanceTypeRequestSpec extends Specification {
 	}
 
 
-//	void "it should successfully retrieve an instance type by id"() {
-//		given:
-//		def request = new GetInstanceTypeRequest()
-//		request.setInstanceTypeId(23)
-//		when:
-//		GetInstanceTypeResponse response = client.getInstanceType(request)
-//		then:
-//		response.instanceType != null
-//	}
+	void "it should successfully retrieve an instance type by id"() {
+		given:
+		def request = new GetInstanceTypeRequest()
+		request.setInstanceTypeId(Integer.parseInt(TEST_INSTANCE_TYPE_ID))
+		when:
+		GetInstanceTypeResponse response = client.getInstanceType(request)
+		then:
+		response.instanceType != null
+	}
 }

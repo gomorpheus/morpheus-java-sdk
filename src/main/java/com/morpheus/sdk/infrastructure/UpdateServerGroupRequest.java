@@ -29,7 +29,7 @@ import java.util.Map;
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
  *     	UpdateServerGroupRequest request = new UpdateServerGroupRequest().serverGroupId(1).serverGroup(updatedServerGroup)
- *     	UpdateServerGroupsResponse response = client.updateServerGroup(request);
+ *     	UpdateServerGroupResponse response = client.updateServerGroup(request);
  *     	return response.success;
  *     }
  * </pre>

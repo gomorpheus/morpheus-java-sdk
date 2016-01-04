@@ -30,6 +30,7 @@ class GetCertificateRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_CERTIFICATE_ID=System.getProperty('morpheus.api.testCertificateId',"3")
 
 	@Shared
 	MorpheusClient client
@@ -48,7 +49,8 @@ class GetCertificateRequestSpec extends Specification {
 	void "it should successfully retrieve an certificate by id"() {
 		given:
 		def request = new GetCertificateRequest()
-		request.setCertificateId(5)
+		def testCertificateId = Long.parseLong(TEST_CERTIFICATE_ID)
+		request.setCertificateId(testCertificateId)
 		when:
 		GetCertificateResponse response = client.getCertificate(request)
 		then:

@@ -29,6 +29,7 @@ class CreateDeployRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"130")
 
 	@Shared
 	MorpheusClient client
@@ -44,11 +45,11 @@ class CreateDeployRequestSpec extends Specification {
 	}
 
 
-	void "it should successfully list instances"() {
+	void "it should successfully create a deploy request"() {
 		given:
 			AppDeploy appDeploy = new AppDeploy()
 			appDeploy.userVersion = '1.0.0'
-			def request = new CreateDeployRequest().instanceId(130).appDeploy(appDeploy)
+			def request = new CreateDeployRequest().instanceId(Integer.parseInt(TEST_INSTANCE_ID)).appDeploy(appDeploy)
 		when:
 			CreateDeployResponse response = client.createDeployment(request)
 		then:

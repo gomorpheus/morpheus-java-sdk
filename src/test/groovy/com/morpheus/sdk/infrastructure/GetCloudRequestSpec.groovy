@@ -14,6 +14,7 @@ class GetCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"9")
 
 	@Shared
 	MorpheusClient client
@@ -28,15 +29,13 @@ class GetCloudRequestSpec extends Specification {
 
 	}
 
-/*
 	void "it should successfully retrieve a cloud by id"() {
 		given:
 		def request = new GetCloudRequest()
-		request.setCloudId(9)
+		request.setCloudId(Integer.parseInt(TEST_CLOUD_ID))
 		when:
 		GetCloudResponse response = client.getCloud(request)
 		then:
 		response.cloud != null
 	}
-	*/
 }
