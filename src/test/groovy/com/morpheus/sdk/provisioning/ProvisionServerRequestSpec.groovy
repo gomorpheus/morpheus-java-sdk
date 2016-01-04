@@ -53,7 +53,7 @@ class ProvisionServerRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
+/*
 	void "it should successfully provision a server"() {
 		given:
 		def cloudRequest = new GetCloudRequest()
@@ -86,4 +86,5 @@ class ProvisionServerRequestSpec extends Specification {
 		DeleteServerResponse deleteServerResponse = client.deleteServer(deleteServerRequest)
 		assert deleteServerResponse.msg == null
 	}
+*/
 }
