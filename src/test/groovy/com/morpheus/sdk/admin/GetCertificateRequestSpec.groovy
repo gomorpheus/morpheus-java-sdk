@@ -29,7 +29,7 @@ import spock.lang.Specification
 class GetCertificateRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 	static String TEST_CERTIFICATE_ID=System.getProperty('morpheus.api.testCertificateId',"3")
 
 	@Shared

@@ -27,7 +27,7 @@ import spock.lang.Specification
 class CreateKeyPairRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 
 	@Shared
 	MorpheusClient client
@@ -47,7 +47,7 @@ class CreateKeyPairRequestSpec extends Specification {
 		def request = new CreateKeyPairRequest()
 		KeyPair keyPair = new KeyPair()
 		def m1 = System.currentTimeMillis()
-		keyPair.name = "Test Cloud ${m1}"
+		keyPair.name = "Test Key Pair ${m1}"
 		keyPair.publicKey = "fake public key"
 		keyPair.privateKey = "fake private key"
 		request.setKeyPair(keyPair)
