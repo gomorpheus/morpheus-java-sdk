@@ -48,7 +48,7 @@ class DeleteServerRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
+/*
 	void "it should successfully delete a server"() {
 		given:
 		def cloudRequest = new GetCloudRequest()
@@ -79,4 +79,5 @@ class DeleteServerRequestSpec extends Specification {
 		response.msg == null
 		response.success == true
 	}
+*/
 }
