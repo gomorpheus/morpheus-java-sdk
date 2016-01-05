@@ -28,7 +28,7 @@ import spock.lang.Specification
 class CreateCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 	static String TEST_CHECK_TYPE_ID=System.getProperty('morpheus.api.testCheckTypeId',"1")
 	static String TEST_CHECK_WEB_URL=System.getProperty('morpheus.api.testCheckWebUrl',"http://www.bing.com")
 
@@ -44,27 +44,7 @@ class CreateCheckRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-/*
-	void "it should fail creating a cloud"() {
-		given:
-		def cloudTypeRequest = new GetCloudTypeRequest()
-		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
-		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
 
-		def request = new CreateCloudRequest()
-		Cloud cloud = new Cloud()
-		def m1 = System.currentTimeMillis()
-		cloud.name = "Test Cloud ${m1}"
-		cloud.visibility = "public"
-		cloud.cloudType = cloudTypeResponse.cloudType
-		request.setCloud(cloud)
-		when:
-		CreateCloudResponse response = client.createCloud(request)
-		then:
-		response.errors['groupId'] != null
-		response.cloud == null
-	}
-*/
 	void "it should successfully create a check"() {
 		given:
 		def checkTypeRequest = new GetCheckTypeRequest()

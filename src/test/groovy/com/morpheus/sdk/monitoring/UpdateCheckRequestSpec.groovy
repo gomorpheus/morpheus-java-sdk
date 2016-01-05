@@ -27,8 +27,8 @@ import spock.lang.Specification
 class UpdateCheckRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"129")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_CHECK_ID=System.getProperty('morpheus.api.testCheckId',"209")
 
 	@Shared
 	MorpheusClient client
