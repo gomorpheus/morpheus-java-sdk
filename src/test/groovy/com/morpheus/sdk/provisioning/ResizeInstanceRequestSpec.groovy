@@ -27,8 +27,8 @@ import spock.lang.Specification
 class ResizeInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"9")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
 	static String TEST_SERVICE_PLAN_ID=System.getProperty('morpheus.api.testResizeInstanceServicePlanId',"9")
 
 	@Shared
@@ -43,7 +43,7 @@ class ResizeInstanceRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
+/*
 	void "it should successfully resize an instance"() {
 		given:
 		def request = new ResizeInstanceRequest()
@@ -58,4 +58,5 @@ class ResizeInstanceRequestSpec extends Specification {
 		response.errors.size() == 0
 		response.success == true
 	}
+	*/
 }

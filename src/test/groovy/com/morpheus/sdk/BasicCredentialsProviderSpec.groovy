@@ -23,7 +23,7 @@ import spock.lang.Specification
 class BasicCredentialsProviderSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 
 	def setup() {
 
@@ -32,7 +32,6 @@ class BasicCredentialsProviderSpec extends Specification {
 	def cleanup() {
 
 	}
-
 
 	void "it should successfully authenticate against v2"() {
 		given:

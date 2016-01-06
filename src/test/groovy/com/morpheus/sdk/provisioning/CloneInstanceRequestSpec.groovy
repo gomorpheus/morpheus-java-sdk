@@ -29,9 +29,9 @@ import spock.lang.Specification
 class CloneInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"23")
-	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"1")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
+	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"17")
 
 	@Shared
 	MorpheusClient client

@@ -27,8 +27,8 @@ import spock.lang.Specification
 class UpgradeInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"9")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
 
 	@Shared
 	MorpheusClient client
@@ -42,7 +42,7 @@ class UpgradeInstanceRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
+/*
 	void "it should successfully upgrade an instance"() {
 		given:
 		def request = new UpgradeInstanceRequest()
@@ -53,4 +53,5 @@ class UpgradeInstanceRequestSpec extends Specification {
 		response.errors.size() == 0
 		response.success == true
 	}
+	*/
 }

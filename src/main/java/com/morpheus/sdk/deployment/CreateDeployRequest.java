@@ -57,7 +57,7 @@ public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse
 			return CreateDeployResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Listing Instances", ex);
+			throw new MorpheusApiRequestException("Error Performing API Request for deploying an app", ex);
 		} finally {
 			if(client != null) {
 				try {

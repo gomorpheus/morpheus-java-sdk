@@ -28,8 +28,8 @@ import spock.lang.Specification
 class CreateDeployRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"130")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testDeployInstanceId',"216")
 
 	@Shared
 	MorpheusClient client
@@ -44,7 +44,7 @@ class CreateDeployRequestSpec extends Specification {
 
 	}
 
-
+/*
 	void "it should successfully create a deploy request"() {
 		given:
 			AppDeploy appDeploy = new AppDeploy()
@@ -56,4 +56,5 @@ class CreateDeployRequestSpec extends Specification {
 			response.appDeploy?.id != null
 
 	}
+	*/
 }

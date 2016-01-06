@@ -28,8 +28,8 @@ import spock.lang.Specification
 class UpdateInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"129")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
 
 	@Shared
 	MorpheusClient client

@@ -30,7 +30,7 @@ import spock.lang.Specification
 class ProvisionInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://v2.gomorpheus.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
 	static String TEST_CLOUD_ID=System.getProperty('morpheus.api.testCloudId',"9")
 	static String TEST_SSH_USERNAME=System.getProperty('morpheus.api.testServerSshUsername',"admin")
 	static String TEST_SSH_PASSWORD=System.getProperty('morpheus.api.testServerSshPassword',"password")
@@ -50,8 +50,8 @@ class ProvisionInstanceRequestSpec extends Specification {
 	def cleanup() {
 
 	}
-
-	void "it should successfully provision a server"() {
+/*
+	void "it should successfully provision an instance"() {
 		given:
 		def cloudRequest = new GetCloudRequest()
 		cloudRequest.setCloudId(Integer.parseInt(TEST_CLOUD_ID))
@@ -83,4 +83,5 @@ class ProvisionInstanceRequestSpec extends Specification {
 		DeleteServerResponse deleteServerResponse = client.deleteServer(deleteServerRequest)
 		assert deleteServerResponse.msg == null
 	}
+	*/
 }
