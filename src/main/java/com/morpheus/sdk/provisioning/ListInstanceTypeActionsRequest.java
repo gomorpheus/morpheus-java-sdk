@@ -15,7 +15,7 @@ import java.io.IOException;
  * A request object for defining a request for fetching a list of instance type actions for a specific
  * instance type within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to fetch a list of {@link InstanceTypeAction} objects for a specific {@Link InstanceType}.
+ * is used to fetch a list of {@link InstanceTypeAction} objects for a specific {@link InstanceType}.
  *
  * Example Usage:
  * <pre>

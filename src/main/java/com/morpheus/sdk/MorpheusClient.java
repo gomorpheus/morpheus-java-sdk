@@ -156,8 +156,8 @@ public class MorpheusClient {
 	 * Executes a ${@link RunDeployRequest} to kick off a deployment to the containers within an instance.
 	 * This requires an {@link com.morpheus.sdk.deployment.AppDeploy AppDeploy} object be assigned to the request.
 	 * @param request the request object being executed
-	 * @return
-	 * @throws MorpheusApiRequestException
+	 * @return the response object containing a new {@link com.morpheus.sdk.deployment.AppDeploy AppDeploy} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public RunDeployResponse runDeploy(RunDeployRequest request) throws MorpheusApiRequestException {
 		return (RunDeployResponse)executeAuthenticatedRequest(request);
@@ -426,7 +426,7 @@ public class MorpheusClient {
 	 * @param request the request object being executed.
 	 * @return the response object containing a {@link ServerGroup ServerGroup} object and a flag indicating if the
 	 * update request was successful or not.
-	 * @throws MorpheusApiRequestException
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
    */
 	public UpdateServerGroupResponse updateServerGroup(UpdateServerGroupRequest request) throws MorpheusApiRequestException {
 		return (UpdateServerGroupResponse)executeAuthenticatedRequest(request);
@@ -449,7 +449,7 @@ public class MorpheusClient {
 	 * @param request the request object being executed.
 	 * @return the response object containing a {@link Instance Instance} object and a flag indicating if the
 	 * update request was successful or not.
-	 * @throws MorpheusApiRequestException
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public UpdateInstanceResponse updateInstance(UpdateInstanceRequest request) throws MorpheusApiRequestException {
 		return (UpdateInstanceResponse)executeAuthenticatedRequest(request);
@@ -548,7 +548,7 @@ public class MorpheusClient {
 	 * @param request the request object being executed.
 	 * @return the response object containing a {@link Cloud Cloud} object and a flag indicating if the
 	 * update request was successful or not.
-	 * @throws MorpheusApiRequestException
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public UpdateCloudResponse updateCloud(UpdateCloudRequest request) throws MorpheusApiRequestException {
 		return (UpdateCloudResponse)executeAuthenticatedRequest(request);
@@ -571,7 +571,7 @@ public class MorpheusClient {
 	 * @param request the request object being executed.
 	 * @return the response object containing a {@link Server Server} object and a flag indicating if the
 	 * update request was successful or not.
-	 * @throws MorpheusApiRequestException
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public UpdateServerResponse updateServer(UpdateServerRequest request) throws MorpheusApiRequestException {
 		return (UpdateServerResponse)executeAuthenticatedRequest(request);
@@ -1015,7 +1015,7 @@ public class MorpheusClient {
 
 	/**
 	 * Executes a {@link ListInstanceTypeActionsRequest ListInstanceTypeActionsRequest} to get a list of
-	 * {@link com.morpheus.sdk.provisioning.InstanceTypeAction InstanceTypeAction} objects for a specific {@Link InstanceType}.
+	 * {@link com.morpheus.sdk.provisioning.InstanceTypeAction InstanceTypeAction} objects for a specific {@link InstanceType}.
 	 *
 	 * Example Usage:
 	 * <pre>

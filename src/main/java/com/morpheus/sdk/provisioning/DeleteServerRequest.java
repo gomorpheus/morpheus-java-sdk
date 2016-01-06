@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to deleting an existing {@link Server} object.
+ * A request object for defining a request to deleting an existing {@link com.morpheus.sdk.infrastructure.Server} object.
  *
  * Example Usage:
  * <pre>
