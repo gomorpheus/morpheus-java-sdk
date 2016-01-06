@@ -30,7 +30,7 @@ class GetCertificateRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_CERTIFICATE_ID=System.getProperty('morpheus.api.testCertificateId',"3")
+	static String TEST_CERTIFICATE_ID=System.getProperty('morpheus.api.testCertificateId',"10")
 
 	@Shared
 	MorpheusClient client

@@ -47,6 +47,12 @@ class StopInstanceRequestSpec extends Specification {
 		given:
 		def instanceLookupRequest = new GetInstanceRequest().instanceId(Integer.parseInt(TEST_INSTANCE_ID))
 		GetInstanceResponse instanceLookupResponse = client.getInstance(instanceLookupRequest)
+		if(instanceLookupResponse.instance.status == "stopped") {
+			def startRequest = new StartInstanceRequest()
+			startRequest.instanceId(Integer.parseInt(TEST_INSTANCE_ID))
+			StartInstanceResponse startResponse = client.startInstance(startRequest)
+		}
+		instanceLookupResponse = client.getInstance(instanceLookupRequest)
 		assert instanceLookupResponse.instance.status == "running", "Instance must be running before you can stop it"
 		def request = new StopInstanceRequest()
 		request.instanceId(Integer.parseInt(TEST_INSTANCE_ID))
