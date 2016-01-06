@@ -28,7 +28,7 @@ class SetAclRulesRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"238")
 	static String TEST_ACL_RULE_IP=System.getProperty('morpheus.api.testAclRuleIp',"192.168.1.1/32")
 
 	@Shared

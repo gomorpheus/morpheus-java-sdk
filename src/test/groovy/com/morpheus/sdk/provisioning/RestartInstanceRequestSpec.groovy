@@ -28,7 +28,7 @@ class RestartInstanceRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"212")
+	static String TEST_INSTANCE_ID=System.getProperty('morpheus.api.testInstanceId',"238")
 
 	@Shared
 	MorpheusClient client
