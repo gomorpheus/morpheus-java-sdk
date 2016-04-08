@@ -1157,4 +1157,108 @@ public class MorpheusClient {
 	public DeleteAclRuleResponse deleteAclRule(DeleteAclRuleRequest request) throws MorpheusApiRequestException {
 		return (DeleteAclRuleResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link ListSecurityGroupsRequest ListSecurityGroupsRequest} to get a list of {@link SecurityGroup SecurityGroup} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListSecurityGroupsRequest request = new ListSecurityGroupsRequest();
+	 *  ListSecurityGroupsResponse response = client.listSecurityGroups(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link SecurityGroup SecurityGroup} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListSecurityGroupsResponse listSecurityGroups(ListSecurityGroupsRequest request) throws MorpheusApiRequestException {
+		return (ListSecurityGroupsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.infrastructure.GetSecurityGroupRequest GetSecurityGroupRequest} to get a specific {@link com.morpheus.sdk.infrastructure.SecurityGroup ServerGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetSecurityGroupRequest request = new GetSecurityGroupRequest().serverGroupId(1);
+	 * 	GetSecurityGroupResponse response = client.getSecurityGroup(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.infrastructure.SecurityGroup SecurityGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetSecurityGroupResponse getSecurityGroup(GetSecurityGroupRequest request) throws MorpheusApiRequestException {
+		return (GetSecurityGroupResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateSecurityGroupRequest} to create a new {@link SecurityGroup SecurityGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	SecurityGroup securityGroup = new SecurityGroup();
+	 *     	securityGroup.name = "New Server Group Name";
+	 *     	securityGroup.description = "New Description";
+	 *     	CreateSecurityGroupRequest request = new CreateSecurityGroupRequest().securityGroup(securityGroup);
+	 *     	CreateSecurityGroupResponse response = client.createSecurityGroup(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link SecurityGroup SecurityGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateSecurityGroupResponse createSecurityGroup(CreateSecurityGroupRequest request) throws MorpheusApiRequestException {
+		return (CreateSecurityGroupResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteSecurityGroupRequest} to delete an existing {@link SecurityGroup SecurityGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteSecurityGroupRequest request = new DeleteSecurityGroupRequest();
+	 *     	request.securityGroupId(1);
+	 *     	DeleteSecurityGroupResponse response = client.deleteSecurityGroup(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link SecurityGroup SecurityGroup} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteSecurityGroupResponse deleteSecurityGroup(DeleteSecurityGroupRequest request) throws MorpheusApiRequestException {
+		return (DeleteSecurityGroupResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateSecurityGroupRequest UpdateSecurityGroupRequest} to update a specific {@link SecurityGroup SecurityGroup} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateSecurityGroupRequest request = new UpdateSecurityGroupRequest().securityGroupId(1).securityGroup(updatedSecurityGroup)
+	 *     	UpdateSecurityGroupsResponse response = client.updateSecurityGroup(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link SecurityGroup SecurityGroup} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpdateSecurityGroupResponse updateSecurityGroup(UpdateSecurityGroupRequest request) throws MorpheusApiRequestException {
+		return (UpdateSecurityGroupResponse)executeAuthenticatedRequest(request);
+	}
 }
