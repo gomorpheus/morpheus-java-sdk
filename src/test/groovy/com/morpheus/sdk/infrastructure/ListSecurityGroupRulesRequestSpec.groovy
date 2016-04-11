@@ -16,39 +16,29 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class ListSecurityGroupRulesRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-
-	@Shared
-	MorpheusClient client
-
+class ListSecurityGroupRulesRequestSpec extends SecurityGroupBaseSpec  {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 	
 	void "it should successfully list security group rules"() {
 		given:
-		def request = new ListSecurityGroupRulesRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID))
+		SecurityGroup securityGroup = setupSecurityGroup()
+		SecurityGroupRule securityGroupRule = setupSecurityGroupRule(securityGroup)
+		def request = new ListSecurityGroupRulesRequest().securityGroupId(securityGroup.id)
 		when:
 		ListSecurityGroupRulesResponse response = client.listSecurityGroupRules(request)
 		then:
-		response.securityGroupRules?.size() > 0
+		response.securityGroupRules?.size() == 1
+		cleanup:
+		destroySecurityGroupRule(securityGroupRule)
+		destroySecurityGroup(securityGroup)
 	}
 }

@@ -1,26 +1,12 @@
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class GetSecurityGroupRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-
-	@Shared
-	MorpheusClient client
-
+class GetSecurityGroupRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
@@ -28,14 +14,16 @@ class GetSecurityGroupRequestSpec extends Specification {
 
 	void "it should successfully retrieve a security group by id"() {
 		given:
-		def request = new GetSecurityGroupRequest()
-		request.setSecurityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID))
+		SecurityGroup securityGroup = setupSecurityGroup()
+		def request = new GetSecurityGroupRequest().securityGroupId(securityGroup.id)
 		when:
 		GetSecurityGroupResponse response = client.getSecurityGroup(request)
 		then:
 		response.securityGroup != null
-		response.securityGroup.accountId == 1
-		response.securityGroup.name == "Booyah!"
-		response.securityGroup.description == "Security Group Description"
+		response.securityGroup.accountId == securityGroup.accountId
+		response.securityGroup.name == securityGroup.name
+		response.securityGroup.description == securityGroup.description
+		cleanup:
+		destroySecurityGroup(securityGroup)
 	}
 }

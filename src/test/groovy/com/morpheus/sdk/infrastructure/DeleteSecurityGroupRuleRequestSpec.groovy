@@ -16,54 +16,30 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class DeleteSecurityGroupRuleRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-
-	@Shared
-	MorpheusClient client
-
+class DeleteSecurityGroupRuleRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 
 	void "it should successfully delete a security group rule"() {
 		given:
 
-		SecurityGroupRule rule = new SecurityGroupRule()
-		rule.source = "10.100.54.1/32"
-		rule.protocol = "tcp"
-		rule.portRange = "44"
-		rule.customRule = true
-
-		def createRequest = new CreateSecurityGroupRuleRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)).securityGroupRule(rule)
-		CreateSecurityGroupRuleResponse createTestSecurityGroupRuleResponse = client.createSecurityGroupRule(createRequest)
-
-		assert createTestSecurityGroupRuleResponse.securityGroupRule != null
-
-		def request = new DeleteSecurityGroupRuleRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)).securityGroupRuleId(createTestSecurityGroupRuleResponse.securityGroupRule.id)
-
-
+		SecurityGroup securityGroup = setupSecurityGroup()
+		SecurityGroupRule rule = setupSecurityGroupRule(securityGroup)
+		def request = new DeleteSecurityGroupRuleRequest().securityGroupId(securityGroup.id).securityGroupRuleId(rule.id)
 		when:
 		DeleteSecurityGroupRuleResponse response = client.deleteSecurityGroupRule(request)
 		then:
 		response.msg == null
 		response.success == true
+		cleanup:
+		destroySecurityGroupRule(rule)
 	}
 }

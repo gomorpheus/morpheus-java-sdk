@@ -16,30 +16,17 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.BaseSpec
 
 /**
  * @author Bob Whiton
  */
-class CreateSecurityGroupRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-
-	@Shared
-	MorpheusClient client
+class CreateSecurityGroupRequestSpec extends BaseSpec {
 
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 
 	void "it should successfully create a security group"() {
@@ -47,18 +34,14 @@ class CreateSecurityGroupRequestSpec extends Specification {
 		ListSecurityGroupsResponse listResponse = client.listSecurityGroups(new ListSecurityGroupsRequest())
 		def originalSize = listResponse.securityGroups.size()
 
-		def request = new CreateSecurityGroupRequest()
-		SecurityGroup securityGroup = new SecurityGroup()
-		def m1 = System.currentTimeMillis()
-		securityGroup.name = "Test Security Group ${m1}"
-		securityGroup.description = "my description"
-		request.setSecurityGroup(securityGroup)
+		SecurityGroup securityGroup = new SecurityGroup(name: "Test Security Group ${System.currentTimeMillis()}", description: "Security Group Description")
+		CreateSecurityGroupRequest request = new CreateSecurityGroupRequest().securityGroup(securityGroup)
 		when:
 		CreateSecurityGroupResponse response = client.createSecurityGroup(request)
 		then:
 		response.securityGroup != null
 		client.listSecurityGroups(new ListSecurityGroupsRequest()).securityGroups.size() == originalSize + 1
-
+		cleanup:
 		DeleteSecurityGroupRequest cleanupRequest = new DeleteSecurityGroupRequest()
 		cleanupRequest.securityGroupId(response.securityGroup.id)
 		DeleteSecurityGroupResponse cleanupResponse = client.deleteSecurityGroup(cleanupRequest)

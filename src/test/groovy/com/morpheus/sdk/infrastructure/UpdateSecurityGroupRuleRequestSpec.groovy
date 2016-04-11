@@ -16,68 +16,48 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class UpdateSecurityGroupRuleRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-	static String TEST_SECURITY_GROUP_RULE_ID=System.getProperty('morpheus.api.testSecurityGroupRuleId',"30")
-
-	@Shared
-	MorpheusClient client
-
+class UpdateSecurityGroupRuleRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 
 	void "it should successfully update a security group rule"() {
 		given:
-			// Create a test security group rule
-			def testSource = "10.100.10.6/32"
-			def testProtocol = "udp"
-			def testPortRange = "47"
+		SecurityGroup securityGroup = setupSecurityGroup()
+		SecurityGroupRule rule = setupSecurityGroupRule(securityGroup)
 
-			def request = new GetSecurityGroupRuleRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)).securityGroupRuleId(Integer.parseInt(TEST_SECURITY_GROUP_RULE_ID))
+		// Store original values
+		def previousSource = rule.source
+		def previousProtocol = rule.protocol
+		def previousPortRange = rule.portRange
 
-			GetSecurityGroupRuleResponse response = client.getSecurityGroupRule(request)
-			SecurityGroupRule rule = response.securityGroupRule
-			def previousSource = rule.source
-			def previousProtocol = rule.protocol
-			def previousPortRange = rule.portRange
+		// New values
+		def testSource = "10.100.10.6/32"
+		def testProtocol = "udp"
+		def testPortRange = "47"
 
-			rule.source = testSource
-			rule.protocol = testProtocol
-			rule.portRange = testPortRange
+		// Update new values
+		rule.source = testSource
+		rule.protocol = testProtocol
+		rule.portRange = testPortRange
 
-			def updateRequest = new UpdateSecurityGroupRuleRequest().securityGroupId(rule.securityGroupId).securityGroupRuleId(rule.id).securityGroupRule(rule)
+		def updateRequest = new UpdateSecurityGroupRuleRequest().securityGroupId(rule.securityGroupId).securityGroupRuleId(rule.id).securityGroupRule(rule)
 		when:
-			UpdateSecurityGroupRuleResponse updateSecurityGroupRuleResponse = client.updateSecurityGroupRule(updateRequest)
+		UpdateSecurityGroupRuleResponse updateSecurityGroupRuleResponse = client.updateSecurityGroupRule(updateRequest)
 		then:
-			updateSecurityGroupRuleResponse.success == true
-			updateSecurityGroupRuleResponse.securityGroupRule.source == testSource
-			updateSecurityGroupRuleResponse.securityGroupRule.protocol == testProtocol
-			updateSecurityGroupRuleResponse.securityGroupRule.portRange == testPortRange
+		updateSecurityGroupRuleResponse.success == true
+		updateSecurityGroupRuleResponse.securityGroupRule.source == testSource
+		updateSecurityGroupRuleResponse.securityGroupRule.protocol == testProtocol
+		updateSecurityGroupRuleResponse.securityGroupRule.portRange == testPortRange
 		cleanup:
-			rule.source == testSource
-			rule.protocol == testProtocol
-			rule.portRange == testPortRange
-			def restoreUpdateRequest = new UpdateSecurityGroupRuleRequest().securityGroupId(rule.securityGroupId).securityGroupRuleId(rule.id).securityGroupRule(rule)
-			UpdateSecurityGroupRuleResponse restoreUpdateSecurityGroupRuleResponse = client.updateSecurityGroupRule(restoreUpdateRequest)
-			restoreUpdateSecurityGroupRuleResponse.success == true
-
+		destroySecurityGroupRule(rule)
+		destroySecurityGroup(securityGroup)
 	}
 }

@@ -18,36 +18,29 @@ package com.morpheus.sdk.infrastructure
 
 import com.morpheus.sdk.BasicCredentialsProvider
 import com.morpheus.sdk.MorpheusClient
+import com.morpheus.sdk.SecurityGroupBaseSpec
 import spock.lang.Shared
 import spock.lang.Specification
 
 /**
  * @author Bob Whiton
  */
-class ListSecurityGroupsRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-
-	@Shared
-	MorpheusClient client
-
+class ListSecurityGroupsRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 	
 	void "it should successfully list security groups"() {
 		given:
+		SecurityGroup securityGroup = setupSecurityGroup()
 		def request = new ListSecurityGroupsRequest()
 		when:
 		ListSecurityGroupsResponse response = client.listSecurityGroups(request)
 		then:
 		response.securityGroups?.size() > 0
+		cleanup:
+		destroySecurityGroup(securityGroup)
 	}
 }

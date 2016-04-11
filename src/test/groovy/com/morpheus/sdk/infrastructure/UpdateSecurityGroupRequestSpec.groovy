@@ -16,54 +16,30 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class UpdateSecurityGroupRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-
-	@Shared
-	MorpheusClient client
-
+class UpdateSecurityGroupRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
 	}
 
 	void "it should successfully update a security group"() {
 		given:
-			def testSecurityGroupId = Integer.parseInt(TEST_SECURITY_GROUP_ID)
-			def testSecurityGroupName = "Booyah!"
-			def request = new GetSecurityGroupRequest()
-			request.setSecurityGroupId(testSecurityGroupId)
-			GetSecurityGroupResponse response = client.getSecurityGroup(request)
-			SecurityGroup securityGroup = response.securityGroup
-			def previousName = securityGroup.name
-			securityGroup.name = testSecurityGroupName
-			def updateRequest = new UpdateSecurityGroupRequest().securityGroupId(testSecurityGroupId).securityGroup(securityGroup)
+		SecurityGroup securityGroup = setupSecurityGroup()
+		def testName = "SomeName"
+		securityGroup.name = testName
+		def updateRequest = new UpdateSecurityGroupRequest().securityGroupId(securityGroup.id).securityGroup(securityGroup)
 		when:
-			UpdateSecurityGroupResponse updateSecurityGroupResponse = client.updateSecurityGroup(updateRequest)
+		UpdateSecurityGroupResponse updateSecurityGroupResponse = client.updateSecurityGroup(updateRequest)
 		then:
-			updateSecurityGroupResponse.success == true
-			updateSecurityGroupResponse.securityGroup?.name == testSecurityGroupName
+		updateSecurityGroupResponse.success == true
+		updateSecurityGroupResponse.securityGroup?.name == testName
 		cleanup:
-			securityGroup.name = previousName
-			def restoreUpdateRequest = new UpdateSecurityGroupRequest().securityGroupId(testSecurityGroupId).securityGroup(securityGroup)
-			UpdateSecurityGroupResponse restoreUpdateSecurityGroupResponse = client.updateSecurityGroup(restoreUpdateRequest)
-			restoreUpdateSecurityGroupResponse.success == true
-
+		destroySecurityGroup(securityGroup)
 	}
 }

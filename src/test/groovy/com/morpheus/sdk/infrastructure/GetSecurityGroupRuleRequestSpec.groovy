@@ -1,27 +1,12 @@
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class GetSecurityGroupRuleRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-	static String TEST_SECURITY_GROUP_RULE_ID=System.getProperty('morpheus.api.testSecurityGroupId',"30")
-
-	@Shared
-	MorpheusClient client
-
+class GetSecurityGroupRuleRequestSpec extends SecurityGroupBaseSpec {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
@@ -29,17 +14,22 @@ class GetSecurityGroupRuleRequestSpec extends Specification {
 
 	void "it should successfully retrieve a security group rule by id"() {
 		given:
-		def request = new GetSecurityGroupRuleRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)).securityGroupRuleId(Integer.parseInt(TEST_SECURITY_GROUP_RULE_ID))
+		SecurityGroup securityGroup = setupSecurityGroup()
+		SecurityGroupRule securityGroupRule = setupSecurityGroupRule(securityGroup)
+		def request = new GetSecurityGroupRuleRequest().securityGroupId(securityGroup.id).securityGroupRuleId(securityGroupRule.id)
 		when:
 		GetSecurityGroupRuleResponse response = client.getSecurityGroupRule(request)
 		then:
 		response.securityGroupRule != null
-		response.securityGroupRule.id == Integer.parseInt(TEST_SECURITY_GROUP_RULE_ID)
-		response.securityGroupRule.securityGroupId == Integer.parseInt(TEST_SECURITY_GROUP_ID)
-		response.securityGroupRule.source == "10.100.54.9/32"
-		response.securityGroupRule.portRange == "99"
-		response.securityGroupRule.protocol == "tcp"
+		response.securityGroupRule.id == securityGroupRule.id
+		response.securityGroupRule.securityGroupId == securityGroup.id
+		response.securityGroupRule.source == securityGroupRule.source
+		response.securityGroupRule.portRange == securityGroupRule.portRange
+		response.securityGroupRule.protocol == securityGroupRule.protocol
 		response.securityGroupRule.customRule == true
 		response.securityGroupRule.instanceTypeId == null
+		cleanup:
+		destroySecurityGroupRule(securityGroupRule)
+		destroySecurityGroup(securityGroup)
 	}
 }

@@ -16,36 +16,22 @@
 
 package com.morpheus.sdk.infrastructure
 
-import com.morpheus.sdk.BasicCredentialsProvider
-import com.morpheus.sdk.MorpheusClient
-import spock.lang.Shared
-import spock.lang.Specification
+import com.morpheus.sdk.SecurityGroupBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class CreateSecurityGroupRuleRequestSpec extends Specification {
-	static String API_USERNAME=System.getProperty('morpheus.api.username')
-	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
-	static String TEST_SECURITY_GROUP_ID=System.getProperty('morpheus.api.testSecurityGroupId',"19")
-
-	@Shared
-	MorpheusClient client
-
+class CreateSecurityGroupRuleRequestSpec extends SecurityGroupBaseSpec  {
 	def setup() {
-		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
-		client = new MorpheusClient(creds)
-		client.setEndpointUrl(API_URL)
 	}
 
 	def cleanup() {
-
-	}
+}
 
 	void "it should successfully create a security group rule"() {
 		given:
-		ListSecurityGroupRulesResponse listResponse = client.listSecurityGroupRules(new ListSecurityGroupRulesRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)))
+		SecurityGroup securityGroup = setupSecurityGroup()
+		ListSecurityGroupRulesResponse listResponse = client.listSecurityGroupRules(new ListSecurityGroupRulesRequest().securityGroupId(securityGroup.id))
 		def originalSize = listResponse.securityGroupRules.size()
 
 		SecurityGroupRule rule = new SecurityGroupRule()
@@ -54,17 +40,17 @@ class CreateSecurityGroupRuleRequestSpec extends Specification {
 		rule.portRange = "44"
 		rule.customRule = true
 
-		def request = new CreateSecurityGroupRuleRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID)).securityGroupRule(rule)
+		def request = new CreateSecurityGroupRuleRequest().securityGroupId(securityGroup.id).securityGroupRule(rule)
 		when:
 		CreateSecurityGroupRuleResponse response = client.createSecurityGroupRule(request)
 		then:
 		response.securityGroupRule != null
 		response.securityGroupRule.source == "10.100.54.1/32"
 
-		client.listSecurityGroupRules(new ListSecurityGroupRulesRequest().securityGroupId(Integer.parseInt(TEST_SECURITY_GROUP_ID))).securityGroupRules.size() == originalSize + 1
+		client.listSecurityGroupRules(new ListSecurityGroupRulesRequest().securityGroupId(securityGroup.id)).securityGroupRules.size() == originalSize + 1
 
-		DeleteSecurityGroupRuleRequest cleanupRequest = new DeleteSecurityGroupRuleRequest()
-		cleanupRequest.securityGroupRuleId(response.securityGroupRule.id)
-		DeleteSecurityGroupRuleResponse cleanupResponse = client.deleteSecurityGroupRule(cleanupRequest)
+		cleanup:
+		destroySecurityGroup(securityGroup)
+		destroySecurityGroupRule(response.securityGroupRule)
 	}
 }
