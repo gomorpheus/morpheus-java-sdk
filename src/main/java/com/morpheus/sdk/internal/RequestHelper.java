@@ -2,6 +2,10 @@ package com.morpheus.sdk.internal;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.infrastructure.*;
+import com.morpheus.sdk.provisioning.ApplySecurityGroupsResponse;
+import com.morpheus.sdk.provisioning.DisableFirewallResponse;
+import com.morpheus.sdk.provisioning.EnableFirewallResponse;
+import com.morpheus.sdk.provisioning.ListAppliedSecurityGroupsResponse;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -77,6 +81,14 @@ public class RequestHelper {
 			return (T) UpdateSecurityGroupRuleResponse.createFromStream(stream);
 		} if(clazz.getName() == CreateSecurityGroupRuleResponse.class.getName()) {
 			return (T) CreateSecurityGroupRuleResponse.createFromStream(stream);
+		} if(clazz.getName() == DisableFirewallResponse.class.getName()) {
+			return (T) DisableFirewallResponse.createFromStream(stream);
+		} if(clazz.getName() == EnableFirewallResponse.class.getName()) {
+			return (T) EnableFirewallResponse.createFromStream(stream);
+		} if(clazz.getName() == ListAppliedSecurityGroupsResponse.class.getName()) {
+			return (T) ListAppliedSecurityGroupsResponse.createFromStream(stream);
+		} if(clazz.getName() == ApplySecurityGroupsResponse.class.getName()) {
+			return (T) ApplySecurityGroupsResponse.createFromStream(stream);
 		} else {
 			throw new Exception(clazz.getName());
 		}

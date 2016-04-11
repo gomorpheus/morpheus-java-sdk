@@ -900,61 +900,93 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link ListAclRulesRequest ListAclRulesRequest} to get a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects.
+	 * Executes a {@link EnableFirewallRequest EnableFirewallRequest} to enable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object
+	 * or {@link App} or {@link Cloud}
 	 *
 	 * Example Usage:
 	 * <pre>
 	 * {@code
-	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 * 	GetAclRulesRequest request = new GetAclRulesRequest().instanceId(1);
-	 * 	GetAclRulesResponse response = client.listAclRules(request);
-	 * }
-	 * </pre>
-	 * @param request the request object being executed.
-	 * @return the response object containing a list of {@link com.morpheus.sdk.provisioning.Instance Instance} objects as well as the instanceCount.
-	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
-	 */
-	public ListAclRulesResponse listAclRules(ListAclRulesRequest request) throws MorpheusApiRequestException {
-		return (ListAclRulesResponse)executeAuthenticatedRequest(request);
-	}
-
-	/**
-	 * Executes a {@link EnableAclFirewallRequest EnableAclFirewallRequest} to enable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
-	 *
-	 * Example Usage:
-	 * <pre>
-	 * {@code
-	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 * 	EnableAclFirewallRequest request = new EnableAclFirewallRequest().instanceId(1);
-	 * 	EnableAclFirewallResponse response = client.enableFirewall(request);
-	 * }
+	 *      MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	EnableFirewallRequest request = new EnableFirewallRequest();
+	 *     	request.instanceId(1); //  or request.appId(1) ... or request cloudId(1)
+	 *     	EnableFirewallResponse response = client.enableFirewall(request);
+	 *     	return response.success;
+	 *     	}
 	 * </pre>
 	 * @param request the request object being executed.
 	 * @return the response object containing a flag signifying if the request was successful or not.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
-	public EnableAclFirewallResponse enableFirewall(EnableAclFirewallRequest request) throws MorpheusApiRequestException {
-		return (EnableAclFirewallResponse)executeAuthenticatedRequest(request);
+	public EnableFirewallResponse enableFirewall(EnableFirewallRequest request) throws MorpheusApiRequestException {
+		return (EnableFirewallResponse)executeAuthenticatedRequest(request);
 	}
 
 	/**
-	 * Executes a {@link DisableAclFirewallRequest DisableAclFirewallRequest} to disable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
-	 *
+	 * Executes a {@link DisableFirewallRequest DisableFirewallRequest} to disable the firewall for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object
+	 * or {@link App} or {@link Cloud}
 	 * Example Usage:
 	 * <pre>
 	 * {@code
-	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 * 	DisableAclFirewallRequest request = new DisableAclFirewallRequest().instanceId(1);
-	 * 	DisableAclFirewallResponse response = client.disableFirewall(request);
-	 * }
+	 *      MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DisableFirewallRequest request = new DisableFirewallRequest();
+	 *     	request.instanceId(1); //  or request.appId(1) ... or request cloudId(1)
+	 *     	DisableFirewallResponse response = client.disableFirewall(request);
+	 *     	return response.success;
+     * }
 	 * </pre>
 	 * @param request the request object being executed.
 	 * @return the response object containing a flag signifying if the request was successful or not.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
-	public DisableAclFirewallResponse disableFirewall(DisableAclFirewallRequest request) throws MorpheusApiRequestException {
-		return (DisableAclFirewallResponse)executeAuthenticatedRequest(request);
+	public DisableFirewallResponse disableFirewall(DisableFirewallRequest request) throws MorpheusApiRequestException {
+		return (DisableFirewallResponse)executeAuthenticatedRequest(request);
 	}
+
+	/**
+	 * Executes a {@link ListAppliedSecurityGroupsRequest ListAppliedSecurityGroupsRequest} to list the {@link SecurityGroup} applied for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object
+	 * or {@link App} or {@link Cloud}
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	ListAppliedSecurityGroupsRequest request = new ListAppliedSecurityGroupsRequest();
+	 *     	request.instanceId(1); //  or request.appId(1) ... or request cloudId(1)
+	 *     	ListAppliedSecurityGroupsResponse response = client.listAppliedSecurityGroups(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListAppliedSecurityGroupsResponse listAppliedSecurityGroups(ListAppliedSecurityGroupsRequest request) throws MorpheusApiRequestException {
+		return (ListAppliedSecurityGroupsResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ApplySecurityGroupsRequest ApplySecurityGroupsRequest} to apply list of {@link SecurityGroup} for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object
+	 * or {@link App} or {@link Cloud}
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	ApplySecurityGroupsRequest request = new ApplySecurityGroupsRequest();
+	 *     	request.instanceId(1); //  or request.appId(1) ... or request cloudId(1)
+	 *     	request.setSecurityGroupIds([1,2,3]);
+	 *     	ApplySecurityGroupsResponse response = client.applySecurityGroups(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * * @param request the request object being executed.
+	 * @return the response object containing a flag signifying if the request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ApplySecurityGroupsResponse applySecurityGroups(ApplySecurityGroupsRequest request) throws MorpheusApiRequestException {
+		return (ApplySecurityGroupsResponse)executeAuthenticatedRequest(request);
+	}
+
 
 	/**
 	 * Executes a {@link StopInstanceRequest StartInstanceRequest} to start a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
@@ -1109,53 +1141,6 @@ public class MorpheusClient {
 	 */
 	public UpgradeInstanceResponse upgradeInstance(UpgradeInstanceRequest request) throws MorpheusApiRequestException {
 		return (UpgradeInstanceResponse)executeAuthenticatedRequest(request);
-	}
-
-	/**
-	 * Executes a {@link SetAclRulesRequest SetAclRulesRequest} to set rules for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
-	 *
-	 * Example Usage:
-	 * <pre>
-	 * {@code
-	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 *  SetAclRulesRequest request = new SetAclRulesRequest().instanceId(instanceId);
-	 *  AclRule rule = new AclRule();
-	 *  rule.ip = '127.0.0.1/32';
-	 *  rule.description = 'Acl rule description';
-	 *  rule.jump = 'ACCEPT';
-	 *  rule.isEnabled = true;
-	 *  rule.isReadOnly = false;
-	 *  request.getRules().add(rule);
-	 *  SetAclRulesResponse response = client.setAclRules(request);
-	 *  return response.success;
-	 * }
-	 * </pre>
-	 * @param request the request object being executed.
-	 * @return the response object containing a flag signifying if the request was successful or not.
-	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
-	 */
-	public SetAclRulesResponse setAclRules(SetAclRulesRequest request) throws MorpheusApiRequestException {
-		return (SetAclRulesResponse)executeAuthenticatedRequest(request);
-	}
-
-	/**
-	 * Executes a {@link DeleteAclRuleRequest DeleteAclRulesRequest} to delete an acl rule for a given {@link com.morpheus.sdk.provisioning.Instance Instance} object.
-	 *
-	 * Example Usage:
-	 * <pre>
-	 * {@code
-	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
-	 *  DeleteAclRulesRequest request = new DeleteAclRulesRequest().instanceId(server).ip(ip);
-	 *  DeleteAclRulesResponse response = client.deleteAclRule(request);
-	 *  return response.success;
-	 * }
-	 * </pre>
-	 * @param request the request object being executed.
-	 * @return the response object containing a flag signifying if the request was successful or not.
-	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
-	 */
-	public DeleteAclRuleResponse deleteAclRule(DeleteAclRuleRequest request) throws MorpheusApiRequestException {
-		return (DeleteAclRuleResponse)executeAuthenticatedRequest(request);
 	}
 
 	/**
