@@ -64,7 +64,7 @@ public class CreateCloudRequest extends AbstractApiRequest<CreateCloudResponse> 
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,Cloud> deployMap = new HashMap<String,Cloud>();
 		deployMap.put("zone", cloud);

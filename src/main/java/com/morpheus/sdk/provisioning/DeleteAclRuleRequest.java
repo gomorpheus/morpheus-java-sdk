@@ -68,7 +68,7 @@ public class DeleteAclRuleRequest extends AbstractApiRequest<DeleteAclRuleRespon
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,AclRule> deployMap = new HashMap<String,AclRule>();

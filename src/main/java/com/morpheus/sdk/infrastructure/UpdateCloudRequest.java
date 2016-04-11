@@ -70,7 +70,7 @@ public class UpdateCloudRequest extends AbstractApiRequest<UpdateCloudResponse> 
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,Cloud> deployMap = new HashMap<String,Cloud>();

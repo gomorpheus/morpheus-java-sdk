@@ -65,7 +65,7 @@ public class CreateCertificateRequest extends AbstractApiRequest<CreateCertifica
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,SslCertificate> deployMap = new HashMap<String,SslCertificate>();
 		deployMap.put("certificate", certificate);

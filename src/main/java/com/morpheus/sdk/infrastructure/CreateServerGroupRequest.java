@@ -64,7 +64,7 @@ public class CreateServerGroupRequest extends AbstractApiRequest<CreateServerGro
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,ServerGroup> deployMap = new HashMap<String,ServerGroup>();
 		deployMap.put("group", serverGroup);

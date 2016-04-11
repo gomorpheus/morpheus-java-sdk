@@ -65,7 +65,7 @@ public class CreateKeyPairRequest extends AbstractApiRequest<CreateKeyPairRespon
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,KeyPair> deployMap = new HashMap<String,KeyPair>();
 		deployMap.put("keyPair", keyPair);

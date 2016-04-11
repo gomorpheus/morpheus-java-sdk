@@ -70,7 +70,7 @@ public class UpdateInstanceRequest extends AbstractApiRequest<UpdateInstanceResp
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,Instance> deployMap = new HashMap<String,Instance>();

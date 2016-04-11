@@ -35,7 +35,7 @@ class GetSecurityGroupRequestSpec extends Specification {
 		then:
 		response.securityGroup != null
 		response.securityGroup.accountId == 1
-		response.securityGroup.name == "My Security Group"
+		response.securityGroup.name == "Booyah!"
 		response.securityGroup.description == "Security Group Description"
 	}
 }

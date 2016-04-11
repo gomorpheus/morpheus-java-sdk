@@ -68,7 +68,7 @@ public class MuteCheckRequest extends AbstractApiRequest<MuteCheckResponse> {
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,Boolean> deployMap = new HashMap<String,Boolean>();

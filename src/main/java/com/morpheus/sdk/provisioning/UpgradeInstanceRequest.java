@@ -70,7 +70,7 @@ public class UpgradeInstanceRequest extends AbstractApiRequest<UpgradeInstanceRe
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,ServicePlan> deployMap = new HashMap<String,ServicePlan>();

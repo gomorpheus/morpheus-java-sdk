@@ -2,8 +2,10 @@ package com.morpheus.sdk.infrastructure;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
+import com.morpheus.sdk.internal.RequestHelper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -35,30 +37,7 @@ public class GetSecurityGroupRequest extends AbstractApiRequest<GetSecurityGroup
    */
   @Override
   public GetSecurityGroupResponse executeRequest() throws MorpheusApiRequestException {
-    CloseableHttpClient client = null;
-    try {
-      URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/security-groups/" + this.getSecurityGroupId());
-      HttpGet request = new HttpGet(uriBuilder.build());
-      this.applyHeaders(request);
-      HttpClientBuilder clientBuilder = HttpClients.custom();
-      clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
-      client = clientBuilder.build();
-
-      CloseableHttpResponse response = client.execute(request);
-      return GetSecurityGroupResponse.createFromStream(response.getEntity().getContent());
-    } catch(Exception ex) {
-      //Throw custom exception
-      throw new MorpheusApiRequestException("Error Performing API Request for Security Group lookup", ex);
-    } finally {
-      if(client != null) {
-        try {
-          client.close();
-        } catch(IOException io) {
-          //ignore
-        }
-      }
-    }
+    return (GetSecurityGroupResponse) RequestHelper.executeRequest(GetSecurityGroupResponse.class, this, "/api/security-groups/" + securityGroupId, HttpPut.METHOD_NAME);
   }
 
   public Long getSecurityGroupId() {

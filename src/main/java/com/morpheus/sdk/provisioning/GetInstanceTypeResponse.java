@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  * The Response of a {@link GetInstanceTypeRequest} providing the de-serialized objects from the API.

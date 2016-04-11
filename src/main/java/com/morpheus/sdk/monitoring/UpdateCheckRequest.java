@@ -68,7 +68,7 @@ public class UpdateCheckRequest extends AbstractApiRequest<UpdateCheckResponse> 
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,Check> deployMap = new HashMap<String,Check>();

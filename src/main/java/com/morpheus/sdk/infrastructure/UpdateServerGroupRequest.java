@@ -71,7 +71,7 @@ public class UpdateServerGroupRequest extends AbstractApiRequest<UpdateServerGro
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		builder.excludeFieldsWithoutExposeAnnotation();
 		final Gson gson = builder.create();

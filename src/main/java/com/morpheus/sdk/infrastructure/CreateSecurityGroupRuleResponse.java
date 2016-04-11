@@ -9,18 +9,18 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * The Response of a {@link CreateSecurityGroupRequest} providing the de-serialized objects from the API.
+ * The Response of a {@link CreateSecurityGroupRuleRequest} providing the de-serialized objects from the API.
  * @author Bob Whiton
  */
-public class CreateSecurityGroupResponse implements ApiResponse {
+public class CreateSecurityGroupRuleResponse implements ApiResponse {
 	public HashMap<String,String> errors;
 	public Boolean success;
-	@SerializedName("securityGroup")
-	public SecurityGroup securityGroup;
+	@SerializedName("rule")
+	public SecurityGroupRule securityGroupRule;
 
-	public static CreateSecurityGroupResponse createFromStream(InputStream stream) {
+	public static CreateSecurityGroupRuleResponse createFromStream(InputStream stream) {
 		Gson gson = new Gson();
 		InputStreamReader reader = new InputStreamReader(stream);
-		return gson.fromJson(reader,CreateSecurityGroupResponse.class);
+		return gson.fromJson(reader,CreateSecurityGroupRuleResponse.class);
 	}
 }

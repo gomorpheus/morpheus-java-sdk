@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
+import com.morpheus.sdk.internal.RequestHelper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
@@ -41,34 +42,11 @@ public class UpdateSecurityGroupRequest extends AbstractApiRequest<UpdateSecurit
 	 */
 	@Override
 	public UpdateSecurityGroupResponse executeRequest() throws MorpheusApiRequestException {
-		CloseableHttpClient client = null;
-		try {
-			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/security-groups/" + this.getSecurityGroupId());
-			HttpPut request = new HttpPut(uriBuilder.build());
-			this.applyHeaders(request);
-			HttpClientBuilder clientBuilder = HttpClients.custom();
-			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
-			client = clientBuilder.build();
-			request.addHeader("Content-Type","application/json");
-			request.setEntity(new StringEntity(generateRequestBody()));
-			CloseableHttpResponse response = client.execute(request);
-			return UpdateSecurityGroupResponse.createFromStream(response.getEntity().getContent());
-		} catch(Exception ex) {
-			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for updating a Security Group", ex);
-		} finally {
-			if(client != null) {
-				try {
-					client.close();
-				} catch(IOException io) {
-					//ignore
-				}
-			}
-		}
+		return (UpdateSecurityGroupResponse)RequestHelper.executeRequest(UpdateSecurityGroupResponse.class, this, "/api/security-groups/" + securityGroupId, HttpPut.METHOD_NAME);
 	}
 
-	private String generateRequestBody() {
+	@Override
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		builder.excludeFieldsWithoutExposeAnnotation();
 		final Gson gson = builder.create();

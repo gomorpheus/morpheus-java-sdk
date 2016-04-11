@@ -63,7 +63,7 @@ public class CreateCheckRequest extends AbstractApiRequest<CreateCheckResponse> 
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,Check> deployMap = new HashMap<String,Check>();
 		deployMap.put("check", check);

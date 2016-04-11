@@ -60,7 +60,7 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
 			client = clientBuilder.build();
-			request.setEntity(generateRequestBody());
+			request.setEntity(generateMultipartRequestBody());
 			CloseableHttpResponse response = client.execute(request);
 			return UploadFileResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
@@ -84,7 +84,7 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 		}
 	}
 
-	public HttpEntity generateRequestBody() {
+	public HttpEntity generateMultipartRequestBody() {
 		return MultipartEntityBuilder.create()
 				.setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
 				.addBinaryBody("file",this.inputStream, ContentType.DEFAULT_BINARY,getOriginalName()).build();

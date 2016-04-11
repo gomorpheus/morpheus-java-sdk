@@ -76,7 +76,7 @@ public class SetAclRulesRequest extends AbstractApiRequest<SetAclRulesResponse> 
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
 		Map<String,Object> deployMap = new HashMap<String,Object>();

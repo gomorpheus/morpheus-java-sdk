@@ -38,6 +38,10 @@ public abstract class AbstractApiRequest<T> implements ApiRequest<T> {
 		return this;
 	}
 
+	protected String generateRequestBody() {
+		return null;
+	}
+
 	protected void applyHeaders(HttpRequest request) {
 		request.addHeader("Accept", "application/json");
 		request.addHeader("Authorization", "Bearer " + accessToken);

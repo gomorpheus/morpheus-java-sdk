@@ -71,7 +71,7 @@ public class RunDeployRequest extends AbstractApiRequest<RunDeployResponse> {
 		}
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,AppDeploy> deployMap = new HashMap<String,AppDeploy>();
 		deployMap.put("appDeploy", appDeploy);

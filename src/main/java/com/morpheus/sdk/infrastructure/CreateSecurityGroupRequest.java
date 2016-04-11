@@ -3,8 +3,10 @@ package com.morpheus.sdk.infrastructure;
 import com.google.gson.Gson;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
+import com.morpheus.sdk.internal.RequestHelper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -22,8 +24,8 @@ import java.util.Map;
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	SecurityGroup serverGroup = new SecurityGroup();
- *     	serverGroup.name = "New Security Group Name";
+ *     	SecurityGroup securityGroup = new SecurityGroup();
+ *     	securityGroup.name = "New Security Group Name";
  *     	CreateSecurityGroupRequest request = new CreateSecurityGroupRequest();
  *     	CreateSecurityGroupResponse response = client.createSecurityGroup(request);
  *     }
@@ -36,34 +38,10 @@ public class CreateSecurityGroupRequest extends AbstractApiRequest<CreateSecurit
 
 	@Override
 	public CreateSecurityGroupResponse executeRequest() throws MorpheusApiRequestException {
-		CloseableHttpClient client = null;
-		try {
-			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/security-groups/");
-			HttpPost request = new HttpPost(uriBuilder.build());
-			this.applyHeaders(request);
-			HttpClientBuilder clientBuilder = HttpClients.custom();
-			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
-			client = clientBuilder.build();
-			request.addHeader("Content-Type","application/json");
-			request.setEntity(new StringEntity(generateRequestBody()));
-			CloseableHttpResponse response = client.execute(request);
-			return CreateSecurityGroupResponse.createFromStream(response.getEntity().getContent());
-		} catch(Exception ex) {
-			//Throw custom exception
-			throw new MorpheusApiRequestException("Error Performing API Request for Creating Security Group instance", ex);
-		} finally {
-			if(client != null) {
-				try {
-					client.close();
-				} catch(IOException io) {
-					//ignore
-				}
-			}
-		}
+		return (CreateSecurityGroupResponse) RequestHelper.executeRequest(CreateSecurityGroupResponse.class, this, "/api/security-groups", HttpPost.METHOD_NAME);
 	}
 
-	private String generateRequestBody() {
+	protected String generateRequestBody() {
 		Gson gson = new Gson();
 		Map<String,SecurityGroup> deployMap = new HashMap<String,SecurityGroup>();
 		deployMap.put("securityGroup", securityGroup);
@@ -78,7 +56,7 @@ public class CreateSecurityGroupRequest extends AbstractApiRequest<CreateSecurit
 		this.securityGroup = securityGroup;
 	}
 
-	public CreateSecurityGroupRequest serverGroup(SecurityGroup securityGroup) {
+	public CreateSecurityGroupRequest securityGroup(SecurityGroup securityGroup) {
 		this.securityGroup = securityGroup;
 		return this;
 	}
