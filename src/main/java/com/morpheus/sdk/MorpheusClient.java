@@ -640,6 +640,49 @@ public class MorpheusClient {
 	}
 
 	/**
+	 * Executes a {@link CreateServerRequest} to create a new {@link Server} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Server server = new Server();
+	 *     	server.name = "New Server Name";
+	 *     	server.sshHost = "hostname.or.ip";
+	 *
+	 *     	CreateServerRequest request = new CreateServerRequest().server(server);
+	 *     	CreateServerResponse response = client.createServer(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Server Server} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateServerResponse createServer(CreateServerRequest request) throws MorpheusApiRequestException {
+			return (CreateServerResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListServerTypesRequest} to get a list of {@link ComputeServerType} objects, representing the
+   * types of servers that can be created in Morpheus..
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	    ListServerTypesRequest request = new ListServerTypesRequest();
+	 * 	    ListServerTypesResponse response = client.listServerTypes(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link ComputeServerType} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListServerTypesResponse listServerTypes(ListServerTypesRequest request) throws MorpheusApiRequestException {
+			return (ListServerTypesResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
 	 * Executes a {@link CreateServerGroupRequest} to create a new {@link ServerGroup ServerGroup} object.
 	 *
 	 * Example Usage:

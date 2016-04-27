@@ -49,6 +49,7 @@ public class ListServersRequest extends AbstractApiRequest<ListServersResponse> 
 			client = clientBuilder.build();
 
 			CloseableHttpResponse response = client.execute(request);
+			System.out.println(response.getStatusLine());
 			return ListServersResponse.createFromStream(response.getEntity().getContent());
 		} catch(Exception ex) {
 			//Throw custom exception

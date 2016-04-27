@@ -41,6 +41,7 @@ public class ServerInterface {
   public Boolean primaryInterface;
   public String publicIpAddress;
   public String publicIpv6Address;
+	public Boolean poolAssigned;
 
   public String toString() { return "Server Interface: " + id + " " + name; }
 }

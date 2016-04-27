@@ -107,7 +107,7 @@ public class Server {
   public Boolean softwareRaid;
   public String sshHost;
   public String sshPassword;
-  public Long sshPort;
+	public Long sshPort = 22L;
   public String sshUsername;
   public String status;
   public String visibility;
@@ -116,6 +116,7 @@ public class Server {
   public Cloud cloud;
   @SerializedName("zoneId")
   public Long cloudId;
+	public ComputeServerType computeServerType;
   public ArrayList<ServerInterface> interfaces;
 
   public String toString() { return "Server: " + id + " " + name; }
