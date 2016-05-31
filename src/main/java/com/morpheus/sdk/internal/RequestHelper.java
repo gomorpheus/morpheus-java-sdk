@@ -2,10 +2,7 @@ package com.morpheus.sdk.internal;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.infrastructure.*;
-import com.morpheus.sdk.provisioning.ApplySecurityGroupsResponse;
-import com.morpheus.sdk.provisioning.DisableFirewallResponse;
-import com.morpheus.sdk.provisioning.EnableFirewallResponse;
-import com.morpheus.sdk.provisioning.ListAppliedSecurityGroupsResponse;
+import com.morpheus.sdk.provisioning.*;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -89,6 +86,24 @@ public class RequestHelper {
 			return (T) ListAppliedSecurityGroupsResponse.createFromStream(stream);
 		} if(clazz.getName() == ApplySecurityGroupsResponse.class.getName()) {
 			return (T) ApplySecurityGroupsResponse.createFromStream(stream);
+		} if(clazz.getName() == ListArtifactsResponse.class.getName()) {
+			return (T) ListArtifactsResponse.createFromStream(stream);
+		} if(clazz.getName() == CreateArtifactResponse.class.getName()) {
+			return (T) CreateArtifactResponse.createFromStream(stream);
+		} if(clazz.getName() == DeleteArtifactResponse.class.getName()) {
+			return (T) DeleteArtifactResponse.createFromStream(stream);
+		} if(clazz.getName() == GetArtifactResponse.class.getName()) {
+			return (T) GetArtifactResponse.createFromStream(stream);
+		} if(clazz.getName() == ListArtifactVersionsResponse.class.getName()) {
+			return (T) ListArtifactVersionsResponse.createFromStream(stream);
+		} if(clazz.getName() == CreateArtifactVersionResponse.class.getName()) {
+			return (T) CreateArtifactVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == DeleteArtifactVersionResponse.class.getName()) {
+			return (T) DeleteArtifactVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == GetArtifactVersionResponse.class.getName()) {
+			return (T) GetArtifactVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == UpdateArtifactVersionResponse.class.getName()) {
+			return (T) UpdateArtifactVersionResponse.createFromStream(stream);
 		} else {
 			throw new Exception(clazz.getName());
 		}

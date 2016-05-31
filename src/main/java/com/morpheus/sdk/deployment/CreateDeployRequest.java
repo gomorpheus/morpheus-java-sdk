@@ -18,18 +18,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to create a new app deployment record. Typically this record is used to reference file uploads,
- * then finally push a deployment out. It takes an instanceId to reference the instance being deployed to as well as an {@link AppDeploy} object.
+ * A request object for defining a request to create a new app deployment. Typically this record is used to reference an {@link com.morpheus.sdk.provisioning.ArtifactVersion}.
+ * It takes an instanceId to reference the instance being deployed to.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
  *     	AppDeploy deploy = new AppDeploy();
- *     	deploy.deployType = "git";
- *     	deploy.gitUrl = "git@github.com:bertramdev/morpheus-apidoc.git";
- *     	deploy.gitRef = "gh-pages";
- *     	CreateDeployRequest request = new CreateDeployRequest().appDeploy(appDeploy).instanceId(1);
+ *     	deploy.artifactVersionId = 1;
+ *     	deploy.instanceId = 5;
+ *     	CreateDeployRequest request = new CreateDeployRequest().appDeploy(appDeploy);
  *     	CreateDeployResponse response = client.createDeployment(request);
  *     }
  * </pre>
@@ -37,7 +36,6 @@ import java.util.Map;
  * @author David Estes
  */
 public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse> {
-	private Long instanceId;
 	private AppDeploy appDeploy;
 
 	@Override
@@ -45,7 +43,7 @@ public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/instances/" + this.getInstanceId() + "/deploy");
+			uriBuilder.setPath("/api/instances/" + appDeploy.instanceId + "/deploy");
 			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
@@ -74,19 +72,6 @@ public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse
 		Map<String,AppDeploy> deployMap = new HashMap<String,AppDeploy>();
 		deployMap.put("appDeploy", appDeploy);
 		return gson.toJson(deployMap);
-	}
-
-	public Long getInstanceId() {
-		return instanceId;
-	}
-
-	public void setInstanceId(Long instanceId) {
-		this.instanceId = instanceId;
-	}
-
-	public CreateDeployRequest instanceId(Long instanceId) {
-		this.instanceId = instanceId;
-		return this;
 	}
 
 	public AppDeploy getAppDeploy() {

@@ -21,7 +21,7 @@ import com.morpheus.sdk.BaseSpec
 /**
  * @author David Estes
  */
-class CreateDeployRequestSpec extends BaseSpec {
+class RunDeployRequestSpec extends BaseSpec {
 
 	def setup() {
 	}
@@ -34,12 +34,9 @@ class CreateDeployRequestSpec extends BaseSpec {
 //			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
 //			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.artifact.version')
 //
-//			AppDeploy appDeploy = new AppDeploy()
-//			appDeploy.versionId = 111;// INSTANCE_ID
-//			appDeploy.instanceId = 477;//ARTIFACT_VERSION_ID
-//			def request = new CreateDeployRequest().appDeploy(appDeploy)
+//			def request = new RunDeployRequest().appDeployId(295)
 //		when:
-//			CreateDeployResponse response = client.createDeployment(request)
+//			RunDeployResponse response = client.runDeploy(request)
 //		then:
 //			response.appDeploy?.id != null
 //

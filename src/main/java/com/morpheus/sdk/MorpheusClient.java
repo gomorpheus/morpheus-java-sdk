@@ -163,7 +163,7 @@ public class MorpheusClient {
 		return (RunDeployResponse)executeAuthenticatedRequest(request);
 	}
 
-	public UploadFileResponse uploadDeploymentFile(UploadFileRequest request) throws MorpheusApiRequestException {
+	public UploadFileResponse uploadArtifactVersionFile(UploadFileRequest request) throws MorpheusApiRequestException {
 		return (UploadFileResponse)executeAuthenticatedRequest(request);
 	}
 
@@ -1390,5 +1390,188 @@ public class MorpheusClient {
 	 */
 	public DeleteSecurityGroupRuleResponse deleteSecurityGroupRule(DeleteSecurityGroupRuleRequest request) throws MorpheusApiRequestException {
 		return (DeleteSecurityGroupRuleResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListArtifactsRequest ListArtifactsRequest} to get a list of {@link Artifact Artifact} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListArtifactsRequest request = new ListArtifactsRequest();
+	 *  ListArtifactsResponse response = client.listArtifacts(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link Artifact Artifact} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListArtifactsResponse listArtifacts(ListArtifactsRequest request) throws MorpheusApiRequestException {
+		return (ListArtifactsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetArtifactRequest GetArtifactRequest} to get a specific {@link com.morpheus.sdk.provisioning.Artifact Artifact} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetArtifactRequest request = new GetArtifactRequest().artifactId(1);
+	 * 	GetArtifactResponse response = client.getArtifact(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.Artifact Artifact} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetArtifactResponse getArtifact(GetArtifactRequest request) throws MorpheusApiRequestException {
+		return (GetArtifactResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateArtifactRequest} to create a new {@link Artifact Artifact} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	Artifact artifact = new Artifact();
+	 *     	artifact.name = "New Artifact Name";
+	 *     	artifact.description = "New Description";
+	 *     	CreateArtifactRequest request = new CreateArtifactRequest().artifact(artifact);
+	 *     	CreateArtifactResponse response = client.createArtifact(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link Artifact Artifact} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateArtifactResponse createArtifact(CreateArtifactRequest request) throws MorpheusApiRequestException {
+		return (CreateArtifactResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteArtifactRequest} to delete an existing {@link Artifact Artifact} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteArtifactRequest request = new DeleteArtifactRequest();
+	 *     	request.artifactId(1);
+	 *     	DeleteArtifactResponse response = client.deleteArtifact(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link Artifact Artifact} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteArtifactResponse deleteArtifact(DeleteArtifactRequest request) throws MorpheusApiRequestException {
+		return (DeleteArtifactResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link ListArtifactVersionsRequest ListArtifactVersionsRequest} to get a list of {@link ArtifactVersion ArtifactVersion} objects.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 *  MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *  ListArtifactVersionsRequest request = new ListArtifactVersionsRequest();
+	 *  ListArtifactVersionsResponse response = client.listArtifactVersions(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a list of {@link ArtifactVersion ArtifactVersion} objects.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public ListArtifactVersionsResponse listArtifactVersions(ListArtifactVersionsRequest request) throws MorpheusApiRequestException {
+		return (ListArtifactVersionsResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link com.morpheus.sdk.provisioning.GetArtifactVersionRequest GetArtifactVersionRequest} to get a specific {@link com.morpheus.sdk.provisioning.ArtifactVersion ArtifactVersion} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 * {@code
+	 * 	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 * 	GetArtifactVersionRequest request = new GetArtifactVersionRequest().artifactVersionId(1);
+	 * 	GetArtifactVersionResponse response = client.getArtifactVersion(request);
+	 * }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing an {@link com.morpheus.sdk.provisioning.ArtifactVersion ArtifactVersion} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public GetArtifactVersionResponse getArtifactVersion(GetArtifactVersionRequest request) throws MorpheusApiRequestException {
+		return (GetArtifactVersionResponse) executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 *
+	 * Executes a {@link UpdateArtifactVersionRequest UpdateArtifactVersionRequest} to update a specific {@link ArtifactVersion ArtifactVersion} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	UpdateArtifactVersionRequest request = new UpdateArtifactVersionRequest().artifactId(1).artifactVersionId(1).artifactVersion(updatedArtifactVersion)
+	 *     	UpdateArtifactVersionResponse response = client.updateArtifactVersion(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 *
+	 * @param request the request object being executed.
+	 * @return the response object containing a {@link SecurityGroup ArtifactVersion} object and a flag indicating if the
+	 * update request was successful or not.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public UpdateArtifactVersionResponse updateArtifactVersion(UpdateArtifactVersionRequest request) throws MorpheusApiRequestException {
+		return (UpdateArtifactVersionResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link CreateArtifactVersionRequest} to create a new {@link ArtifactVersion ArtifactVersion} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	ArtifactVersion version = new ArtifactVersion();
+	 *     	version.userVersion "1.1";
+	 *     	CreateArtifactVersionRequest request = new CreateArtifactVersionRequest().artifactId(1).artifactVersion(version);
+	 *     	CreateArtifactVersionResponse response = client.createArtifactVersion(request);
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object containing a new {@link ArtifactVersion ArtifactVersion} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public CreateArtifactVersionResponse createArtifactVersion(CreateArtifactVersionRequest request) throws MorpheusApiRequestException {
+		return (CreateArtifactVersionResponse)executeAuthenticatedRequest(request);
+	}
+
+	/**
+	 * Executes a {@link DeleteArtifactVersionRequest} to delete an existing {@link ArtifactVersion ArtifactVersion} object.
+	 *
+	 * Example Usage:
+	 * <pre>
+	 *     {@code
+	 *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
+	 *     	DeleteArtifactVersionRequest request = new DeleteArtifactVersionRequest().artifactId(1).artifactVersionId(1);
+	 *     	DeleteArtifactVersionResponse response = client.deleteArtifactVersion(request);
+	 *     	return response.success;
+	 *     }
+	 * </pre>
+	 * @param request the request object being executed.
+	 * @return the response object deleting an existing {@link ArtifactVersion ArtifactVersion} object.
+	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
+	 */
+	public DeleteArtifactVersionResponse deleteArtifactVersion(DeleteArtifactVersionRequest request) throws MorpheusApiRequestException {
+		return (DeleteArtifactVersionResponse)executeAuthenticatedRequest(request);
 	}
 }

@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.morpheus.sdk.deployment
+package com.morpheus.sdk.provisioning
 
 import com.morpheus.sdk.BaseSpec
+import com.morpheus.sdk.provisioning.*
 
 /**
- * @author David Estes
+ * @author Bob Whiton
  */
-class CreateDeployRequestSpec extends BaseSpec {
+class DeleteArtifactRequestSpec extends BaseSpec{
 
 	def setup() {
 	}
@@ -29,20 +30,15 @@ class CreateDeployRequestSpec extends BaseSpec {
 	def cleanup() {
 	}
 
-//	void "it should successfully create a deploy request"() {
-//		given:
-//			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
-//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.artifact.version')
-//
-//			AppDeploy appDeploy = new AppDeploy()
-//			appDeploy.versionId = 111;// INSTANCE_ID
-//			appDeploy.instanceId = 477;//ARTIFACT_VERSION_ID
-//			def request = new CreateDeployRequest().appDeploy(appDeploy)
-//		when:
-//			CreateDeployResponse response = client.createDeployment(request)
-//		then:
-//			response.appDeploy?.id != null
-//
-//	}
-
+	void "it should successfully delete an artifact"() {
+		given:
+		Artifact artifact = new Artifact(name: "Test Artifact ${System.currentTimeMillis()}", description: "Artifact Description")
+		CreateArtifactResponse createResponse = client.createArtifact(new CreateArtifactRequest().artifact(artifact))
+		def request = new DeleteArtifactRequest().artifactId(createResponse.artifact.id)
+		when:
+		DeleteArtifactResponse response = client.deleteArtifact(request)
+		then:
+		response.msg == null
+		response.success == true
+	}
 }

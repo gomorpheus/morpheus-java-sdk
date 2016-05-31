@@ -1,5 +1,6 @@
-package com.morpheus.sdk.deployment;
+package com.morpheus.sdk.provisioning;
 
+import com.morpheus.sdk.deployment.AppDeploy;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.HttpEntity;
@@ -7,9 +8,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -18,8 +17,8 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.*;
 
 /**
- * A request used for uploading files into an App Deployment archive. Once all your files are uploaded to the specified {@link AppDeploy} object,
- * a deploy call can be made to push the deployment out to the running containers.
+ * A request used for uploading files into an Artifact Version. Once all your files are uploaded to the specified {@link ArtifactVersion} object,
+ * a deploy call can be created  to push the deployment out to a particular running instance.
  *
  * Example Usage:
  * <pre>
@@ -28,7 +27,8 @@ import java.io.*;
  * </pre>
  */
 public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
-	private Long appDeployId;
+	private Long artifactId;
+	private Long artifactVersionId;
 	private InputStream inputStream;
 	private File file;
 	private String contentType;
@@ -40,8 +40,11 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 	public UploadFileResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
-			if(this.getAppDeployId() == null) {
-				throw new MorpheusApiRequestException("App Deploy id not specified. This API request requires an appDeployId be set.");
+			if(this.getArtifactVersionId() == null) {
+				throw new MorpheusApiRequestException("Artifact Version id not specified. This API request requires an artifactVersionId be set.");
+			}
+			if(this.getArtifactId() == null) {
+				throw new MorpheusApiRequestException("Artifact id not specified. This API request requires an artifactId be set.");
 			}
 			if(this.getDestination() == null) {
 				throw new MorpheusApiRequestException("Destination path for file upload not specified");
@@ -51,7 +54,7 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 			}
 
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			String basePath = "/api/deploy/" + this.getAppDeployId() + "/files/";
+			String basePath = "/api/artifacts/" + this.getArtifactId() + "/versions/" + this.getArtifactVersionId() + "/files/";
 
 			uriBuilder.setPath(basePath + this.getDestination());
 			HttpPost request = new HttpPost(uriBuilder.build());
@@ -130,16 +133,30 @@ public class UploadFileRequest extends AbstractApiRequest<UploadFileResponse> {
 		return this;
 	}
 
-	public Long getAppDeployId() {
-		return appDeployId;
+	public Long getArtifactId() {
+		return artifactId;
 	}
 
-	public void setAppDeployId(Long appDeployId) {
-		this.appDeployId = appDeployId;
+	public void setArtifactId(Long artifactId) {
+		this.artifactId = artifactId;
 	}
 
-	public UploadFileRequest appDeployId(Long appDeployId) {
-		this.setAppDeployId(appDeployId);
+	public Long getArtifactVersionId() {
+		return artifactVersionId;
+	}
+
+	public void setArtifactVersionId(Long artifactVersionId) {
+		this.artifactVersionId = artifactVersionId;
+	}
+
+
+	public UploadFileRequest artifactId(Long artifactId) {
+		this.setArtifactId(artifactId);
+		return this;
+	}
+
+	public UploadFileRequest artifactVersionId(Long artifactVersionId) {
+		this.setArtifactVersionId(artifactVersionId);
 		return this;
 	}
 

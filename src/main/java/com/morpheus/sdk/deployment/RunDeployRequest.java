@@ -17,16 +17,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to run a deployment. Typically an {@link AppDeploy} record is required to kick off this action/
- * Any changes to the AppDeploy model will also be posted to the server and updated. If you want to generate an {@link AppDeploy} object
- * look into the usage for the {@link CreateDeployRequest} request.
+ * A request object for defining a request to run a deployment. An existing {@AppDeploy} object's id is required.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
  *     	AppDeploy deploy = createDeployResponse.appDeploy;
- *     	RunDeployRequest request = new RunDeployRequest().appDeploy(appDeploy);
+ *     	RunDeployRequest request = new RunDeployRequest().appDeployId(appDeploy.id);
  *     	RunDeployResponse response = client.runDeploy(request);
  *     }
  * </pre>
@@ -34,21 +32,20 @@ import java.util.Map;
  * @author David Estes
  */
 public class RunDeployRequest extends AbstractApiRequest<RunDeployResponse> {
-	private AppDeploy appDeploy;
+	private Long appDeployId;
 
 	@Override
 	public RunDeployResponse executeRequest() throws MorpheusApiRequestException {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/deploy/" + this.getAppDeploy().id + "/deploy");
+			uriBuilder.setPath("/api/deploy/" + this.appDeployId + "/deploy");
 			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();
 			clientBuilder.setDefaultRequestConfig(this.getRequestConfig());
 			client = clientBuilder.build();
 			request.addHeader("Content-Type","application/json");
-			request.setEntity(new StringEntity(generateRequestBody()));
 			CloseableHttpResponse response = client.execute(request);
 
 			if(response.getStatusLine().getStatusCode() == 403) {
@@ -71,24 +68,16 @@ public class RunDeployRequest extends AbstractApiRequest<RunDeployResponse> {
 		}
 	}
 
-	protected String generateRequestBody() {
-		Gson gson = new Gson();
-		Map<String,AppDeploy> deployMap = new HashMap<String,AppDeploy>();
-		deployMap.put("appDeploy", appDeploy);
-		return gson.toJson(deployMap);
+	public Long getAppDeployId() {
+		return appDeployId;
 	}
 
-
-	public AppDeploy getAppDeploy() {
-		return appDeploy;
+	public void setAppDeployId(Long appDeployId) {
+		this.appDeployId = appDeployId;
 	}
 
-	public void setAppDeploy(AppDeploy appDeploy) {
-		this.appDeploy = appDeploy;
-	}
-
-	public RunDeployRequest appDeploy(AppDeploy appDeploy) {
-		this.appDeploy = appDeploy;
+	public RunDeployRequest appDeployId(Long appDeployId) {
+		this.appDeployId = appDeployId;
 		return this;
 	}
 }
