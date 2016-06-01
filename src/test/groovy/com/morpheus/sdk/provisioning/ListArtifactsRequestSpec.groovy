@@ -40,4 +40,20 @@ class ListArtifactsRequestSpec extends ArtifactBaseSpec {
 		cleanup:
 		destroyArtifact(artifact)
 	}
+
+	void "it should successfully list artifacts with a certain name"() {
+		given:
+
+		Artifact artifact = new Artifact(name: "Jenkins Example")
+		CreateArtifactResponse createResponse = client.createArtifact(new CreateArtifactRequest().artifact(artifact))
+		Artifact createdArtifact = createResponse.artifact
+		def request = new ListArtifactsRequest().name("Jenkins Example")
+		when:
+		ListArtifactsResponse response = client.listArtifacts(request)
+		then:
+		response.artifacts?.size() == 1
+		response.artifacts?.get(0).id == createdArtifact.id;
+		cleanup:
+		destroyArtifact(createdArtifact)
+	}
 }
