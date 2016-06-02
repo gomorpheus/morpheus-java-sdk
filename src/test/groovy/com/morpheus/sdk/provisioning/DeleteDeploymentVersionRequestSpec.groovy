@@ -16,29 +16,30 @@
 
 package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.BaseSpec
-import com.morpheus.sdk.provisioning.*
+import com.morpheus.sdk.DeploymentBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class DeleteArtifactRequestSpec extends BaseSpec{
-
+class DeleteDeploymentVersionRequestSpec extends DeploymentBaseSpec {
 	def setup() {
 	}
 
 	def cleanup() {
 	}
 
-	void "it should successfully delete an artifact"() {
+	void "it should successfully delete an deployment version"() {
 		given:
-		Artifact artifact = new Artifact(name: "Test Artifact ${System.currentTimeMillis()}", description: "Artifact Description")
-		CreateArtifactResponse createResponse = client.createArtifact(new CreateArtifactRequest().artifact(artifact))
-		def request = new DeleteArtifactRequest().artifactId(createResponse.artifact.id)
+
+		Deployment deployment = setupDeployment()
+		DeploymentVersion version = setupDeploymentVersion(deployment)
+		def request = new DeleteDeploymentVersionRequest().deploymentId(deployment.id).deploymentVersionId(version.id)
 		when:
-		DeleteArtifactResponse response = client.deleteArtifact(request)
+		DeleteDeploymentVersionResponse response = client.deleteDeploymentVersion(request)
 		then:
 		response.msg == null
 		response.success == true
+		cleanup:
+		destroyDeployment(deployment)
 	}
 }

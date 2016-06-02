@@ -16,34 +16,34 @@
 
 package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.ArtifactBaseSpec
+import com.morpheus.sdk.DeploymentBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class UpdateArtifactVersionRequestSpec extends ArtifactBaseSpec {
+class UpdateDeploymentVersionRequestSpec extends DeploymentBaseSpec {
 	def setup() {
 	}
 
 	def cleanup() {
 	}
 
-	void "it should successfully update a artifact version"() {
+	void "it should successfully update a deployment version"() {
 		given:
-		Artifact artifact = setupArtifact()
-		ArtifactVersion version = setupArtifactVersion(artifact)
+		Deployment deployment = setupDeployment()
+		DeploymentVersion version = setupDeploymentVersion(deployment)
 
 		// Update new values
 		version.userVersion = "11"
 		
-		def updateRequest = new UpdateArtifactVersionRequest().artifactId(version.artifactId).artifactVersionId(version.id).artifactVersion(version)
+		def updateRequest = new UpdateDeploymentVersionRequest().deploymentId(version.deploymentId).deploymentVersionId(version.id).deploymentVersion(version)
 		when:
-		UpdateArtifactVersionResponse updateArtifactVersionResponse = client.updateArtifactVersion(updateRequest)
+		UpdateDeploymentVersionResponse updateDeploymentVersionResponse = client.updateDeploymentVersion(updateRequest)
 		then:
-		updateArtifactVersionResponse.success == true
-		updateArtifactVersionResponse.artifactVersion.userVersion == "11"
+		updateDeploymentVersionResponse.success == true
+		updateDeploymentVersionResponse.deploymentVersion.userVersion == "11"
 		cleanup:
-		destroyArtifactVersion(version)
-		destroyArtifact(artifact)
+		destroyDeploymentVersion(version)
+		destroyDeployment(deployment)
 	}
 }

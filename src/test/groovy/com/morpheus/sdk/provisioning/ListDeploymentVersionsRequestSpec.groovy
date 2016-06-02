@@ -16,29 +16,29 @@
 
 package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.ArtifactBaseSpec
+import com.morpheus.sdk.DeploymentBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class ListArtifactVersionsRequestSpec extends ArtifactBaseSpec  {
+class ListDeploymentVersionsRequestSpec extends DeploymentBaseSpec  {
 	def setup() {
 	}
 
 	def cleanup() {
 	}
 	
-	void "it should successfully list artifact version rules"() {
+	void "it should successfully list deployment version rules"() {
 		given:
-		Artifact artifact = setupArtifact()
-		ArtifactVersion version = setupArtifactVersion(artifact)
-		def request = new ListArtifactVersionsRequest().artifactId(artifact.id)
+		Deployment deployment = setupDeployment()
+		DeploymentVersion version = setupDeploymentVersion(deployment)
+		def request = new ListDeploymentVersionsRequest().deploymentId(deployment.id)
 		when:
-		ListArtifactVersionsResponse response = client.listArtifactVersions(request)
+		ListDeploymentVersionsResponse response = client.listDeploymentVersions(request)
 		then:
-		response.artifactVersions?.size() == 1
+		response.deploymentVersions?.size() == 1
 		cleanup:
-		destroyArtifactVersion(response.artifactVersions[0])
-		destroyArtifact(artifact)
+		destroyDeploymentVersion(response.deploymentVersions[0])
+		destroyDeployment(deployment)
 	}
 }

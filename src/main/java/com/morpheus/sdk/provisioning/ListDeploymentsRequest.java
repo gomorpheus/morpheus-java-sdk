@@ -1,9 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
-import com.morpheus.sdk.provisioning.Artifact;
 import com.morpheus.sdk.internal.AbstractApiRequest;
-import com.morpheus.sdk.internal.RequestHelper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -12,25 +10,24 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
-import java.util.Date;
 
 /**
- * A request object for defining a request for fetching a list of artifacts within the Morpheus Account.
+ * A request object for defining a request for fetching a list of deployments within the Morpheus Account.
  * Typically this object is called from the {@link com.morpheus.sdk.MorpheusClient MorpheusClient} class and
- * is used to fetch a list of {@link Artifact} objects.
+ * is used to fetch a list of {@link Deployment} objects.
  *
  * Example Usage:
  * <pre>
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
- *     	ListArtifactsRequest request = new ListArtifactsRequest();
- *     	ListArtifactsResponse response = client.listArtifacts(request);
- *     	return response.artifacts;
+ *     	ListDeploymentsRequest request = new ListDeploymentsRequest();
+ *     	ListDeploymentsResponse response = client.listDeployments(request);
+ *     	return response.deployments;
  *     }
  * </pre>
  * @author Bob Whiton
  */
-public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsResponse> {
+public class ListDeploymentsRequest extends AbstractApiRequest<ListDeploymentsResponse> {
 
   private Integer max = 50;
   private Integer offset = 0;
@@ -41,11 +38,11 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
    * Executes the request against the appliance API (Should not be called directly).
    */
   @Override
-  public ListArtifactsResponse executeRequest() throws MorpheusApiRequestException {
+  public ListDeploymentsResponse executeRequest() throws MorpheusApiRequestException {
     CloseableHttpClient client = null;
     try {
       URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/artifacts");
+      uriBuilder.setPath("/api/deployments");
       addQueryParameters(uriBuilder);
       HttpGet request = new HttpGet(uriBuilder.build());
       this.applyHeaders(request);
@@ -54,10 +51,10 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
       client = clientBuilder.build();
 
       CloseableHttpResponse response = client.execute(request);
-      return ListArtifactsResponse.createFromStream(response.getEntity().getContent());
+      return ListDeploymentsResponse.createFromStream(response.getEntity().getContent());
     } catch (Exception ex) {
       //Throw custom exception
-      throw new MorpheusApiRequestException("Error Performing API Request for Listing Artifacts", ex);
+      throw new MorpheusApiRequestException("Error Performing API Request for Listing Deployments", ex);
     } finally {
       if (client != null) {
         try {
@@ -106,10 +103,10 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
   /**
    * Chain-able method for setting the max result set for the request
    *
-   * @param max the max number of artifacts to return
-   * @return current instance of ListArtifactsRequest
+   * @param max the max number of deployments to return
+   * @return current instance of ListDeploymentsRequest
    */
-  public ListArtifactsRequest max(Integer max) {
+  public ListDeploymentsRequest max(Integer max) {
     this.max = max;
     return this;
   }
@@ -126,7 +123,7 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
   /**
    * Sets the current offset for the result. useful for paging through instance data.
    *
-   * @param offset the offset of artifacts
+   * @param offset the offset of deployments
    */
   public void setOffset(Integer offset) {
     this.offset = offset;
@@ -135,10 +132,10 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
   /**
    * Chain-able method for setting the offset for the request
    *
-   * @param offset the offset of artifacts
-   * @return current instance of ListArtifactsRequest
+   * @param offset the offset of deployments
+   * @return current instance of ListDeploymentsRequest
    */
-  public ListArtifactsRequest offset(Integer offset) {
+  public ListDeploymentsRequest offset(Integer offset) {
     this.offset = offset;
     return this;
   }
@@ -147,14 +144,14 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
    * Gets the phrase parameter being applied to the request
    *
    * @return phrase to be applied to the filter
-   * @see ListArtifactsRequest#setPhrase(String)
+   * @see ListDeploymentsRequest#setPhrase(String)
    */
   public String getPhrase() {
     return phrase;
   }
 
   /**
-   * Sets a search phrase for the request. If set all artifacts will be searched for this matching phrase pattern.
+   * Sets a search phrase for the request. If set all deployments will be searched for this matching phrase pattern.
    *
    * @param phrase the phrase to search for
    */
@@ -166,10 +163,10 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
    * Chain-able method for setting the phrase or search phrase for a request.
    *
    * @param phrase the phrase to be searched for
-   * @return current instance of ListArtifactsRequest
-   * @see ListArtifactsRequest#setPhrase(String)
+   * @return current instance of ListDeploymentsRequest
+   * @see ListDeploymentsRequest#setPhrase(String)
    */
-  public ListArtifactsRequest phrase(String phrase) {
+  public ListDeploymentsRequest phrase(String phrase) {
     this.setPhrase(phrase);
     return this;
   }
@@ -178,7 +175,7 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
    * Gets the name filter being applied to the request
    *
    * @return the current name filter being applied
-   * @see ListArtifactsRequest#setName(String)
+   * @see ListDeploymentsRequest#setName(String)
    */
   public String getName() {
     return name;
@@ -196,11 +193,11 @@ public class ListArtifactsRequest extends AbstractApiRequest<ListArtifactsRespon
   /**
    * Chain-able method for applying the name filter to be applied to the request
    *
-   * @param name the name of the artifact to look for
-   * @return the current instance of ListArtifactsRequest
-   * @see ListArtifactsRequest#setName(String)
+   * @param name the name of the deployment to look for
+   * @return the current instance of ListDeploymentsRequest
+   * @see ListDeploymentsRequest#setName(String)
    */
-  public ListArtifactsRequest name(String name) {
+  public ListDeploymentsRequest name(String name) {
     this.setName(name);
     return this;
   }

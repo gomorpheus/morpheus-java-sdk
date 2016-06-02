@@ -9,11 +9,11 @@ import java.util.Map;
 
 /**
  * /**
- * A Model representation of a Morpheus Artifact record
+ * A Model representation of a Morpheus Deployment record
  * It is used by GSON Decoder to convert JSON of the following structure into a java based Object.
  *
  * <pre>
- *  artifact: {
+ *  deployment: {
  *    "name": "",
  *    "description: "",
  *    "externalId: ""
@@ -23,7 +23,7 @@ import java.util.Map;
  * </pre>
  * @author Bob Whiton
  */
-public class Artifact {
+public class Deployment {
 	public Long id;
 	public Long accountId;
 	public String name;

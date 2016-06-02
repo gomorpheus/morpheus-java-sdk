@@ -16,35 +16,28 @@
 
 package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.ArtifactBaseSpec
-import com.morpheus.sdk.SecurityGroupBaseSpec
-import com.morpheus.sdk.infrastructure.DeleteSecurityGroupRuleRequest
-import com.morpheus.sdk.infrastructure.DeleteSecurityGroupRuleResponse
-import com.morpheus.sdk.infrastructure.SecurityGroup
-import com.morpheus.sdk.infrastructure.SecurityGroupRule
+import com.morpheus.sdk.BaseSpec
 
 /**
  * @author Bob Whiton
  */
-class DeleteArtifactVersionRequestSpec extends ArtifactBaseSpec {
+class DeleteDeploymentRequestSpec extends BaseSpec{
+
 	def setup() {
 	}
 
 	def cleanup() {
 	}
 
-	void "it should successfully delete an artifact version"() {
+	void "it should successfully delete an deployment"() {
 		given:
-
-		Artifact artifact = setupArtifact()
-		ArtifactVersion version = setupArtifactVersion(artifact)
-		def request = new DeleteArtifactVersionRequest().artifactId(artifact.id).artifactVersionId(version.id)
+		Deployment deployment = new Deployment(name: "Test Deployment ${System.currentTimeMillis()}", description: "Deployment Description")
+		CreateDeploymentResponse createResponse = client.createDeployment(new CreateDeploymentRequest().deployment(deployment))
+		def request = new DeleteDeploymentRequest().deploymentId(createResponse.deployment.id)
 		when:
-		DeleteArtifactVersionResponse response = client.deleteArtifactVersion(request)
+		DeleteDeploymentResponse response = client.deleteDeployment(request)
 		then:
 		response.msg == null
 		response.success == true
-		cleanup:
-		destroyArtifact(artifact)
 	}
 }

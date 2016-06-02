@@ -86,24 +86,24 @@ public class RequestHelper {
 			return (T) ListAppliedSecurityGroupsResponse.createFromStream(stream);
 		} if(clazz.getName() == ApplySecurityGroupsResponse.class.getName()) {
 			return (T) ApplySecurityGroupsResponse.createFromStream(stream);
-		} if(clazz.getName() == ListArtifactsResponse.class.getName()) {
-			return (T) ListArtifactsResponse.createFromStream(stream);
-		} if(clazz.getName() == CreateArtifactResponse.class.getName()) {
-			return (T) CreateArtifactResponse.createFromStream(stream);
-		} if(clazz.getName() == DeleteArtifactResponse.class.getName()) {
-			return (T) DeleteArtifactResponse.createFromStream(stream);
-		} if(clazz.getName() == GetArtifactResponse.class.getName()) {
-			return (T) GetArtifactResponse.createFromStream(stream);
-		} if(clazz.getName() == ListArtifactVersionsResponse.class.getName()) {
-			return (T) ListArtifactVersionsResponse.createFromStream(stream);
-		} if(clazz.getName() == CreateArtifactVersionResponse.class.getName()) {
-			return (T) CreateArtifactVersionResponse.createFromStream(stream);
-		} if(clazz.getName() == DeleteArtifactVersionResponse.class.getName()) {
-			return (T) DeleteArtifactVersionResponse.createFromStream(stream);
-		} if(clazz.getName() == GetArtifactVersionResponse.class.getName()) {
-			return (T) GetArtifactVersionResponse.createFromStream(stream);
-		} if(clazz.getName() == UpdateArtifactVersionResponse.class.getName()) {
-			return (T) UpdateArtifactVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == ListDeploymentsResponse.class.getName()) {
+			return (T) ListDeploymentsResponse.createFromStream(stream);
+		} if(clazz.getName() == CreateDeploymentResponse.class.getName()) {
+			return (T) CreateDeploymentResponse.createFromStream(stream);
+		} if(clazz.getName() == DeleteDeploymentResponse.class.getName()) {
+			return (T) DeleteDeploymentResponse.createFromStream(stream);
+		} if(clazz.getName() == GetDeploymentResponse.class.getName()) {
+			return (T) GetDeploymentResponse.createFromStream(stream);
+		} if(clazz.getName() == ListDeploymentVersionsResponse.class.getName()) {
+			return (T) ListDeploymentVersionsResponse.createFromStream(stream);
+		} if(clazz.getName() == CreateDeploymentVersionResponse.class.getName()) {
+			return (T) CreateDeploymentVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == DeleteDeploymentVersionResponse.class.getName()) {
+			return (T) DeleteDeploymentVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == GetDeploymentVersionResponse.class.getName()) {
+			return (T) GetDeploymentVersionResponse.createFromStream(stream);
+		} if(clazz.getName() == UpdateDeploymentVersionResponse.class.getName()) {
+			return (T) UpdateDeploymentVersionResponse.createFromStream(stream);
 		} else {
 			throw new Exception(clazz.getName());
 		}

@@ -17,17 +17,6 @@
 package com.morpheus.sdk.deployment
 
 import com.morpheus.sdk.BaseSpec
-import com.morpheus.sdk.provisioning.Artifact
-import com.morpheus.sdk.provisioning.ArtifactVersion
-import com.morpheus.sdk.provisioning.CreateArtifactRequest
-import com.morpheus.sdk.provisioning.CreateArtifactResponse
-import com.morpheus.sdk.provisioning.CreateArtifactVersionRequest
-import com.morpheus.sdk.provisioning.CreateArtifactVersionResponse
-import com.morpheus.sdk.provisioning.ListArtifactsRequest
-import com.morpheus.sdk.provisioning.ListArtifactsResponse
-import com.morpheus.sdk.provisioning.ListInstancesRequest
-import com.morpheus.sdk.provisioning.ListInstancesResponse
-import com.morpheus.sdk.provisioning.UploadFileRequest
 
 /**
  * @author David Estes
@@ -43,7 +32,7 @@ class CreateDeployRequestSpec extends BaseSpec {
 //	void "it should successfully create a deploy request"() {
 //		given:
 //			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
-//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.artifact.version')
+//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.deployment.version')
 //
 //			AppDeploy appDeploy = new AppDeploy()
 //			appDeploy.versionId = 111;// INSTANCE_ID
@@ -59,30 +48,30 @@ class CreateDeployRequestSpec extends BaseSpec {
 //	void "it should simulate the jenkins plugin"() {
 //		given:
 //
-//		String artifactName = "JenkinsArtifactTest"
+//		String deploymentName = "JenkinsDeploymentTest"
 //		String instanceName = "tommy"
 //
 //		AppDeploy appDeploy = new AppDeploy();
 //		System.out.println("Performing Morpheus Deploy");
 //		try {
-//			// Get or create the artifact specified
-//			ListArtifactsResponse listArtifactsResponse = client.listArtifacts(new ListArtifactsRequest().name(artifactName))
-//			Long artifactId = null
-//			if(listArtifactsResponse.artifacts.size() == 0) {
-//				Artifact artifact = new Artifact()
-//				artifact.name = artifactName
-//				artifact.description = artifactName + " - Created by Morpheus Jenkins Plugin"
-//				CreateArtifactResponse createArtifactResponse = client.createArtifact(new CreateArtifactRequest().artifact(artifact))
-//				artifactId = createArtifactResponse.artifact.id
+//			// Get or create the deployment specified
+//			ListDeploymentsResponse listDeploymentsResponse = client.listDeployments(new ListDeploymentsRequest().name(deploymentName))
+//			Long deploymentId = null
+//			if(listDeploymentsResponse.deployments.size() == 0) {
+//				Deployment deployment = new Deployment()
+//				deployment.name = deploymentName
+//				deployment.description = deploymentName + " - Created by Morpheus Jenkins Plugin"
+//				CreateDeploymentResponse createDeploymentResponse = client.createDeployment(new CreateDeploymentRequest().deployment(deployment))
+//				deploymentId = createDeploymentResponse.deployment.id
 //			} else {
-//				artifactId = listArtifactsResponse.artifacts.get(0).id
+//				deploymentId = listDeploymentsResponse.deployments.get(0).id
 //			}
 //
-//			// Create a new artifact version
-//			ArtifactVersion artifactVersion = new ArtifactVersion()
-//			artifactVersion.userVersion = "1.0"
-//			CreateArtifactVersionResponse createArtifactVersionResponse = client.createArtifactVersion(new CreateArtifactVersionRequest().artifactId(artifactId).artifactVersion(artifactVersion))
-//			def artifactVersionId = createArtifactVersionResponse.artifactVersion.id
+//			// Create a new deployment version
+//			DeploymentVersion deploymentVersion = new DeploymentVersion()
+//			deploymentVersion.userVersion = "1.0"
+//			CreateDeploymentVersionResponse createDeploymentVersionResponse = client.createDeploymentVersion(new CreateDeploymentVersionRequest().deploymentId(deploymentId).deploymentVersion(deploymentVersion))
+//			def deploymentVersionId = createDeploymentVersionResponse.deploymentVersion.id
 //
 //			ListInstancesResponse listInstancesResponse = client.listInstances(new ListInstancesRequest().name(instanceName));
 //			if(listInstancesResponse.instances != null && listInstancesResponse.instances.size() > 0) {
@@ -94,14 +83,14 @@ class CreateDeployRequestSpec extends BaseSpec {
 ////					FilePath currentFile = matchedFiles[filesCounter];
 ////					if(!currentFile.isDirectory()) {
 ////						String destination = rootDir.toURI().relativize(currentFile.getParent().toURI()).getPath();
-////						UploadFileRequest fileUploadRequest = new UploadFileRequest().artifactId(artifactId).artifactVersionId(artifactVersionId).inputStream(currentFile.read()).originalName(currentFile.getName()).destination(destination);
-////						client.uploadArtifactVersionFile(fileUploadRequest);
+////						UploadFileRequest fileUploadRequest = new UploadFileRequest().deploymentId(deploymentId).deploymentVersionId(deploymentVersionId).inputStream(currentFile.read()).originalName(currentFile.getName()).destination(destination);
+////						client.uploadDeploymentVersionFile(fileUploadRequest);
 ////					}
 ////
 ////				}
 //
 //				Long instanceId = listInstancesResponse.instances.get(0).id;
-//				appDeploy.versionId = artifactVersionId;
+//				appDeploy.versionId = deploymentVersionId;
 //				appDeploy.instanceId = instanceId;
 //				CreateDeployResponse createDeployResponse = client.createDeployment(new CreateDeployRequest().appDeploy(appDeploy));
 //				Long appDeployId = createDeployResponse.appDeploy.id;

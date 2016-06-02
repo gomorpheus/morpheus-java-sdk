@@ -6,13 +6,13 @@ import java.util.Date;
 
 /**
  * /**
- * A Model representation of a Morpheus ArtifactVersion record
+ * A Model representation of a Morpheus DeploymentVersion record
  * It is used by GSON Decoder to convert JSON of the following structure into a java based Object.
  *
  * <pre>
  *  version: {
  *    "id": 1,
- *    "artifactId: 2,
+ *    "deploymentId: 2,
  *    "externalId: "",
  *    "gitUrl":null,
  *    "gitRef":null,
@@ -25,11 +25,11 @@ import java.util.Date;
  * </pre>
  * @author Bob Whiton
  */
-public class ArtifactVersion {
+public class DeploymentVersion {
 	@Expose
 	public Long id;
 	@Expose
-	public Long artifactId;
+	public Long deploymentId;
 	@Expose
 	public String gitUrl;
 	@Expose

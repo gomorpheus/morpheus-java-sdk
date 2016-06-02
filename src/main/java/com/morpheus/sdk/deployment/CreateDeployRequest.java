@@ -3,9 +3,8 @@ package com.morpheus.sdk.deployment;
 import com.google.gson.Gson;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
-import com.morpheus.sdk.provisioning.GetInstanceTypeResponse;
+import com.morpheus.sdk.provisioning.DeploymentVersion;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to create a new app deployment. Typically this record is used to reference an {@link com.morpheus.sdk.provisioning.ArtifactVersion}.
+ * A request object for defining a request to create a new app deployment. Typically this record is used to reference an {@link DeploymentVersion}.
  * It takes an instanceId to reference the instance being deployed to.
  *
  * Example Usage:
@@ -26,7 +25,7 @@ import java.util.Map;
  *     {@code
  *     	MorpheusClient client = new MorpheusClient(credentialsProvider);
  *     	AppDeploy deploy = new AppDeploy();
- *     	deploy.artifactVersionId = 1;
+ *     	deploy.deploymentVersionId = 1;
  *     	deploy.instanceId = 5;
  *     	CreateDeployRequest request = new CreateDeployRequest().appDeploy(appDeploy);
  *     	CreateDeployResponse response = client.createDeployment(request);

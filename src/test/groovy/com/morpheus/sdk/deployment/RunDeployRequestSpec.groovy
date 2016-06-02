@@ -32,7 +32,7 @@ class RunDeployRequestSpec extends BaseSpec {
 //	void "it should successfully create a deploy request"() {
 //		given:
 //			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
-//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.artifact.version')
+//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.deployment.version')
 //
 //			def request = new RunDeployRequest().appDeployId(295)
 //		when:

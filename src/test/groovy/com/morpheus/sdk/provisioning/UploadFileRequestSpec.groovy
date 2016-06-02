@@ -16,40 +16,40 @@
 
 package com.morpheus.sdk.provisioning
 
-import com.morpheus.sdk.ArtifactBaseSpec
+import com.morpheus.sdk.DeploymentBaseSpec
 
 /**
  * @author Bob Whiton
  */
-class UploadFileRequestSpec extends ArtifactBaseSpec {
+class UploadFileRequestSpec extends DeploymentBaseSpec {
 	def setup() {
 	}
 
 	def cleanup() {
 	}
 
-	void "it should successfully upload a file to an artifact version"() {
+	void "it should successfully upload a file to an deployment version"() {
 		given:
-		Artifact artifact = setupArtifact()
-		ArtifactVersion version = setupArtifactVersion(artifact)
+		Deployment deployment = setupDeployment()
+		DeploymentVersion version = setupDeploymentVersion(deployment)
 
 		File tempFile = File.createTempFile("mph-java-sdk-test", ".tmp");
 		tempFile.write("A TEST!")
 
 		FileInputStream fileInputStream = new FileInputStream(tempFile)
 
-		UploadFileRequest fileUploadRequest = new UploadFileRequest().artifactId(artifact.id).artifactVersionId(version.id)
+		UploadFileRequest fileUploadRequest = new UploadFileRequest().deploymentId(deployment.id).deploymentVersionId(version.id)
 		fileUploadRequest.inputStream(fileInputStream).originalName(tempFile.getName()).destination("");
 
 		when:
 
-		UploadFileResponse response = client.uploadArtifactVersionFile(fileUploadRequest);
+		UploadFileResponse response = client.uploadDeploymentVersionFile(fileUploadRequest);
 
 		then:
 		response.success == true
 
 		cleanup:
-		destroyArtifactVersion(version)
-		destroyArtifact(artifact)
+		destroyDeploymentVersion(version)
+		destroyDeployment(deployment)
 	}
 }
