@@ -44,7 +44,7 @@ public class ListCheckTypesRequest extends AbstractApiRequest<ListCheckTypesResp
     CloseableHttpClient client = null;
     try {
       URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/check-types");
+      uriBuilder.setPath("/api/monitoring/check-types");
       HttpGet request = new HttpGet(uriBuilder.build());
       this.applyHeaders(request);
       HttpClientBuilder clientBuilder = HttpClients.custom();

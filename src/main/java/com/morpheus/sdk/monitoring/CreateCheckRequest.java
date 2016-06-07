@@ -39,7 +39,7 @@ public class CreateCheckRequest extends AbstractApiRequest<CreateCheckResponse> 
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/checks/");
+			uriBuilder.setPath("/api/monitoring/checks/");
 			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();

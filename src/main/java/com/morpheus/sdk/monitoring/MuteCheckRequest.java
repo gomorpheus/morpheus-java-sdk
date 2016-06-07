@@ -44,7 +44,7 @@ public class MuteCheckRequest extends AbstractApiRequest<MuteCheckResponse> {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/checks/" + this.getCheckId() + "/quarantine");
+			uriBuilder.setPath("/api/monitoring/checks/" + this.getCheckId() + "/quarantine");
 			HttpPut request = new HttpPut(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();

@@ -11,7 +11,7 @@ import spock.lang.Specification
 class GetServerGroupRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
-	static String API_URL=System.getProperty('morpheus.api.host',"https://morpheus.bertramlabs.com")
+	static String API_URL=System.getProperty('morpheus.api.host',"https://qa.gomorpheus.com")
 	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"17")
 
 	@Shared

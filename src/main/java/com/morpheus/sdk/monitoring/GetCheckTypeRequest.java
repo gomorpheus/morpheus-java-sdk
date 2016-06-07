@@ -38,7 +38,7 @@ public class GetCheckTypeRequest extends AbstractApiRequest<GetCheckTypeResponse
     CloseableHttpClient client = null;
     try {
       URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/check-types/" + this.getCheckTypeId());
+      uriBuilder.setPath("/api/monitoring/check-types/" + this.getCheckTypeId());
       HttpGet request = new HttpGet(uriBuilder.build());
       this.applyHeaders(request);
       HttpClientBuilder clientBuilder = HttpClients.custom();

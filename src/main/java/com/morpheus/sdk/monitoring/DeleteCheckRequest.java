@@ -35,7 +35,7 @@ public class DeleteCheckRequest extends AbstractApiRequest<DeleteCheckResponse> 
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/checks/" + this.getCheckId());
+			uriBuilder.setPath("/api/monitoring/checks/" + this.getCheckId());
 			HttpDelete request = new HttpDelete(uriBuilder.build());
 			this.applyHeaders(request);
 			HttpClientBuilder clientBuilder = HttpClients.custom();

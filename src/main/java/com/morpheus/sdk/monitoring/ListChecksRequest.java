@@ -40,7 +40,7 @@ public class ListChecksRequest extends AbstractApiRequest<ListChecksResponse> {
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-			uriBuilder.setPath("/api/checks");
+			uriBuilder.setPath("/api/monitoring/checks");
 			addQueryParameters(uriBuilder);
 			HttpGet request = new HttpGet(uriBuilder.build());
 			this.applyHeaders(request);

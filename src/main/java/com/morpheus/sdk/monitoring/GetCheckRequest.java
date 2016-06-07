@@ -38,7 +38,7 @@ public class GetCheckRequest extends AbstractApiRequest<GetCheckResponse> {
     CloseableHttpClient client = null;
     try {
       URIBuilder uriBuilder = new URIBuilder(endpointUrl);
-      uriBuilder.setPath("/api/checks/" + this.getCheckId());
+      uriBuilder.setPath("/api/monitoring/checks/" + this.getCheckId());
       HttpGet request = new HttpGet(uriBuilder.build());
       this.applyHeaders(request);
       HttpClientBuilder clientBuilder = HttpClients.custom();
