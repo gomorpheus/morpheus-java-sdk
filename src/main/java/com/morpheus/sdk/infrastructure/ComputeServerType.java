@@ -112,7 +112,7 @@ import java.util.ArrayList;
  *  }
  * </pre>
 */
-class ComputeServerType {
+public class ComputeServerType {
 		public Long id;
 		public String code;
 		public String name;

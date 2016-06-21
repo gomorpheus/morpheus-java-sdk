@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A request object for defining a request to run a deployment. An existing {@AppDeploy} object's id is required.
+ * A request object for defining a request to run a deployment. An existing {@link AppDeploy} object's id is required.
  *
  * Example Usage:
  * <pre>

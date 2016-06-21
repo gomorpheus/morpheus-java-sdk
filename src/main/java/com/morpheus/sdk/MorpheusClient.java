@@ -663,7 +663,7 @@ public class MorpheusClient {
 	}
 
 	/**
-	 * Executes a {@link ListServerTypesRequest} to get a list of {@link ComputeServerType} objects, representing the
+	 * Executes a {@link com.morpheus.sdk.infrastructure.ListServerTypesRequest ListServerTypesRequest} to get a list of {@link com.morpheus.sdk.infrastructure.ComputeServerType} objects, representing the
    * types of servers that can be created in Morpheus..
 	 *
 	 * Example Usage:
@@ -675,7 +675,7 @@ public class MorpheusClient {
 	 *     }
 	 * </pre>
 	 * @param request the request object being executed.
-	 * @return the response object containing a list of {@link ComputeServerType} objects.
+	 * @return the response object containing a list of {@link com.morpheus.sdk.infrastructure.ComputeServerType} objects.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
 	public ListServerTypesResponse listServerTypes(ListServerTypesRequest request) throws MorpheusApiRequestException {
