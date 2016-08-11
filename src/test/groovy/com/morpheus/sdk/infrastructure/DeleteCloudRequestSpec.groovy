@@ -28,16 +28,23 @@ class DeleteCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://qa.gomorpheus.com")
-	static String TEST_CLOUD_TYPE_ID=System.getProperty('morpheus.api.testCloudTypeId',"3")
 	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"17")
 
 	@Shared
 	MorpheusClient client
 
+	@Shared
+	CloudType morpheusCloudType
+
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+		ListCloudTypesRequest cloudTypesRequest = new ListCloudTypesRequest()
+		ListCloudTypesResponse cloudTypeResponse = client.listCloudTypes(cloudTypesRequest)
+		morpheusCloudType = cloudTypeResponse.cloudTypes.find { CloudType cloudType ->
+			cloudType.name == 'Morpheus'
+		}
 	}
 
 	def cleanup() {
@@ -47,13 +54,13 @@ class DeleteCloudRequestSpec extends Specification {
 	void "it should successfully delete a cloud"() {
 		given:
 		def cloudTypeRequest = new GetCloudTypeRequest()
-		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
+		cloudTypeRequest.setCloudTypeId(morpheusCloudType.id)
 		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
 
 		def createTestCloudRequest = new CreateCloudRequest()
 		Cloud cloud = new Cloud()
 		def m1 = System.currentTimeMillis()
-		cloud.name = "Test Cloud ${m1}"
+		cloud.name = "Test DeleteCloudRequest ${m1}"
 		cloud.visibility = "public"
 		cloud.cloudType = cloudTypeResponse.cloudType
 		cloud.groupId = Integer.parseInt(TEST_SERVER_GROUP_ID)

@@ -30,26 +30,39 @@ class GetCertificateRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://qa.gomorpheus.com")
-	static String TEST_CERTIFICATE_ID=System.getProperty('morpheus.api.testCertificateId',"10")
 
 	@Shared
 	MorpheusClient client
+
+	@Shared
+	private cert1Response
 
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+
+		//setup a cert to use
+		def request = new CreateCertificateRequest()
+		SslCertificate certificate = new SslCertificate()
+		certificate.name = "Cert 1 GetCert Spec Request"
+		certificate.certFile = "cert file"
+		certificate.keyFile = "key file"
+		request.setCertificate(certificate)
+		cert1Response = client.createCertificate(request)
 	}
 
 	def cleanup() {
-
+		def request = new DeleteCertificateRequest()
+		request.certificateId(cert1Response.certificate.id)
+		client.deleteCertificate(request)
 	}
 
 
 	void "it should successfully retrieve an certificate by id"() {
 		given:
 		def request = new GetCertificateRequest()
-		def testCertificateId = Long.parseLong(TEST_CERTIFICATE_ID)
+		def testCertificateId = cert1Response.certificate.id
 		request.setCertificateId(testCertificateId)
 		when:
 		GetCertificateResponse response = client.getCertificate(request)

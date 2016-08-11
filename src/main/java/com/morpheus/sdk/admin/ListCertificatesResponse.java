@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import com.morpheus.sdk.internal.PagingMeta;
 
 /**
  * The Response of a {@link ListCertificatesRequest} providing the de-serialized objects from the API.
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ListCertificatesResponse {
 	public ArrayList<SslCertificate> certificates;
-	public Long certificateCount;
+	public PagingMeta meta;
 
 
 	/**

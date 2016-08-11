@@ -30,26 +30,41 @@ class GetKeyPairRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://qa.gomorpheus.com")
-	static String TEST_KEYPAIR_ID=System.getProperty('morpheus.api.testKeyPairId',"19")
 
 	@Shared
 	MorpheusClient client
+
+	@Shared
+	private resp1
 
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+
+		//create test keypair first
+		def request = new CreateKeyPairRequest()
+		KeyPair keyPair = new KeyPair()
+		def m1 = System.currentTimeMillis()
+		keyPair.name = "Test GetKeyPairSpec ${m1}"
+		keyPair.publicKey = "fake public key"
+		keyPair.privateKey = "fake private key"
+		request.setKeyPair(keyPair)
+		resp1 = client.createKeyPair(request)
+
 	}
 
 	def cleanup() {
-
+		DeleteKeyPairRequest request = new DeleteKeyPairRequest()
+		request.keyPairId = resp1.keyPair.id
+		client.deleteKeyPair(request)
 	}
 
 
 	void "it should successfully retrieve an key pair by id"() {
 		given:
 		def request = new GetKeyPairRequest()
-		request.setKeyPairId(Integer.parseInt(TEST_KEYPAIR_ID))
+		request.setKeyPairId(resp1.keyPair.id)
 		when:
 		GetKeyPairResponse response = client.getKeyPair(request)
 		then:

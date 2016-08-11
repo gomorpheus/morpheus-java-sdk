@@ -28,16 +28,25 @@ class CreateCloudRequestSpec extends Specification {
 	static String API_USERNAME=System.getProperty('morpheus.api.username')
 	static String API_PASSWORD=System.getProperty('morpheus.api.password')
 	static String API_URL=System.getProperty('morpheus.api.host',"https://qa.gomorpheus.com")
-	static String TEST_CLOUD_TYPE_ID=System.getProperty('morpheus.api.testCloudTypeId',"3")
 	static String TEST_SERVER_GROUP_ID=System.getProperty('morpheus.api.testServerGroupId',"17")
 
 	@Shared
 	MorpheusClient client
 
+	@Shared
+	CloudType morpheusCloudType
+
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+
+		ListCloudTypesRequest cloudTypesRequest = new ListCloudTypesRequest()
+		ListCloudTypesResponse cloudTypeResponse = client.listCloudTypes(cloudTypesRequest)
+		morpheusCloudType = cloudTypeResponse.cloudTypes.find { CloudType cloudType ->
+			cloudType.name == 'Morpheus'
+		}
+
 	}
 
 	def cleanup() {
@@ -47,7 +56,7 @@ class CreateCloudRequestSpec extends Specification {
 	void "it should fail creating a cloud"() {
 		given:
 		def cloudTypeRequest = new GetCloudTypeRequest()
-		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
+		cloudTypeRequest.setCloudTypeId(morpheusCloudType.id)
 		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
 
 		def request = new CreateCloudRequest()
@@ -67,7 +76,7 @@ class CreateCloudRequestSpec extends Specification {
 	void "it should successfully create a cloud"() {
 		given:
 		def cloudTypeRequest = new GetCloudTypeRequest()
-		cloudTypeRequest.setCloudTypeId(Integer.parseInt(TEST_CLOUD_TYPE_ID))
+		cloudTypeRequest.setCloudTypeId(morpheusCloudType.id)
 		GetCloudTypeResponse cloudTypeResponse = client.getCloudType(cloudTypeRequest)
 
 		def request = new CreateCloudRequest()

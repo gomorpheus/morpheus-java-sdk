@@ -121,13 +121,17 @@ public class ComputeServerType {
 		public String nodeType;
 		public Boolean managed;
 		public Boolean enabled;
+		public Boolean externalDelete;
 		public Boolean vmHypervisor;
 		public Boolean containerHypervisor;
+		public Boolean bareMetalHost;
+		public Boolean guestVm;
 		public Long displayOrder;
 		public Boolean selectable;
 		public Boolean controlPower;
 		public Boolean controlSuspend;
 		public Boolean hasAgent;
 		public Boolean creatable;
+		public Boolean hasAutomation;
 		public ArrayList<OptionType> optionTypes;
 }

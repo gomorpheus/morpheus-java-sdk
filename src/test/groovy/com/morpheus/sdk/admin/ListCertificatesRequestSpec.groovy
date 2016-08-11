@@ -33,14 +33,37 @@ class ListCertificatesRequestSpec extends Specification {
 	@Shared
 	MorpheusClient client
 
+	private cert1Response
+	private cert2Response
+
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+
+		//Setup 2 certificates
+		def request = new CreateCertificateRequest()
+		SslCertificate certificate = new SslCertificate()
+		certificate.name = "Cert 1 ListCert Spec Request"
+		certificate.certFile = "cert file"
+		certificate.keyFile = "key file"
+		request.setCertificate(certificate)
+		cert1Response = client.createCertificate(request)
+		request = new CreateCertificateRequest()
+		certificate = new SslCertificate()
+		certificate.name = "Cert 2 ListCert Spec Request"
+		certificate.certFile = "cert file"
+		certificate.keyFile = "key file"
+		request.setCertificate(certificate)
+		cert2Response = client.createCertificate(request)
 	}
 
 	def cleanup() {
-
+		def request = new DeleteCertificateRequest()
+		request.certificateId(cert1Response.certificate.id)
+		client.deleteCertificate(request)
+		request.certificateId(cert2Response.certificate.id)
+		client.deleteCertificate(request)
 	}
 
 
@@ -50,7 +73,7 @@ class ListCertificatesRequestSpec extends Specification {
 		when:
 			ListCertificatesResponse response = client.listCertificates(request)
 		then:
-			response.certificateCount != null;
+			response.meta.size != null;
 			response.certificates != null
 	}
 
@@ -75,7 +98,8 @@ class ListCertificatesRequestSpec extends Specification {
 		when:
 		ListCertificatesResponse response = client.listCertificates(request)
 		then:
-			response.certificateCount > 1;
+			response.meta.total > 1;
+			response.meta.size == 1
 			response.certificates?.size() == 1
 	}
 }

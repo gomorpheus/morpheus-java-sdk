@@ -26,6 +26,7 @@ public class SslCertificate {
   public String keyFile;
   public String name;
   public Boolean wildcard;
+  public String md5Summary;
 
   public String toString() { return "SSL Certificate: " + id + " " + name; }
 }

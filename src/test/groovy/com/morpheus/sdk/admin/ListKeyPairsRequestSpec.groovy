@@ -33,14 +33,41 @@ class ListKeyPairsRequestSpec extends Specification {
 	@Shared
 	MorpheusClient client
 
+	private resp1
+	private resp2
+
 	def setup() {
 		def creds = new BasicCredentialsProvider(API_USERNAME,API_PASSWORD)
 		client = new MorpheusClient(creds)
 		client.setEndpointUrl(API_URL)
+
+		//setup some test keypairs
+
+		def request = new CreateKeyPairRequest()
+		KeyPair keyPair = new KeyPair()
+		def m1 = System.currentTimeMillis()
+		keyPair.name = "Test ListKeyPairSpec ${m1}"
+		keyPair.publicKey = "fake public key"
+		keyPair.privateKey = "fake private key"
+		request.setKeyPair(keyPair)
+		resp1 = client.createKeyPair(request)
+		request = new CreateKeyPairRequest()
+		keyPair = new KeyPair()
+		m1 = System.currentTimeMillis()
+		keyPair.name = "Test ListKeyPairSpec 2 ${m1}"
+		keyPair.publicKey = "fake public key"
+		keyPair.privateKey = "fake private key"
+		request.setKeyPair(keyPair)
+		resp2 = client.createKeyPair(request)
 	}
 
 	def cleanup() {
 
+		DeleteKeyPairRequest request = new DeleteKeyPairRequest()
+		request.keyPairId = resp1.keyPair.id
+		client.deleteKeyPair(request)
+		request.keyPairId = resp2.keyPair.id
+		client.deleteKeyPair(request)
 	}
 
 
@@ -50,7 +77,7 @@ class ListKeyPairsRequestSpec extends Specification {
 		when:
 		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.keyPairCount != null;
+			response.meta.size != null;
 			response.keyPairs != null
 	}
 
@@ -75,7 +102,8 @@ class ListKeyPairsRequestSpec extends Specification {
 		when:
 		ListKeyPairsResponse response = client.listKeyPairs(request)
 		then:
-			response.keyPairCount > 1;
+			response.meta.total > 1;
+			response.meta.size == 1;
 			response.keyPairs?.size() == 1
 	}
 }

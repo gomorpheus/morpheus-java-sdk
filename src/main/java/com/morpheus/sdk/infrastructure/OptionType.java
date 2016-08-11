@@ -22,10 +22,13 @@ package com.morpheus.sdk.infrastructure;
 public class OptionType {
 		public String name;
 		public String type;
+		public String fieldName;
+		public String fieldLabel;
+		public String fieldContext;
+		public String helpBlock;
 		public String defaultValue;
 		public String placeHolder;
+		public String advanced;
 		public Boolean required;
-		public String fieldName;
-		public String fieldContext;
 }
 		
