@@ -1,6 +1,7 @@
 package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -64,7 +65,7 @@ public class CreateCheckRequest extends AbstractApiRequest<CreateCheckResponse> 
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,Check> deployMap = new HashMap<String,Check>();
 		deployMap.put("check", check);
 		return gson.toJson(deployMap);

@@ -1,6 +1,7 @@
 package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,7 +21,7 @@ public class GetCheckTypeResponse {
    * @return an instance of GetCheckTypeResponse with the result set parsed into the mapped properties.
    */
   public static GetCheckTypeResponse createFromStream(InputStream stream) {
-    Gson gson = new Gson();
+    Gson gson = MorpheusGsonBuilder.build();
     InputStreamReader reader = new InputStreamReader(stream);
     return gson.fromJson(reader,GetCheckTypeResponse.class);
   }

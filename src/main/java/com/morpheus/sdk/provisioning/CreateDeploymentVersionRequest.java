@@ -1,6 +1,8 @@
 package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import com.morpheus.sdk.internal.RequestHelper;
@@ -35,7 +37,7 @@ public class CreateDeploymentVersionRequest extends AbstractApiRequest<CreateDep
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,DeploymentVersion> deployMap = new HashMap<String,DeploymentVersion>();
 		deployMap.put("version", deploymentVersion);
 		return gson.toJson(deployMap);

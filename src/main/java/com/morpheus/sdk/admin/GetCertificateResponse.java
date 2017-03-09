@@ -1,6 +1,7 @@
 package com.morpheus.sdk.admin;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +20,7 @@ public class GetCertificateResponse {
    * @return an instance of GetCertificateResponse with the result set parsed into the mapped properties.
    */
   public static GetCertificateResponse createFromStream(InputStream stream) {
-    Gson gson = new Gson();
+    Gson gson = MorpheusGsonBuilder.build();
     InputStreamReader reader = new InputStreamReader(stream);
     return gson.fromJson(reader,GetCertificateResponse.class);
   }

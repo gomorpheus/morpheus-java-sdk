@@ -1,6 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.internal.ApiResponse;
 
 import java.io.InputStream;
@@ -16,7 +17,7 @@ public class DeleteDeploymentResponse implements ApiResponse{
 	public Boolean success;
 
 	public static DeleteDeploymentResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,DeleteDeploymentResponse.class);
 	}

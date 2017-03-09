@@ -1,6 +1,7 @@
 package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.admin.KeyPair;
 
 import java.io.InputStream;
@@ -17,7 +18,7 @@ public class UpdateCheckResponse {
 	public HashMap<String, String> errors;
 
 	public static UpdateCheckResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,UpdateCheckResponse.class);
 	}

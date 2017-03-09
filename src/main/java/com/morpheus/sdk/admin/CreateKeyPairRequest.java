@@ -1,6 +1,7 @@
 package com.morpheus.sdk.admin;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -66,7 +67,7 @@ public class CreateKeyPairRequest extends AbstractApiRequest<CreateKeyPairRespon
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,KeyPair> deployMap = new HashMap<String,KeyPair>();
 		deployMap.put("keyPair", keyPair);
 		return gson.toJson(deployMap);

@@ -1,6 +1,7 @@
 package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.morpheus.sdk.admin.KeyPair;
 
@@ -19,7 +20,7 @@ public class CreateCheckResponse {
 	public KeyPair keyPair;
 
 	public static CreateCheckResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,CreateCheckResponse.class);
 	}

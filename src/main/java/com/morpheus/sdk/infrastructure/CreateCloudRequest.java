@@ -1,6 +1,7 @@
 package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -65,7 +66,7 @@ public class CreateCloudRequest extends AbstractApiRequest<CreateCloudResponse> 
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,Cloud> deployMap = new HashMap<String,Cloud>();
 		deployMap.put("zone", cloud);
 		return gson.toJson(deployMap);

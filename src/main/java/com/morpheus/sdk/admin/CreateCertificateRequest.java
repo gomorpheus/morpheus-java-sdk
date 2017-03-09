@@ -1,6 +1,7 @@
 package com.morpheus.sdk.admin;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -66,7 +67,7 @@ public class CreateCertificateRequest extends AbstractApiRequest<CreateCertifica
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,SslCertificate> deployMap = new HashMap<String,SslCertificate>();
 		deployMap.put("certificate", certificate);
 		return gson.toJson(deployMap);

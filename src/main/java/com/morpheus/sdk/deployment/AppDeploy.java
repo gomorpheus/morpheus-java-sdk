@@ -1,6 +1,7 @@
 package com.morpheus.sdk.deployment;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStreamReader;
@@ -37,13 +38,13 @@ public class AppDeploy {
 	public String config;
 
 	Map<String,String> getConfigOptions() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
 		return gson.fromJson(this.config,stringStringMap);
 	}
 
 	public void setConfigOptions(Map<String,String> configOptions) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		this.config = gson.toJson(configOptions);
 	}
 }

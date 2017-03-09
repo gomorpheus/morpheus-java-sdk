@@ -1,6 +1,7 @@
 package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.InputStream;
@@ -22,7 +23,7 @@ public class ListCloudTypesResponse {
    * @return an instance of ListCloudTypesResponse with the result set parsed into the mapped properties.
    */
   public static ListCloudTypesResponse createFromStream(InputStream stream) {
-    Gson gson = new Gson();
+    Gson gson = MorpheusGsonBuilder.build();
     InputStreamReader reader = new InputStreamReader(stream);
     return gson.fromJson(reader,ListCloudTypesResponse.class);
   }

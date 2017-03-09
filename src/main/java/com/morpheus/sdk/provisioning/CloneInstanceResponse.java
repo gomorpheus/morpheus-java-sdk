@@ -1,6 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.morpheus.sdk.infrastructure.ServerGroup;
 
@@ -22,7 +23,7 @@ public class CloneInstanceResponse {
 	public HashMap<String, String> errors;
 
 	public static CloneInstanceResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,CloneInstanceResponse.class);
 	}

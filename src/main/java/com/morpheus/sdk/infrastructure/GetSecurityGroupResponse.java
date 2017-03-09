@@ -1,6 +1,7 @@
 package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.morpheus.sdk.internal.ApiResponse;
 
@@ -23,7 +24,7 @@ public class GetSecurityGroupResponse implements ApiResponse{
    * @return an instance of GetSecurityGroupResponse with the result set parsed into the mapped properties.
    */
   public static GetSecurityGroupResponse createFromStream(InputStream stream) {
-    Gson gson = new Gson();
+    Gson gson = MorpheusGsonBuilder.build();
     InputStreamReader reader = new InputStreamReader(stream);
     return gson.fromJson(reader,GetSecurityGroupResponse.class);
   }

@@ -1,6 +1,7 @@
 package com.morpheus.sdk.monitoring;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,7 +22,7 @@ public class ListChecksResponse {
 	 * @return an instance of ListChecksResponse with the result set parsed into the mapped properties.
 	 */
 	public static ListChecksResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,ListChecksResponse.class);
 	}

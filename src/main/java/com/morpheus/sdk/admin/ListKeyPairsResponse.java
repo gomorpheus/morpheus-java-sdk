@@ -1,6 +1,7 @@
 package com.morpheus.sdk.admin;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.internal.PagingMeta;
 
 import java.io.InputStream;
@@ -22,7 +23,7 @@ public class ListKeyPairsResponse {
 	 * @return an instance of ListKeyPairsResponse with the result set parsed into the mapped properties.
 	 */
 	public static ListKeyPairsResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,ListKeyPairsResponse.class);
 	}

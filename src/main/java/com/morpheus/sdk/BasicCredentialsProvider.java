@@ -1,6 +1,7 @@
 package com.morpheus.sdk;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.morpheus.sdk.internal.CredentialsProvider;
 import org.apache.http.client.config.RequestConfig;
@@ -106,14 +107,14 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 			CloseableHttpResponse response = client.execute(request);
 
 			if(response.getStatusLine().getStatusCode() == 200) {
-				Gson gson = new Gson();
+				Gson gson = MorpheusGsonBuilder.build();
 				InputStreamReader reader = new InputStreamReader(response.getEntity().getContent());
 				Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
 				Map<String,String> responseMap = gson.fromJson(reader, stringStringMap);
 				this.accessToken = responseMap.get("access_token");
 				return this.accessToken != null; //Successful auth
 			} else {
-				Gson gson = new Gson();
+				Gson gson = MorpheusGsonBuilder.build();
 				InputStreamReader reader = new InputStreamReader(response.getEntity().getContent());
 				Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
 				Map<String,String> responseMap = gson.fromJson(reader, stringStringMap);

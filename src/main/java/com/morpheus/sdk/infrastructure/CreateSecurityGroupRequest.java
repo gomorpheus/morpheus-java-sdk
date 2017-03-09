@@ -1,6 +1,7 @@
 package com.morpheus.sdk.infrastructure;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import com.morpheus.sdk.internal.RequestHelper;
@@ -42,7 +43,7 @@ public class CreateSecurityGroupRequest extends AbstractApiRequest<CreateSecurit
 	}
 
 	protected String generateRequestBody() {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		Map<String,SecurityGroup> deployMap = new HashMap<String,SecurityGroup>();
 		deployMap.put("securityGroup", securityGroup);
 		return gson.toJson(deployMap);

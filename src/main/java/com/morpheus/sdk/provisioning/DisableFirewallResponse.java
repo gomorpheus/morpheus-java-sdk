@@ -1,6 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.internal.ApiResponse;
 
 import java.io.InputStream;
@@ -20,7 +21,7 @@ public class DisableFirewallResponse implements ApiResponse{
    * @return success
    */
   public static DisableFirewallResponse createFromStream(InputStream stream) {
-    Gson gson = new Gson();
+    Gson gson = MorpheusGsonBuilder.build();
     InputStreamReader reader = new InputStreamReader(stream);
     return gson.fromJson(reader,DisableFirewallResponse.class);
   }

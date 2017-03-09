@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 public class CreateServerResponse {
@@ -14,7 +15,7 @@ public class CreateServerResponse {
 		public Server server;
 
 		public static CreateServerResponse createFromStream(InputStream stream) {
-				Gson gson = new Gson();
+				Gson gson = MorpheusGsonBuilder.build();
 				InputStreamReader reader = new InputStreamReader(stream);
 				return gson.fromJson(reader, CreateServerResponse.class);
 		}

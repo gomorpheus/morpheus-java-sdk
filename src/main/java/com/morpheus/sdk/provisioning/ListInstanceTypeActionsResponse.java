@@ -1,6 +1,7 @@
 package com.morpheus.sdk.provisioning;
 
 import com.google.gson.Gson;
+import com.morpheus.sdk.util.MorpheusGsonBuilder;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,7 +20,7 @@ public class ListInstanceTypeActionsResponse {
 	 * @return an instance of ListInstanceTypeActionsResponse with the result set parsed into the mapped properties.
 	 */
 	public static ListInstanceTypeActionsResponse createFromStream(InputStream stream) {
-		Gson gson = new Gson();
+		Gson gson = MorpheusGsonBuilder.build();
 		InputStreamReader reader = new InputStreamReader(stream);
 		return gson.fromJson(reader,ListInstanceTypeActionsResponse.class);
 	}
