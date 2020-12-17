@@ -35,17 +35,6 @@ public class AppDeploy {
 	public Date dateCreated;
 	public Date deployDate;
 	public String status;
-	public String config;
+	public Map<String,Object> config;
 	public boolean stageOnly;
-
-	Map<String,String> getConfigOptions() {
-		Gson gson = MorpheusGsonBuilder.build();
-		Type stringStringMap = new TypeToken<Map<String, String>>(){}.getType();
-		return gson.fromJson(this.config,stringStringMap);
-	}
-
-	public void setConfigOptions(Map<String,String> configOptions) {
-		Gson gson = MorpheusGsonBuilder.build();
-		this.config = gson.toJson(configOptions);
-	}
 }
