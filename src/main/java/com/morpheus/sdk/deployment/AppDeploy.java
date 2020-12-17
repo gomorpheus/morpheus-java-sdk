@@ -36,6 +36,7 @@ public class AppDeploy {
 	public Date deployDate;
 	public String status;
 	public String config;
+	public boolean stageOnly;
 
 	Map<String,String> getConfigOptions() {
 		Gson gson = MorpheusGsonBuilder.build();
