@@ -5,6 +5,7 @@ import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import com.morpheus.sdk.provisioning.DeploymentVersion;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
@@ -35,6 +36,7 @@ import java.util.Map;
  *
  * @author David Estes
  */
+@Slf4j
 public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse> {
 	private AppDeploy appDeploy;
 
@@ -43,6 +45,7 @@ public class CreateDeployRequest extends AbstractApiRequest<CreateDeployResponse
 		CloseableHttpClient client = null;
 		try {
 			URIBuilder uriBuilder = new URIBuilder(endpointUrl);
+			log.info("endpointUrl :: {}", endpointUrl);
 			uriBuilder.setPath("/api/instances/" + appDeploy.instanceId + "/deploy");
 			HttpPost request = new HttpPost(uriBuilder.build());
 			this.applyHeaders(request);

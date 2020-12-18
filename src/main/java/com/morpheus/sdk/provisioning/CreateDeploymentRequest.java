@@ -5,6 +5,7 @@ import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.morpheus.sdk.exceptions.MorpheusApiRequestException;
 import com.morpheus.sdk.internal.AbstractApiRequest;
 import com.morpheus.sdk.internal.RequestHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpPost;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import java.util.Map;
  *
  * @author Bob Whiton
  */
+@Slf4j
 public class CreateDeploymentRequest extends AbstractApiRequest<CreateDeploymentResponse> {
 	private Deployment deployment;
 
