@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.morpheus.sdk.util.MorpheusGsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.morpheus.sdk.internal.CredentialsProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -38,6 +39,7 @@ import java.lang.reflect.Type;
  * </pre>
  * @author David Estes
  */
+@Slf4j
 public class BasicCredentialsProvider implements CredentialsProvider {
 	private String username = null;
 	private String password = null;
@@ -127,6 +129,7 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 			return false;
 		} catch(Exception e) {
 			this.authError = e.getMessage();
+			log.error("Authentication request exception occurred. Reason: {}", e.getMessage());
 			return false;
 		} finally {
 			if(client != null) {

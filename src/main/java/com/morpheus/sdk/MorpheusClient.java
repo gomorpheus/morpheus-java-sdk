@@ -9,11 +9,13 @@ import com.morpheus.sdk.internal.ApiRequest;
 import com.morpheus.sdk.internal.CredentialsProvider;
 import com.morpheus.sdk.monitoring.*;
 import com.morpheus.sdk.provisioning.*;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base client for interacting with the Morpheus API.
  * @author David Estes
  */
+@Slf4j
 public class MorpheusClient {
 	public static String CLIENT_ID="morph-cli";
 	public static Integer CONNECT_TIMEOUT = 30000;
@@ -999,7 +1001,7 @@ public class MorpheusClient {
 	 *     	return response.success;
 	 *     }
 	 * </pre>
-	 * * @param request the request object being executed.
+	 * @param request the request object being executed.
 	 * @return the response object containing a flag signifying if the request was successful or not.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
@@ -1022,7 +1024,7 @@ public class MorpheusClient {
 	 *     	return response.success;
 	 *     }
 	 * </pre>
-	 * * @param request the request object being executed.
+	 * @param request the request object being executed.
 	 * @return the response object containing a flag signifying if the request was successful or not.
 	 * @throws MorpheusApiRequestException in the event of an API failure this exception is thrown containing a failure message and underlying cause exception.
 	 */
