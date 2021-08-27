@@ -9,4 +9,6 @@ public interface ApiRequest<T> {
 	T executeRequest() throws MorpheusApiRequestException;
 	ApiRequest<T> endpointUrl(String endpointUrl);
 	ApiRequest<T> accessToken(String accessToken);
+	ApiRequest<T> socketTimeout(Integer socketTimeout);
+	ApiRequest<T> connectTimeout(Integer connectTimeout);
 }

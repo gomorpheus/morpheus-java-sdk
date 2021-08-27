@@ -16,12 +16,20 @@ public abstract class AbstractApiRequest<T> implements ApiRequest<T> {
 
 	protected String accessToken;
 	protected String endpointUrl;
+	protected Integer socketTimeout;
+	protected Integer connectTimeout;
 
 	protected RequestConfig getRequestConfig() {
+		if(socketTimeout == null) {
+			socketTimeout = MorpheusClient.SOCKET_TIMEOUT;
+		}
+		if(connectTimeout == null) {
+			connectTimeout = MorpheusClient.CONNECT_TIMEOUT;
+		}
 		RequestConfig defaultRequestConfig = RequestConfig.custom()
-				.setSocketTimeout(MorpheusClient.SOCKET_TIMEOUT)
-				.setConnectTimeout(MorpheusClient.CONNECT_TIMEOUT)
-				.setConnectionRequestTimeout(MorpheusClient.CONNECT_TIMEOUT)
+				.setSocketTimeout(socketTimeout)
+				.setConnectTimeout(connectTimeout)
+				.setConnectionRequestTimeout(connectTimeout)
 				.build();
 		return defaultRequestConfig;
 	}
@@ -35,6 +43,18 @@ public abstract class AbstractApiRequest<T> implements ApiRequest<T> {
 	@Override
 	public ApiRequest<T> accessToken(String accessToken) {
 		this.accessToken = accessToken;
+		return this;
+	}
+
+	@Override
+	public ApiRequest<T> socketTimeout(Integer socketTimeout) {
+		this.socketTimeout = socketTimeout;
+		return this;
+	}
+
+	@Override
+	public ApiRequest<T> connectTimeout(Integer connectTimeout) {
+		this.connectTimeout = connectTimeout;
 		return this;
 	}
 

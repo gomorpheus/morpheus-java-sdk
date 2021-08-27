@@ -17,10 +17,20 @@
 package com.morpheus.sdk.deployment
 
 import com.morpheus.sdk.BaseSpec
+import com.morpheus.sdk.provisioning.Deployment
+import com.morpheus.sdk.provisioning.DeploymentVersion
+import com.morpheus.sdk.provisioning.ListDeploymentVersionsRequest
+import com.morpheus.sdk.provisioning.ListDeploymentVersionsResponse
+import com.morpheus.sdk.provisioning.ListDeploymentsRequest
+import com.morpheus.sdk.provisioning.ListDeploymentsResponse
+import com.morpheus.sdk.provisioning.ListInstancesRequest
+import com.morpheus.sdk.provisioning.ListInstancesResponse
+import groovy.util.logging.Slf4j
 
 /**
  * @author David Estes
  */
+@Slf4j
 class CreateDeployRequestSpec extends BaseSpec {
 
 	def setup() {
@@ -29,21 +39,45 @@ class CreateDeployRequestSpec extends BaseSpec {
 	def cleanup() {
 	}
 
-//	void "it should successfully create a deploy request"() {
-//		given:
-//			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
-//			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.deployment.version')
-//
-//			AppDeploy appDeploy = new AppDeploy()
-//			appDeploy.versionId = 111;// INSTANCE_ID
-//			appDeploy.instanceId = 477;//ARTIFACT_VERSION_ID
-//			def request = new CreateDeployRequest().appDeploy(appDeploy)
-//		when:
-//			CreateDeployResponse response = client.createDeployment(request)
-//		then:
-//			response.appDeploy?.id != null
-//
-//	}
+	void "it should successfully create a deploy request"() {
+		given:
+			String INSTANCE_NAME = System.getProperty('morpheus.api.instance.name')
+			String INSTANCE_ID = System.getProperty('morpheus.api.instance')
+			String DEPLOYMENT_NAME = System.getProperty('morpheus.api.deployment.name')
+			String ARTIFACT_VERSION_ID = System.getProperty('morpheus.api.deployment.version')
+			log.info("INSTANCE_NAME :: {}", INSTANCE_NAME)
+
+			ListInstancesResponse listInstancesResponse = client.listInstances(new ListInstancesRequest().name(INSTANCE_NAME));
+			def instance = listInstancesResponse.instances.first()
+			ListDeploymentsResponse listDeploymentsResponse = client.listDeployments(new ListDeploymentsRequest().name(DEPLOYMENT_NAME));
+			log.info("listDeploymentsResponse :: {}", listDeploymentsResponse)
+			Deployment deployment = listDeploymentsResponse.deployments.get(0);
+			log.info("deployment :: {}", deployment.toString());
+
+			ListDeploymentVersionsResponse listDeploymentVersionsResponse = client.listDeploymentVersions(new ListDeploymentVersionsRequest().deploymentId(deployment.id))
+			DeploymentVersion deploymentVersion =  listDeploymentVersionsResponse.deploymentVersions.first()
+			log.info("deployment :: {}", deploymentVersion.toString());
+
+			AppDeploy appDeploy = new AppDeploy()
+			appDeploy.instanceId = instance.id
+			appDeploy.versionId = deploymentVersion.id
+			def config = [:]
+//			config["CATALINA_OPTS"] = "-Dlogging.config=/morpheus/config/logback.groovy -Dhttps.protocols=\"TLSv1.2,TLSv1.1,TLSv1\" -Djavax.ssl.debug=true"
+//			appDeploy.setConfigMap(config)
+//			appDeploy.config = config
+			def request = new CreateDeployRequest().appDeploy(appDeploy)
+		when:
+			CreateDeployResponse response = client.createDeployment(request)
+		then:
+			response.appDeploy?.id != null
+		when:
+			Long appDeployId = response.appDeploy.id;
+			RunDeployResponse deployResponse = client.runDeploy(new RunDeployRequest().appDeployId(appDeployId));
+			log.info("deployResponse :: {}", deployResponse);
+		then:
+			deployResponse.appDeploy?.id != null
+			true == true
+	}
 
 //	void "it should simulate the jenkins plugin"() {
 //		given:

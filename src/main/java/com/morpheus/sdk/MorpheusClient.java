@@ -23,6 +23,7 @@ public class MorpheusClient {
 
 	private CredentialsProvider credentialsProvider;
 	private String endpointUrl = "https://v2.gomorpheus.com";
+	private Integer socketTimeout = SOCKET_TIMEOUT;
 
 	public MorpheusClient(CredentialsProvider credentialsProvider) {
 		this.credentialsProvider = credentialsProvider;
@@ -36,6 +37,11 @@ public class MorpheusClient {
 	 */
 	public MorpheusClient setEndpointUrl(String url) {
 		this.endpointUrl = url;
+		return this;
+	}
+
+	public MorpheusClient setSocketTimeout(Integer socketTimeout) {
+		this.socketTimeout = socketTimeout;
 		return this;
 	}
 
@@ -234,7 +240,7 @@ public class MorpheusClient {
 	 */
 	private Object executeAuthenticatedRequest(ApiRequest request) throws MorpheusApiRequestException  {
 		if(isAuthenticated()) {
-			return request.endpointUrl(this.endpointUrl).accessToken(this.credentialsProvider.getAccessToken()).executeRequest();
+			return request.endpointUrl(this.endpointUrl).accessToken(this.credentialsProvider.getAccessToken()).socketTimeout(this.socketTimeout).executeRequest();
 		} else {
 			throw new MorpheusNotAuthenticatedException("Authentication Error: " + credentialsProvider.getAuthenticationError());
 		}
