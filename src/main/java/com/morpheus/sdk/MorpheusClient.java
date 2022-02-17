@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class MorpheusClient {
-	public static String CLIENT_ID="morph-cli";
+	public static String CLIENT_ID="morph-api";
 	public static Integer CONNECT_TIMEOUT = 30000;
 	public static Integer SOCKET_TIMEOUT = 30000;
 
